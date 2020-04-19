@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.ui.toolbar.Toolbar
+import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class statsFragment : Fragment() {
 

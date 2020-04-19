@@ -4,23 +4,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
+    android:layout_height="match_parent"
+    android:id="@+id/test">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:paddingLeft="@dimen/padding"
-        android:paddingRight="@dimen/padding"
         android:layout_width="0dp"
         android:layout_height="@dimen/height_big_toolbar"
         android:background="@drawable/gradient_round_corner"
         android:gravity="top"
-        app:title="Dreamer"
+        android:paddingLeft="@dimen/padding"
+        android:paddingRight="@dimen/padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextAppearance="@style/ToolbarTheme"/>
+        app:title="Dreamer"
+        app:titleTextAppearance="@style/ToolbarTheme" />
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rec_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.067" />
 </androidx.constraintlayout.widget.ConstraintLayout>
