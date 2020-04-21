@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.models.Day
 import com.miraxh.dreamer.ui.toolbar.ToolbarRecycleAdapter
-import com.miraxh.dreamer.util.LOG_TAG
 import kotlinx.android.synthetic.main.home_fragment.*
-
 
 class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
 
@@ -56,9 +54,6 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
 
     override fun onDayItemListener(day: Day, position: Int) {
         state = recycleView.layoutManager?.onSaveInstanceState()!!
-        Log.i(LOG_TAG, "Selected day: ${day.day}")
         viewModel.changeState(day)
-
-
     }
 }
