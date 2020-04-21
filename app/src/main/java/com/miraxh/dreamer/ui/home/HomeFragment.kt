@@ -1,6 +1,8 @@
 package com.miraxh.dreamer.ui.home
 
 import android.os.Bundle
+import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +13,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.models.Day
-import com.miraxh.dreamer.ui.toolbar.ToolbarRecycleAdapeter
+import com.miraxh.dreamer.ui.toolbar.ToolbarRecycleAdapter
+import com.miraxh.dreamer.util.LOG_TAG
 import kotlinx.android.synthetic.main.home_fragment.*
 
 
-class HomeFragment : Fragment(), ToolbarRecycleAdapeter.DayListener  {
+class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
 
     private lateinit var recycleView: RecyclerView
-    private lateinit var adapeterToolbar: ToolbarRecycleAdapeter
-
+    private lateinit var adapter: ToolbarRecycleAdapter
+    private lateinit var state: Parcelable
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -36,12 +39,14 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapeter.DayListener  {
 
         recycleView = view.findViewById(R.id.recyclerview)
 
+        state = recycleView.layoutManager?.onSaveInstanceState()!!
+
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         viewModel.daysData.observe(viewLifecycleOwner, Observer {
-            val adapeter = ToolbarRecycleAdapeter(requireContext(),it)
-            recycleView.adapter = adapeter
+            adapter = ToolbarRecycleAdapter(requireContext(), it, this)
+            recycleView.adapter = adapter
+            recycleView.layoutManager!!.onRestoreInstanceState(state)
         })
-
         return view
     }
 
@@ -49,7 +54,11 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapeter.DayListener  {
         super.onActivityCreated(savedInstanceState)
     }
 
-    override fun onDayItemListener(day: Day) {
+    override fun onDayItemListener(day: Day, position: Int) {
+        state = recycleView.layoutManager?.onSaveInstanceState()!!
+        Log.i(LOG_TAG, "Selected day: ${day.day}")
+        viewModel.changeState(day)
+
 
     }
 }

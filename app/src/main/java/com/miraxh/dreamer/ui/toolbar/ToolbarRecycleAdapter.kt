@@ -1,6 +1,8 @@
 package com.miraxh.dreamer.ui.toolbar
 
 import android.content.Context
+import android.os.Parcelable
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.models.Day
 
-class ToolbarRecycleAdapeter(val context: Context, val days: List<Day>/*, val itemListener: DayListener*/) :
-    RecyclerView.Adapter<ToolbarRecycleAdapeter.ViewHolder>() {
+class ToolbarRecycleAdapter(
+    val context: Context,
+    val days: List<Day>,
+    val itemListener: DayListener
+) :
+    RecyclerView.Adapter<ToolbarRecycleAdapter.ViewHolder>() {
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val day = itemView?.findViewById<TextView>(R.id.day)
         val week = itemView?.findViewById<TextView>(R.id.week)
@@ -62,11 +69,16 @@ class ToolbarRecycleAdapeter(val context: Context, val days: List<Day>/*, val it
                     )
                 )
             }
+
+            holder.itemView.setOnClickListener{
+
+                itemListener.onDayItemListener(date,holder.layoutPosition)
+            }
         }
     }
 
     interface DayListener {
-        fun onDayItemListener(day: Day)
+        fun onDayItemListener(day: Day, position: Int)
     }
 }
 

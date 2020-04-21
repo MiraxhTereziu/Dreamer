@@ -28,9 +28,19 @@ class ToolbarHelper {
                 Day(
                     dayNumber.toInt(),
                     getDayOfTheWeekShort(dayOfWeek),
-                    randomActiveTMP() //false
+                   false //randomActiveTMP()
                 )
             )
+        }
+        days.value = tmpList
+    }
+
+    fun getDay(day: Day){
+        var tmpList = days.value
+        tmpList?.forEach {
+            if(day.day == it.day){
+                it.active == it.active.not()
+            }
         }
         days.value = tmpList
     }
