@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/home_dest"
-        android:name="com.miraxh.dreamer.ui.home.homeFragment"
+        android:name="com.miraxh.dreamer.ui.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" />
     <fragment
         android:id="@+id/add_dest"
-        android:name="com.miraxh.dreamer.ui.add.addFragment"
+        android:name="com.miraxh.dreamer.ui.add.AddFragment"
         android:label="add_fragment"
         tools:layout="@layout/add_fragment" />
     <fragment
         android:id="@+id/settings_dest"
-        android:name="com.miraxh.dreamer.ui.settings.settingsFragment"
+        android:name="com.miraxh.dreamer.ui.settings.SettingsFragment"
         android:label="settings_fragment"
         tools:layout="@layout/settings_fragment" />
     <fragment
         android:id="@+id/stats_dest"
-        android:name="com.miraxh.dreamer.ui.stats.statsFragment"
+        android:name="com.miraxh.dreamer.ui.stats.StatsFragment"
         android:label="stats_fragment"
         tools:layout="@layout/stats_fragment" />
     <fragment
         android:id="@+id/music_dest"
-        android:name="com.miraxh.dreamer.ui.music.musicFragment"
+        android:name="com.miraxh.dreamer.ui.music.MusicFragment"
         android:label="music_fragment"
         tools:layout="@layout/music_fragment" />
 </navigation>

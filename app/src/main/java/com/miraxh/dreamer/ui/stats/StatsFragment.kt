@@ -1,21 +1,17 @@
 package com.miraxh.dreamer.ui.stats
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.miraxh.dreamer.R
-import com.miraxh.dreamer.ui.toolbar.Toolbar
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.activity_main.*
 
-class statsFragment : Fragment() {
+class StatsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = statsFragment()
+        fun newInstance() = StatsFragment()
     }
 
     private lateinit var viewModel: StatsViewModel

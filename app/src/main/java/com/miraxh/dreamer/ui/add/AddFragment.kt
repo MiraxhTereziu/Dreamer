@@ -9,10 +9,10 @@ import android.view.ViewGroup
 
 import com.miraxh.dreamer.R
 
-class addFragment : Fragment() {
+class AddFragment : Fragment() {
 
     companion object {
-        fun newInstance() = addFragment()
+        fun newInstance() = AddFragment()
     }
 
     private lateinit var viewModel: AddViewModel
