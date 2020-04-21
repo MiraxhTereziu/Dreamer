@@ -1,7 +1,15 @@
 package com.miraxh.dreamer.ui.home
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import com.miraxh.dreamer.ui.toolbar.ToolbarHelper
 
-class HomeViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class HomeViewModel(val app: Application) : AndroidViewModel(app) {
+
+    private val dataList = ToolbarHelper()
+    val daysData = dataList.days
+
+    init {
+        dataList.getDaysData()
+    }
 }
