@@ -6,6 +6,7 @@
     <dimen name="icon_size">33dp</dimen>
     <dimen name="padding">16dp</dimen>
     <dimen name="text_margin">8dp</dimen>
-    <dimen name="left_margin_toolbar_rw">16dp</dimen>
-    <dimen name="right_margin_toolbar_rw">8dp</dimen>
+    <dimen name="general_margin">16dp</dimen>
+    <dimen name="general_small_margin">8dp</dimen>
+    <dimen name="dream_tile_size">150dp</dimen>
 </resources>

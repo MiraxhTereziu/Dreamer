@@ -5,9 +5,13 @@
     <string name="add_title">Add</string>
     <string name="music_title">Chill Sounds</string>
     <string name="settings_title">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_date_number">00</string>
     <string name="default_weekday">Me</string>
+    <string name="lorem_ipsum">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.
+    </string>
+    <string name="default_dream_titile">Title</string>
+    <string name="deafult_dream_date">24th march</string>
 </resources>

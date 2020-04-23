@@ -1,9 +1,7 @@
 package com.miraxh.dreamer.ui.home
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +18,9 @@ import kotlinx.android.synthetic.main.home_fragment.*
 class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
 
     private lateinit var daysRecycleView: RecyclerView
-    private lateinit var adapter: ToolbarRecycleAdapter
+    private lateinit var dreamRecyclerView: RecyclerView
+    private lateinit var adapterDay: ToolbarRecycleAdapter
+    private lateinit var adapterDream: DreamListAdapter
     private lateinit var daysState: Parcelable
     private lateinit var viewModel: HomeViewModel
 
@@ -47,16 +47,11 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
     }
 
     private fun dreamListLoader(view: View){
-        viewModel.dreamData.observe(viewLifecycleOwner, Observer
-        {
-            if (it.isEmpty()) {
-                Log.i("REPO_TEST", "empty")
-            } else {
-                Log.i("REPO_TEST", "not empty")
-                it.forEach {
-                    Log.i("REPO_TEST", it.title)
-                }
-            }
+
+        dreamRecyclerView = view.findViewById(R.id.dreamRecyclerview)
+        viewModel.dreamData.observe(viewLifecycleOwner, Observer {
+            adapterDream = DreamListAdapter(requireContext(),it)
+            dreamRecyclerView.adapter = adapterDream
         })
     }
 
@@ -68,8 +63,8 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
         daysState = daysRecycleView.layoutManager?.onSaveInstanceState()!!
 
         viewModel.daysData.observe(viewLifecycleOwner, Observer {
-            adapter = ToolbarRecycleAdapter(requireContext(), it, this)
-            daysRecycleView.adapter = adapter
+            adapterDay = ToolbarRecycleAdapter(requireContext(), it, this)
+            daysRecycleView.adapter = adapterDay
             restoreStateRV(daysState, daysRecycleView)
         })
     }

@@ -11,13 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_big_toolbar"
-            android:background="@drawable/gradient_round_corner"
+            android:background="@drawable/gradient_round_corner_toolbar"
             android:gravity="top"
             android:paddingLeft="@dimen/padding"
             android:paddingRight="@dimen/padding"
@@ -30,8 +28,8 @@
             android:id="@+id/daysRecyclerview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/left_margin_toolbar_rw"
-            android:layout_marginRight="@dimen/right_margin_toolbar_rw"
+            android:layout_marginLeft="@dimen/general_margin"
+            android:layout_marginRight="@dimen/general_small_margin"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="@id/toolbar"
@@ -43,8 +41,8 @@
             android:id="@+id/toolbar_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/ic_book_open_icon"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar_title"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -56,10 +54,25 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/pacifico_regular"
             android:text="@string/app_name"
-            android:textAppearance="@style/ToolbarTheme"
+            android:theme="@style/pacifico"
             app:layout_constraintStart_toEndOf="@+id/toolbar_icon"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dreamRecyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:paddingBottom="@dimen/general_margin"
+            android:clipToPadding="false"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

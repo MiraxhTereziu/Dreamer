@@ -34,10 +34,4 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
         }
         daysData.value = tmpList
     }
-
-    suspend fun insertDummyData() {
-        dreamDAO.insertDream(Dream(1, "11/11/11", "Test1", "Questo è un test"))
-        dreamDAO.insertDream(Dream(2, "11/11/11", "Test2", "Questo è un secondo test"))
-        dreamDAO.insertDream(Dream(3, "11/11/11", "Test3", "Questo è un terzo test"))
-    }
 }

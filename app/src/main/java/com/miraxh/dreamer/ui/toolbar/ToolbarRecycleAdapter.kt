@@ -15,8 +15,7 @@ class ToolbarRecycleAdapter(
     val context: Context,
     val days: List<Day>,
     val itemListener: DayListener
-) :
-    RecyclerView.Adapter<ToolbarRecycleAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ToolbarRecycleAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val day = itemView?.findViewById<TextView>(R.id.day)
