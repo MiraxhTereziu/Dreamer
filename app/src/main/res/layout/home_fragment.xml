@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_big_toolbar"
-            android:background="@drawable/gradient_round_corner_toolbar"
+            android:background="@drawable/bg_toolbar"
             android:gravity="top"
             android:paddingLeft="@dimen/padding"
             android:paddingRight="@dimen/padding"

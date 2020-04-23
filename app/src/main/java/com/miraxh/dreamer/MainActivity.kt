@@ -1,16 +1,11 @@
 package com.miraxh.dreamer
 
-import android.app.Application
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.miraxh.dreamer.data.DreamRepository
-import com.miraxh.dreamer.ui.home.HomeViewModel
-import com.miraxh.dreamer.ui.toolbar.ToolbarRecycleAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -29,6 +24,8 @@ class MainActivity() : AppCompatActivity(){
                 }
                 R.id.add_item -> {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.add_dest)
+                    //val menu: Menu = nav_view.menu
+                    //menu.findItem(R.id.add_item).setIcon(R.drawable.ic_add_enable)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.music_item -> {

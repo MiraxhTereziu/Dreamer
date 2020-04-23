@@ -1,16 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.add.AddFragment">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Add"
-        android:textColor="@color/colorSecondaryDark"
-        android:textSize="@dimen/title" />
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/general_margin"
+            android:layout_marginTop="@dimen/general_margin"
+            android:background="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/save_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/general_margin"
+            android:layout_marginTop="@dimen/general_margin"
+            android:layout_marginEnd="@dimen/general_margin"
+            android:background="@drawable/bg_savebutton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_save"
+            android:tint="@color/colorSecondaryDark"
+            android:translationZ="90dp"
+            app:layout_constraintBottom_toBottomOf="@+id/save_button"
+            app:layout_constraintEnd_toEndOf="@+id/save_button"
+            app:layout_constraintStart_toEndOf="@+id/title_button_save"
+            app:layout_constraintTop_toTopOf="@+id/save_button" />
+
+        <TextView
+            android:id="@+id/title_button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/label_botton_save"
+            android:textSize="18sp"
+            android:translationZ="90dp"
+            app:layout_constraintBottom_toBottomOf="@+id/save_button"
+            app:layout_constraintEnd_toStartOf="@+id/icon_save"
+            app:layout_constraintStart_toStartOf="@+id/save_button"
+            app:layout_constraintTop_toTopOf="@+id/save_button" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dream_title"
+            android:padding="@dimen/general_small_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/general_margin"
+            android:background="@drawable/bg_text_field"
+            android:textColorHint="@color/colorText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/save_button">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dream title"
+                android:textColor="@color/colorText"
+                android:theme="@style/text_input" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dream_description"
+            android:padding="@dimen/general_small_margin"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/general_margin"
+            android:background="@drawable/bg_text_field"
+            android:textColorHint="@color/colorText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dream_title"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:hint="Dream description"
+                android:textColor="@color/colorText"
+                android:theme="@style/text_input" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
