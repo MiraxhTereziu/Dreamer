@@ -1,13 +1,20 @@
 package com.miraxh.dreamer
 
+import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.miraxh.dreamer.data.DreamRepository
+import com.miraxh.dreamer.ui.home.HomeViewModel
+import com.miraxh.dreamer.ui.toolbar.ToolbarRecycleAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(){
+class MainActivity() : AppCompatActivity(){
 
     private val navigationListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -41,6 +48,4 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main)
         nav_view.setOnNavigationItemSelectedListener(navigationListener)
     }
-
-
 }

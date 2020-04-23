@@ -1,7 +1,7 @@
 package com.miraxh.dreamer.ui.toolbar
 
 import androidx.lifecycle.MutableLiveData
-import com.miraxh.dreamer.models.Day
+import com.miraxh.dreamer.data.Day
 import com.miraxh.dreamer.util.HOWMANYDAYS
 import java.text.SimpleDateFormat
 import java.util.*

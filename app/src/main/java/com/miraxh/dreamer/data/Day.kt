@@ -1,4 +1,4 @@
-package com.miraxh.dreamer.models
+package com.miraxh.dreamer.data
 
 data class Day (
     var day: Int,
