@@ -9,4 +9,6 @@
     <dimen name="general_margin">16dp</dimen>
     <dimen name="general_small_margin">8dp</dimen>
     <dimen name="dream_tile_size">150dp</dimen>
+    <dimen name="elevation_one">10dp</dimen>
+    <dimen name="elevetion_two">12dp</dimen>
 </resources>

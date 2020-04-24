@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.Day
+import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.ui.toolbar.ToolbarRecycleAdapter
 import kotlinx.android.synthetic.main.home_fragment.*
 
@@ -33,35 +34,29 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.home_fragment, container, false)
-
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-
-        dreamListLoader(view)
-        initToolbar(view)
-
+        dreamRecyclerView = view.findViewById(R.id.dreamRecyclerview)
+        daysRecycleView = view.findViewById(R.id.daysRecyclerview)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
         return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        dreamListLoader()
+        initToolbar()
     }
 
-    private fun dreamListLoader(view: View){
-
-        dreamRecyclerView = view.findViewById(R.id.dreamRecyclerview)
+    private fun dreamListLoader(){
         viewModel.dreamData.observe(viewLifecycleOwner, Observer {
+            (it as MutableList<Dream>).sortByDescending { it.dreamID }
             adapterDream = DreamListAdapter(requireContext(),it)
             dreamRecyclerView.adapter = adapterDream
         })
     }
 
-    private fun initToolbar(view: View){
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-
-        daysRecycleView = view.findViewById(R.id.daysRecyclerview)
-
+    private fun initToolbar(){
         daysState = daysRecycleView.layoutManager?.onSaveInstanceState()!!
-
         viewModel.daysData.observe(viewLifecycleOwner, Observer {
             adapterDay = ToolbarRecycleAdapter(requireContext(), it, this)
             daysRecycleView.adapter = adapterDay

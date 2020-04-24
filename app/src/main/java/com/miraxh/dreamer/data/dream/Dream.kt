@@ -1,4 +1,4 @@
-package com.miraxh.dreamer.data
+package com.miraxh.dreamer.data.dream
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

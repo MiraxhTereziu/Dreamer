@@ -1,9 +1,6 @@
 package com.miraxh.dreamer.ui.home
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.miraxh.dreamer.R
-import com.miraxh.dreamer.data.Dream
-import java.security.AccessController.getContext
+import com.miraxh.dreamer.data.dream.Dream
 
 class DreamListAdapter(
     val context: Context,

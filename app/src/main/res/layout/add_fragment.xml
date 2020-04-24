@@ -58,17 +58,18 @@
             app:layout_constraintTop_toTopOf="@+id/save_button" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dream_title"
-            android:padding="@dimen/general_small_margin"
+            android:id="@+id/layout_dream_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/general_margin"
             android:background="@drawable/bg_text_field"
+            android:padding="@dimen/general_small_margin"
             android:textColorHint="@color/colorText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/save_button">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dream_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Dream title"
@@ -77,18 +78,19 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dream_description"
-            android:padding="@dimen/general_small_margin"
+            android:id="@+id/layout_dream_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="@dimen/general_margin"
             android:background="@drawable/bg_text_field"
+            android:padding="@dimen/general_small_margin"
             android:textColorHint="@color/colorText"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dream_title"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/layout_dream_title">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dream_description"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="top"

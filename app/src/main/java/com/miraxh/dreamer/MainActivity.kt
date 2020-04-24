@@ -1,11 +1,10 @@
 package com.miraxh.dreamer
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.miraxh.dreamer.util.MyLifeCycleObserver
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -42,7 +41,11 @@ class MainActivity() : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //inizializzazione main layout
         setContentView(R.layout.activity_main)
+        //inizializzazione della nav bar che gestisce la navigazione
         nav_view.setOnNavigationItemSelectedListener(navigationListener)
+        //inizializzazione classe di lifecycle per gestire gli stati dell'applicazione
+        lifecycle.addObserver(MyLifeCycleObserver())
     }
 }
