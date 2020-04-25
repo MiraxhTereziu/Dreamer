@@ -1,12 +1,28 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/colorText</item>
         <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:datePickerStyle">@style/datePicker</item>
+
     </style>
+
+    <style name="datePicker" parent="Theme.AppCompat.Dialog">
+        <item name="colorPrimary">@color/colorPrimaryLight</item>
+        <item name="android:textColorPrimaryInverse">@color/colorText</item>
+        <item name="android:headerBackground">@color/colorPrimary</item>
+        <item name="android:datePickerMode">calendar</item>
+        <item name="android:background">@color/colorPrimaryLight</item>
+    </style>
+
+
+
+
 
     <style name="ToolbarTheme" parent="android:Widget.TextView">
         <item name="fontFamily">@font/pacifico_regular</item>
@@ -49,4 +65,7 @@
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/colorText</item>
     </style>
+
+
+
 </resources>

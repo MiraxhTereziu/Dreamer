@@ -27,6 +27,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/daysRecyclerview"
+            android:clipToPadding="false"
+            android:paddingRight="@dimen/general_small_margin"
             android:elevation="@dimen/elevetion_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
