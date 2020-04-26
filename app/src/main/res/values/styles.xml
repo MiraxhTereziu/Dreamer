@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="fontFamily">@font/roboto_regular</item>
         <item name="android:datePickerStyle">@style/datePicker</item>
 
@@ -14,14 +14,11 @@
 
     <style name="datePicker" parent="Theme.AppCompat.Dialog">
         <item name="colorPrimary">@color/colorPrimaryLight</item>
-        <item name="android:textColorPrimaryInverse">@color/colorText</item>
+        <item name="android:textColorPrimaryInverse">@color/colorWhite</item>
         <item name="android:headerBackground">@color/colorPrimary</item>
         <item name="android:datePickerMode">calendar</item>
         <item name="android:background">@color/colorPrimaryLight</item>
     </style>
-
-
-
 
 
     <style name="ToolbarTheme" parent="android:Widget.TextView">
@@ -29,8 +26,9 @@
     </style>
 
     <style name="pacifico" parent="android:Widget.TextView">
+        <item name="android:gravity">center</item>
         <item name="fontFamily">@font/pacifico_regular</item>
-        <item name="titleTextColor">@color/colorText</item>
+        <item name="titleTextColor">@color/colorWhite</item>
         <item name="android:textSize">@dimen/title</item>
     </style>
 
@@ -51,21 +49,21 @@
     </style>
 
     <style name="week_day">
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:singleLine">false</item>
         <item name="android:textSize">18sp</item>
     </style>
 
     <style name="number_day">
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">18sp</item>
         <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="text_input">
-        <item name="colorControlNormal">@color/colorText</item>
+        <item name="colorControlNormal">@color/colorWhite</item>
         <item name="colorControlActivated">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/colorText</item>
+        <item name="colorControlHighlight">@color/colorWhite</item>
     </style>
-
-
 
 </resources>

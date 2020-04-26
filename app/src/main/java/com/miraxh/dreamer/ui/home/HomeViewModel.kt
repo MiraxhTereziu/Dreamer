@@ -1,5 +1,6 @@
 package com.miraxh.dreamer.ui.home
 
+import android.util.Log
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.miraxh.dreamer.data.Day
@@ -15,12 +16,11 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     val dreamRepository = DreamRepository(app)
     val dreamData = dreamRepository.dreamData
 
-
-    private val dataList = ToolbarHelper()
-    val daysData = dataList.days
+    private val toolbarHelper = ToolbarHelper()
+    val daysData = toolbarHelper.days
 
     init {
-        dataList.getDaysData()
+        toolbarHelper.getDaysData(dreamRepository.dreamData)
     }
 
     fun changeState(day: Day){
@@ -33,4 +33,7 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
         daysData.value = tmpList
     }
 
+    fun updateToolbar(){
+        toolbarHelper.getDaysData(dreamRepository.dreamData)
+    }
 }

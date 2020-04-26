@@ -41,13 +41,13 @@ class ToolbarRecycleAdapter(
                 day?.setTextColor(
                     ContextCompat.getColor(
                         context,
-                        R.color.colorIcon
+                        R.color.colorWhite
                     )
                 )
                 week?.setTextColor(
                     ContextCompat.getColor(
                         context,
-                        R.color.colorIcon
+                        R.color.colorWhite
                     )
                 )
 

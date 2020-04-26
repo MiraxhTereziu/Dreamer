@@ -23,43 +23,43 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:titleTextAppearance="@style/ToolbarTheme" />
+            app:titleTextAppearance="@style/ToolbarTheme"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/daysRecyclerview"
-            android:clipToPadding="false"
-            android:paddingRight="@dimen/general_small_margin"
-            android:elevation="@dimen/elevetion_two"
+            android:id="@+id/days_recyclerview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/general_margin"
             android:layout_marginRight="@dimen/general_small_margin"
+            android:clipToPadding="false"
+            android:elevation="@dimen/elevetion_two"
             android:orientation="horizontal"
+            android:paddingRight="@dimen/general_small_margin"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="@id/toolbar"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_title" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_title"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/toolbar_icon"
-            android:elevation="@dimen/elevetion_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/ic_book_open_icon"
+            android:elevation="@dimen/elevetion_two"
+            android:src="@drawable/ic_list"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar_title"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/toolbar_title"
-            android:elevation="@dimen/elevetion_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:elevation="@dimen/elevetion_two"
             android:fontFamily="@font/pacifico_regular"
             android:text="@string/app_name"
             android:theme="@style/pacifico"
@@ -67,19 +67,32 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dreamRecyclerview"
+            android:id="@+id/dream_recyclerview"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/general_margin"
+            android:paddingBottom="90dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/general_margin"
+            android:backgroundTint="@color/colorWhite"
+            android:tint="@color/colorPrimary"
+            android:scaleType="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_add"
+            app:borderWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </FrameLayout>

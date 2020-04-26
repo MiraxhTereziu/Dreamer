@@ -2,6 +2,7 @@ package com.miraxh.dreamer.ui.home
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.Day
 import com.miraxh.dreamer.data.dream.Dream
@@ -24,6 +27,7 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
     private lateinit var adapterDream: DreamListAdapter
     private lateinit var daysState: Parcelable
     private lateinit var viewModel: HomeViewModel
+    private lateinit var addActionButton: FloatingActionButton
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -35,8 +39,9 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
     ): View? {
         val view = inflater.inflate(R.layout.home_fragment, container, false)
         //inizializzaizone RecyclerView
-        dreamRecyclerView = view.findViewById(R.id.dreamRecyclerview)
-        daysRecycleView = view.findViewById(R.id.daysRecyclerview)
+        dreamRecyclerView = view.findViewById(R.id.dream_recyclerview)
+        daysRecycleView = view.findViewById(R.id.days_recyclerview)
+        addActionButton = view.findViewById(R.id.add_action_button)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         return view
     }
@@ -49,6 +54,9 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
         dreamListLoader()
         //metodo per inizializzare la toolbar e "l'agenda dei sogni" al suo interno
         initToolbar()
+        addActionButton.setOnClickListener {
+            findNavController().navigate(R.id.add_dest)
+        }
     }
 
     //metodo per inizializzare lista principale dei sogni
@@ -61,6 +69,8 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
             adapterDream = DreamListAdapter(requireContext(),it)
             //assegno il mio adapter alla mia RecyclerView
             dreamRecyclerView.adapter = adapterDream
+            //update toolbar
+            viewModel.updateToolbar()
         })
     }
 
@@ -70,12 +80,14 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
         daysState = saveStateRV(daysRecycleView)
         //mi metto in ascolto per eventuali cambiamenti alla lista dei sogni
         viewModel.daysData.observe(viewLifecycleOwner, Observer {
+            Log.i("TEST_NEWTOOLBAR","rv toolbar")
             //in caso un update della lista dei sogni entro in questo metodo dove mi viene passata la nuova lista
             adapterDay = ToolbarRecycleAdapter(requireContext(), it, this)
             //assegno il mio adapter alla mia RecyclerView
             daysRecycleView.adapter = adapterDay
             //ripristino lo stato di scorrimento della mia agenda nel toolbar
             restoreStateRV(daysState, daysRecycleView)
+
         })
     }
 

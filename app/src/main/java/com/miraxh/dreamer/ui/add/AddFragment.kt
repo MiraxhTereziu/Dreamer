@@ -1,9 +1,6 @@
 package com.miraxh.dreamer.ui.add
 
 import android.app.DatePickerDialog
-import android.content.res.Resources
-import android.graphics.Color
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.miraxh.dreamer.R
-import com.miraxh.dreamer.R.drawable.bg_text_field
 import com.miraxh.dreamer.data.dream.Dream
 import kotlinx.android.synthetic.main.add_fragment.*
 import java.util.*
@@ -51,7 +47,7 @@ class AddFragment : Fragment() {
 
         //inizializzo i miei componenti da cui andrò a recuperare i dati
         title = view.findViewById<TextView>(R.id.dream_title)
-        date = view.findViewById<TextView>(R.id.displayDate)
+        date = view.findViewById<TextView>(R.id.display_date)
         description = view.findViewById<TextView>(R.id.dream_description)
 
         //inizializzo viewModel
@@ -74,7 +70,7 @@ class AddFragment : Fragment() {
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    displayDate.text = "$dayOfMonth/${month + 1}/$year"
+                    display_date.text = "$dayOfMonth/${month + 1}/$year"
                 },
                 year,
                 month,
@@ -95,11 +91,11 @@ class AddFragment : Fragment() {
 
             //controllo presenza dati nei vari form e display di un toast nel caso non ci siano
             if (titleEmpty && descriptionEmpty) {
-                Toast.makeText(activity, "Insert title and description", Toast.LENGTH_SHORT).show()
+                Snackbar.make(view, "Insert title and description", Snackbar.LENGTH_SHORT).show()
             } else if (titleEmpty) {
-                Toast.makeText(activity, "Insert title", Toast.LENGTH_SHORT).show()
+                Snackbar.make(view, "Insert title", Snackbar.LENGTH_SHORT).show()
             } else if (descriptionEmpty) {
-                Toast.makeText(activity, "Insert description", Toast.LENGTH_SHORT).show()
+                Snackbar.make(view, "Insert description", Snackbar.LENGTH_SHORT).show()
             } else {
                 //aggiungere metodo per chiudere la tastiera ad inserimento completato
 
@@ -114,7 +110,7 @@ class AddFragment : Fragment() {
                 viewModel.newDream(newDream)
                 //momentaneamente rimando alla home
                 findNavController().navigate(R.id.home_dest)
-                Toast.makeText(activity, "Added ${newDream.title}", Toast.LENGTH_SHORT).show()
+                Snackbar.make(view, "Added ${newDream.title}", Snackbar.LENGTH_SHORT).show()
             }
         }
         return view
