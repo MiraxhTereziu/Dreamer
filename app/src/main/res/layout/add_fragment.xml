@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.add.AddFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/date_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/general_margin"
+            android:layout_marginRight="@dimen/general_margin"
+            android:background="@drawable/bg_text_field"
+            android:drawableLeft="@drawable/ic_calendar"
+            android:drawablePadding="@dimen/general_small_margin"
+            android:padding="@dimen/general_margin"
+            android:text="Pick date"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/save_button" />
+
+        <TextView
+            android:id="@+id/displayDate"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/general_margin"
+            android:background="@drawable/bg_text_field"
+            android:text="00 Month 0000"
+            android:textSize="22sp"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/layout_dream_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/date_picker"
+            app:layout_constraintTop_toBottomOf="@id/save_button" />
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/general_margin"
+            android:layout_marginTop="@dimen/general_margin"
+            android:background="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/save_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/general_margin"
+            android:layout_marginTop="@dimen/general_margin"
+            android:layout_marginEnd="@dimen/general_margin"
+            android:background="@drawable/bg_savebutton"
+            android:drawableLeft="@drawable/ic_save"
+            android:drawableTint="@color/colorSecondaryDark"
+            android:paddingHorizontal="@dimen/general_margin"
+            android:text="@string/label_botton_save"
+            android:textAllCaps="false"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_dream_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/general_margin"
+            android:background="@drawable/bg_text_field"
+            android:padding="@dimen/general_small_margin"
+            android:textColorHint="@color/colorText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date_picker">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dream_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dream title"
+                android:textColor="@color/colorText"
+                android:theme="@style/text_input" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_dream_description"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/description_tf"
+            android:layout_margin="@dimen/general_margin"
+            android:background="@drawable/bg_text_field"
+            android:padding="@dimen/general_small_margin"
+            android:textColorHint="@color/colorText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_dream_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dream_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:hint="Dream description"
+                android:textColor="@color/colorText"
+                android:theme="@style/text_input" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

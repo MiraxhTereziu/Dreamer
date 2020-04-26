@@ -1,11 +1,71 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:datePickerStyle">@style/datePicker</item>
+
     </style>
+
+    <style name="datePicker" parent="Theme.AppCompat.Dialog">
+        <item name="colorPrimary">@color/colorPrimaryLight</item>
+        <item name="android:textColorPrimaryInverse">@color/colorText</item>
+        <item name="android:headerBackground">@color/colorPrimary</item>
+        <item name="android:datePickerMode">calendar</item>
+        <item name="android:background">@color/colorPrimaryLight</item>
+    </style>
+
+
+
+
+
+    <style name="ToolbarTheme" parent="android:Widget.TextView">
+        <item name="fontFamily">@font/pacifico_regular</item>
+    </style>
+
+    <style name="pacifico" parent="android:Widget.TextView">
+        <item name="fontFamily">@font/pacifico_regular</item>
+        <item name="titleTextColor">@color/colorText</item>
+        <item name="android:textSize">@dimen/title</item>
+    </style>
+
+    <style name="dream_description">
+        <item name="fontFamily">@font/roboto_light</item>
+    </style>
+
+    <style name="dream_title">
+        <item name="android:textColor">@color/colorSecondaryDark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="dream_date">
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="week_day">
+        <item name="android:singleLine">false</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="number_day">
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="text_input">
+        <item name="colorControlNormal">@color/colorText</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorText</item>
+    </style>
+
+
 
 </resources>
