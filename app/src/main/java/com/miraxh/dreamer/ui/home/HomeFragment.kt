@@ -17,6 +17,7 @@ import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.Day
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.ui.toolbar.ToolbarRecycleAdapter
+import com.miraxh.dreamer.util.DATE_CLICKED
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
@@ -25,9 +26,11 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
     private lateinit var dreamRecyclerView: RecyclerView
     private lateinit var adapterDay: ToolbarRecycleAdapter
     private lateinit var adapterDream: DreamListAdapter
-    private lateinit var daysState: Parcelable
     private lateinit var viewModel: HomeViewModel
     private lateinit var addActionButton: FloatingActionButton
+
+    private lateinit var daysState: Parcelable
+    private lateinit var dreamState: Parcelable
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -42,7 +45,6 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
         dreamRecyclerView = view.findViewById(R.id.dream_recyclerview)
         daysRecycleView = view.findViewById(R.id.days_recyclerview)
         addActionButton = view.findViewById(R.id.add_action_button)
-        //drawerLayout = view.findViewById(R.id.drawer_layout)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         return view
     }
@@ -99,7 +101,10 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
     override fun onDayItemListener(day: Day, position: Int) {
         //salvo lo stato di scorrimento
         daysState = saveStateRV(daysRecycleView)
-        //cambio lo stato di un particolare giorno dell'agenda in caso di click
+        //cambio lo stato di un particolare giorno dell'agenda in caso di click (vecchia implementazione)
+        val args = Bundle()
+        args.putString(DATE_CLICKED,day.date)
+        findNavController().navigate(R.id.add_dest,args)
         viewModel.changeState(day)
     }
 

@@ -9,7 +9,7 @@
     <item
         android:id="@+id/add_item"
         android:title="@string/add_title"
-        android:icon="@drawable/ic_add_circle"/>
+        android:icon="@drawable/ic_add_thin"/>
     <item
         android:id="@+id/stats_item"
         android:title="@string/stats_title"

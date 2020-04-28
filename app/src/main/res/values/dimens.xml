@@ -9,7 +9,7 @@
     <dimen name="text_margin">8dp</dimen>
     <dimen name="general_margin">16dp</dimen>
     <dimen name="general_small_margin">8dp</dimen>
-    <dimen name="dream_tile_size">160dp</dimen>
+    <dimen name="dream_tile_size">168dp</dimen>
     <dimen name="elevation_one">10dp</dimen>
     <dimen name="elevation_two">12dp</dimen>
     <dimen name="description_tf">150dp</dimen>

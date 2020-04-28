@@ -14,7 +14,11 @@
         android:id="@+id/add_dest"
         android:name="com.miraxh.dreamer.ui.add.AddFragment"
         android:label="add_fragment"
-        tools:layout="@layout/add_fragment" />
+        tools:layout="@layout/add_fragment" >
+        <argument
+            android:name="dateClicked"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/settings_dest"
         android:name="com.miraxh.dreamer.ui.settings.SettingsFragment"

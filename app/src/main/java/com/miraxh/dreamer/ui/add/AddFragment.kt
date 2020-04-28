@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +19,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
+import com.miraxh.dreamer.util.DATE_CLICKED
 import kotlinx.android.synthetic.main.add_fragment.*
+import java.text.SimpleDateFormat
 import java.util.*
+import java.util.logging.SimpleFormatter
 
 
 class AddFragment : Fragment() {
@@ -28,10 +32,15 @@ class AddFragment : Fragment() {
         fun newInstance() = AddFragment()
     }
 
+    private var dateClicked: String? = null
+
     private lateinit var viewModel: AddViewModel
     private lateinit var saveButton: Button
     private lateinit var newDream: Dream
     private lateinit var datepickerBtn: Button
+    private lateinit var include: ConstraintLayout
+    private lateinit var titleToolbar: TextView
+    private lateinit var drawerButton: ImageView
 
 
     private lateinit var title: TextView
@@ -43,6 +52,15 @@ class AddFragment : Fragment() {
     private var month = 0
     private var year = 0
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            dateClicked = it.getString(DATE_CLICKED)
+        }
+        if (dateClicked != null)
+            Log.i(DATE_CLICKED, dateClicked)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,15 +68,9 @@ class AddFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.add_fragment, container, false)
 
-        val include = view.findViewById<ConstraintLayout>(R.id.toolbar_add)
-        val titleToolbar = include.findViewById<TextView>(R.id.toolbar_title_normal)
-        val drawerButton = include.findViewById<ImageView>(R.id.drawer_icon_normal)
-
-        titleToolbar.text = resources.getString(R.string.add_toolbar_title)
-
-        drawerButton.setOnClickListener{
-            (activity as MainActivity?)?.openDrawer()
-        }
+        include = view.findViewById<ConstraintLayout>(R.id.toolbar_add)
+        titleToolbar = include.findViewById<TextView>(R.id.toolbar_title_normal)
+        drawerButton = include.findViewById<ImageView>(R.id.drawer_icon_normal)
 
         //inizializzo la toolbar
         //(activity as AppCompatActivity).setSupportActionBar(toolbarNormal)
@@ -84,19 +96,42 @@ class AddFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         //imposto set on click listener
         setDatePicker()
+        //inizializzazione della toolbar
+        initToolbar()
+    }
+
+    private fun initToolbar() {
+        titleToolbar.text = resources.getString(R.string.add_toolbar_title)
+        drawerButton.setOnClickListener {
+            (activity as MainActivity?)?.openDrawer()
+        }
     }
 
     private fun setDatePicker() {
-        //imposto la data di oggi come data di default
-        val calendar = Calendar.getInstance()
-        day = calendar.get(Calendar.DAY_OF_MONTH)
-        month = calendar.get(Calendar.MONTH)
-        year = calendar.get(Calendar.YEAR)
+        if (dateClicked != null) {
+            val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
+            val dateSelected = dateFormatter.parse(dateClicked)
+            val yearFormatter = SimpleDateFormat("yyyy")
+            val monthFormatter = SimpleDateFormat("MM")
+            val dayFormatter = SimpleDateFormat("dd")
 
-        val finalDate = "$day/${month + 1}/$year"
+            year = yearFormatter.format(dateSelected.time).toInt()
+            month = monthFormatter.format(dateSelected.time).toInt()
+            day = dayFormatter.format(dateSelected.time).toInt()
+
+        } else {
+            //imposto la data di oggi come data di default
+            val calendar = Calendar.getInstance()
+            day = calendar.get(Calendar.DAY_OF_MONTH)
+            month = calendar.get(Calendar.MONTH) + 1
+            year = calendar.get(Calendar.YEAR)
+        }
+
+        var finalDate = "$day/$month/$year"
+
+
         date.text = finalDate
 
         datepickerBtn.setOnClickListener {
@@ -109,10 +144,10 @@ class AddFragment : Fragment() {
                 month,
                 day
             )
-
             datePickerDialog.show()
             //datePickerDialog.window?.setBackgroundDrawableResource(colorPrimary)
             val date = Date()
+            //imposta la ma data massima, ma mi sposto la data di "oggi" alla data massima
             datePickerDialog.datePicker.maxDate = date.time
 
             val ok = datePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE)
@@ -122,7 +157,6 @@ class AddFragment : Fragment() {
             val cancel: Button = datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
             cancel.setTextColor(Color.rgb(206, 168, 255))
             //cancel.setBackgroundColor(Color.GREEN)
-
         }
     }
 
@@ -160,8 +194,6 @@ class AddFragment : Fragment() {
             }
         }
     }
-
-
 }
 
 

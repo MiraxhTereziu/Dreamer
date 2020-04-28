@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import com.google.android.material.navigation.NavigationView
@@ -17,9 +18,12 @@ import kotlinx.android.synthetic.main.activity_main_nav.*
 class MainActivity() : AppCompatActivity() {
 
 
+    lateinit var drawer : DrawerLayout
+
     //vecchia bottom nav bar
     private val navigationListener =
         NavigationView.OnNavigationItemSelectedListener { item ->
+            drawer.closeDrawer(GravityCompat.START)
             when (item.itemId) {
                 R.id.diary_item -> {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.home_dest)
@@ -50,8 +54,9 @@ class MainActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //inizializzazione main layout
-
         setContentView(R.layout.activity_main_nav)
+        //inizializzazione drawer
+        drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         //inizializzazione della nav bar che gestisce la navigazione (non più implementata)
         nav_view.setNavigationItemSelectedListener(navigationListener)
         //inizializzazione classe di lifecycle per gestire gli stati dell'applicazione
@@ -65,10 +70,8 @@ class MainActivity() : AppCompatActivity() {
         )*/
     }
 
-    @SuppressLint("WrongConstant")
     fun openDrawer() {
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
-        drawer?.openDrawer(Gravity.START)
+        drawer.openDrawer(GravityCompat.START)
     }
 }
 
