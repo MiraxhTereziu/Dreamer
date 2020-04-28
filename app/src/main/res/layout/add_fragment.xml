@@ -10,6 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <include
+            android:id="@+id/toolbar_add"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            layout="@layout/normal_toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
         <Button
             android:id="@+id/date_picker"
             android:layout_width="wrap_content"
@@ -24,7 +34,7 @@
             android:textAllCaps="false"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar_add" />
 
         <TextView
             android:id="@+id/display_date"
@@ -38,7 +48,7 @@
             app:layout_constraintBottom_toTopOf="@+id/layout_dream_title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/date_picker"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar_add" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_dream_title"
@@ -86,6 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/general_margin"
+            android:layout_marginEnd="136dp"
             android:background="@drawable/bg_savebutton"
             android:drawableLeft="@drawable/ic_save"
             android:drawablePadding="@dimen/general_small_margin"
@@ -93,10 +104,11 @@
             android:paddingHorizontal="@dimen/general_margin"
             android:text="@string/label_botton_save"
             android:textAllCaps="false"
-            android:textSize="18dp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/minus_action_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/minus_action_button" />
+            app:layout_constraintTop_toTopOf="@+id/minus_action_button"
+            />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/minus_action_button"
@@ -113,5 +125,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

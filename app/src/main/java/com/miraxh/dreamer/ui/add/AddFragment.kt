@@ -1,17 +1,21 @@
 package com.miraxh.dreamer.ui.add
 
 import android.app.DatePickerDialog
+import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
 import kotlinx.android.synthetic.main.add_fragment.*
@@ -29,6 +33,7 @@ class AddFragment : Fragment() {
     private lateinit var newDream: Dream
     private lateinit var datepickerBtn: Button
 
+
     private lateinit var title: TextView
     private lateinit var date: TextView
     private lateinit var description: TextView
@@ -45,6 +50,19 @@ class AddFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.add_fragment, container, false)
 
+        val include = view.findViewById<ConstraintLayout>(R.id.toolbar_add)
+        val titleToolbar = include.findViewById<TextView>(R.id.toolbar_title_normal)
+        val drawerButton = include.findViewById<ImageView>(R.id.drawer_icon_normal)
+
+        titleToolbar.text = resources.getString(R.string.add_toolbar_title)
+
+        drawerButton.setOnClickListener{
+            (activity as MainActivity?)?.openDrawer()
+        }
+
+        //inizializzo la toolbar
+        //(activity as AppCompatActivity).setSupportActionBar(toolbarNormal)
+
         //inizializzo i miei componenti da cui andrò a recuperare i dati
         title = view.findViewById<TextView>(R.id.dream_title)
         date = view.findViewById<TextView>(R.id.display_date)
@@ -53,6 +71,25 @@ class AddFragment : Fragment() {
         //inizializzo viewModel
         viewModel = ViewModelProvider(this).get(AddViewModel::class.java)
 
+        //inizializzo il mio bottone che fare comparire il mio date picker
+        datepickerBtn = view.findViewById<Button>(R.id.date_picker)
+
+        //inizializzo il mio bottone di salvataggio
+        saveButton = view.findViewById(R.id.save_button)
+
+        saveDream(view)
+
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        //imposto set on click listener
+        setDatePicker()
+    }
+
+    private fun setDatePicker() {
         //imposto la data di oggi come data di default
         val calendar = Calendar.getInstance()
         day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -62,10 +99,6 @@ class AddFragment : Fragment() {
         val finalDate = "$day/${month + 1}/$year"
         date.text = finalDate
 
-        //inizializzo il mio bottone che fare comparire il mio date picker
-        datepickerBtn = view.findViewById<Button>(R.id.date_picker)
-
-        //imposto set on click listener
         datepickerBtn.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
@@ -75,12 +108,25 @@ class AddFragment : Fragment() {
                 year,
                 month,
                 day
-            ).show()
+            )
+
+            datePickerDialog.show()
+            //datePickerDialog.window?.setBackgroundDrawableResource(colorPrimary)
+            val date = Date()
+            datePickerDialog.datePicker.maxDate = date.time
+
+            val ok = datePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+            ok.setTextColor(Color.rgb(206, 168, 255))
+            //ok.setBackgroundColor(Color.GREEN)
+
+            val cancel: Button = datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
+            cancel.setTextColor(Color.rgb(206, 168, 255))
+            //cancel.setBackgroundColor(Color.GREEN)
+
         }
+    }
 
-        //inizializzo il mio bottone di salvataggio
-        saveButton = view.findViewById(R.id.save_button)
-
+    private fun saveDream(view: View) {
         //inizializzo con valori di default il mio sogno
         newDream = Dream(0, "00/00/00", "empty", "empty")
 
@@ -113,12 +159,9 @@ class AddFragment : Fragment() {
                 Snackbar.make(view, "Added ${newDream.title}", Snackbar.LENGTH_SHORT).show()
             }
         }
-        return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
+
 }
 
 

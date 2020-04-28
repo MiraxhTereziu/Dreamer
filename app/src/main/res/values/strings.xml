@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Dreamer</string>
-    <string name="home_title">Home</string>
+    <string name="add_toolbar_title">Add new dream</string>
+    <string name="diary_title">Diary</string>
     <string name="stats_title">Statistics</string>
-    <string name="add_title">Add</string>
+    <string name="add_title">Add new dream</string>
     <string name="music_title">Chill Sounds</string>
     <string name="settings_title">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

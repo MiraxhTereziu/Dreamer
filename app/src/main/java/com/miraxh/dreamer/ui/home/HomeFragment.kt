@@ -2,7 +2,6 @@ package com.miraxh.dreamer.ui.home
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.Day
 import com.miraxh.dreamer.data.dream.Dream
@@ -42,6 +42,7 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
         dreamRecyclerView = view.findViewById(R.id.dream_recyclerview)
         daysRecycleView = view.findViewById(R.id.days_recyclerview)
         addActionButton = view.findViewById(R.id.add_action_button)
+        //drawerLayout = view.findViewById(R.id.drawer_layout)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         return view
     }
@@ -54,6 +55,7 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
         dreamListLoader()
         //metodo per inizializzare la toolbar e "l'agenda dei sogni" al suo interno
         initToolbar()
+
         addActionButton.setOnClickListener {
             findNavController().navigate(R.id.add_dest)
         }
@@ -63,8 +65,9 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
     private fun dreamListLoader(){
         //mi metto in ascolto per eventuali cambiamenti alla lista dei sogni
         viewModel.dreamData.observe(viewLifecycleOwner, Observer {
+            //ordino la lista in base al giorno di creazione
+            (it as MutableList<Dream>).sortByDescending { it.dreamID}
             //in caso un update della lista dei sogni entro in questo metodo dove mi viene passata la nuova lista
-            (it as MutableList<Dream>).sortByDescending { it.dreamID }
             //creo un nuovo adapter da essegnare al mio RecyclerView
             adapterDream = DreamListAdapter(requireContext(),it)
             //assegno il mio adapter alla mia RecyclerView
@@ -76,18 +79,19 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
 
     //metodo per inizializzare la toolbar e "l'agenda dei sogni" al suo interno
     private fun initToolbar(){
+        drawer_icon.setOnClickListener{
+            (activity as MainActivity?)?.openDrawer()
+        }
         //inizializzo lo stato di scorrimento dell'agenda per utilizzi futuri
         daysState = saveStateRV(daysRecycleView)
         //mi metto in ascolto per eventuali cambiamenti alla lista dei sogni
         viewModel.daysData.observe(viewLifecycleOwner, Observer {
-            Log.i("TEST_NEWTOOLBAR","rv toolbar")
             //in caso un update della lista dei sogni entro in questo metodo dove mi viene passata la nuova lista
             adapterDay = ToolbarRecycleAdapter(requireContext(), it, this)
             //assegno il mio adapter alla mia RecyclerView
             daysRecycleView.adapter = adapterDay
             //ripristino lo stato di scorrimento della mia agenda nel toolbar
             restoreStateRV(daysState, daysRecycleView)
-
         })
     }
 
@@ -109,3 +113,4 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
         recyclerView.layoutManager!!.onRestoreInstanceState(state)
     }
 }
+

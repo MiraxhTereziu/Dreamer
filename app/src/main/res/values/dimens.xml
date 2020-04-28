@@ -2,6 +2,7 @@
 <resources>
     <dimen name="border_radius">16dp</dimen>
     <dimen name="height_big_toolbar">160dp</dimen>
+    <dimen name="height_norm_toolbar">100dp</dimen>
     <dimen name="title">25sp</dimen>
     <dimen name="icon_size">30dp</dimen>
     <dimen name="padding">16dp</dimen>
@@ -10,6 +11,7 @@
     <dimen name="general_small_margin">8dp</dimen>
     <dimen name="dream_tile_size">160dp</dimen>
     <dimen name="elevation_one">10dp</dimen>
-    <dimen name="elevetion_two">12dp</dimen>
+    <dimen name="elevation_two">12dp</dimen>
     <dimen name="description_tf">150dp</dimen>
+    <dimen name="drawer_icon_size">25dp</dimen>
 </resources>

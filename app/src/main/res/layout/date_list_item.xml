@@ -5,41 +5,36 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    android:padding="10dp">
+    android:layout_marginRight="@dimen/general_margin"
+    android:paddingBottom="@dimen/general_small_margin"
+    >
 
     <TextView
         android:id="@+id/day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="38dp"
-        android:gravity="center|center_horizontal"
+        android:gravity="center"
         android:singleLine="false"
         android:text="@string/default_date_number"
         android:translationZ="90dp"
-        app:layout_constraintBottom_toBottomOf="@+id/active"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846"
-        android:theme="@style/number_day" />
+        app:layout_constraintBottom_toTopOf="@+id/week"
+        app:layout_constraintLeft_toLeftOf="@id/active"
+        app:layout_constraintRight_toRightOf="@id/active"
+        app:layout_constraintTop_toTopOf="@id/active"
+        android:theme="@style/number_day"/>
 
     <TextView
         android:id="@+id/week"
         android:maxLength="2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:gravity="center|center_horizontal"
-        android:padding="5dp"
+        android:gravity="center"
         android:text="@string/default_weekday"
         android:translationZ="90dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/day"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/active"
+        app:layout_constraintBottom_toBottomOf="@id/active"
+        app:layout_constraintRight_toRightOf="@id/active"
         android:theme="@style/week_day" />
 
     <Button

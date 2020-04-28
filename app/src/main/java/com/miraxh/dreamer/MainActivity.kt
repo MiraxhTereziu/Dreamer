@@ -1,27 +1,27 @@
 package com.miraxh.dreamer
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.Gravity
+import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
 import com.miraxh.dreamer.util.MyLifeCycleObserver
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.home_fragment.*
+import kotlinx.android.synthetic.main.activity_main_nav.*
 
 
-class MainActivity() : AppCompatActivity(){
+class MainActivity() : AppCompatActivity() {
 
-    /*
+
     //vecchia bottom nav bar
     private val navigationListener =
-        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        NavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.home_item -> {
+                R.id.diary_item -> {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.home_dest)
                     return@OnNavigationItemSelectedListener true
                 }
@@ -45,16 +45,30 @@ class MainActivity() : AppCompatActivity(){
                 }
             }
             false
-        }*/
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //inizializzazione main layout
-        setContentView(R.layout.activity_main)
+
+        setContentView(R.layout.activity_main_nav)
         //inizializzazione della nav bar che gestisce la navigazione (non più implementata)
-        //nav_view.setOnNavigationItemSelectedListener(navigationListener)
+        nav_view.setNavigationItemSelectedListener(navigationListener)
         //inizializzazione classe di lifecycle per gestire gli stati dell'applicazione
         lifecycle.addObserver(MyLifeCycleObserver())
+
+        //how to make status bar full trasperent
+        /*val w: Window = window // in Activity's onCreate() for instance
+        w.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )*/
+    }
+
+    @SuppressLint("WrongConstant")
+    fun openDrawer() {
+        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
+        drawer?.openDrawer(Gravity.START)
     }
 }
 
