@@ -82,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/general_margin"
+            android:layout_marginRight="@dimen/general_margin"
             android:backgroundTint="@color/colorWhite"
             android:clickable="true"
             android:focusable="true"
@@ -91,7 +92,7 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

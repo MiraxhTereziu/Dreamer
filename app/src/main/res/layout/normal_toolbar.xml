@@ -13,7 +13,9 @@
         app:layout_constraintBottom_toBottomOf="@+id/toolbar_title_normal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="@dimen/elevation_one"
+        />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/drawer_icon_normal"

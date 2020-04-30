@@ -18,28 +18,21 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
     private val toolbarHelper = ToolbarHelper()
     val daysData = toolbarHelper.days
 
-    companion object{
-        var firstStart = true
-    }
-
     init {
-        if(firstStart){
-            updateToolbar()
-            firstStart = false
-        }
+        updateToolbar()
     }
 
-    fun changeState(day: Day){
+    fun changeState(day: Day) {
         var tmpList = daysData.value
         tmpList?.forEach {
-            if(day.day == it.day){
+            if (day.day == it.day) {
                 it.active = it.active.not()
             }
         }
         daysData.value = tmpList
     }
 
-    fun updateToolbar(){
+    fun updateToolbar() {
         toolbarHelper.getDaysData(dreamRepository.dreamData)
     }
 }

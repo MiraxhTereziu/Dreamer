@@ -16,4 +16,8 @@
     <string name="default_dream_titile">Title</string>
     <string name="deafult_dream_date">24th march</string>
     <string name="label_botton_save">Save</string>
+    <string name="dream_description_hint">Dream description</string>
+    <string name="dream_title_hint">Dream title</string>
+    <string name="insert_dream_tags_hint">Insert dream tags</string>
+    <string name="empty"></string>
 </resources>

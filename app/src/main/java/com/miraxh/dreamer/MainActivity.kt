@@ -1,11 +1,14 @@
 package com.miraxh.dreamer
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.renderscript.ScriptGroup
 import android.view.Gravity
 import android.view.Window
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -72,6 +75,16 @@ class MainActivity() : AppCompatActivity() {
 
     fun openDrawer() {
         drawer.openDrawer(GravityCompat.START)
+    }
+
+    fun closeKeyboard(){
+        val view = this.currentFocus
+        if(view != null){
+            val hideMe = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            hideMe.hideSoftInputFromWindow(view.windowToken,0)
+        }else{
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        }
     }
 }
 

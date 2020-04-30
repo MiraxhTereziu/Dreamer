@@ -4,6 +4,8 @@ import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,18 +14,22 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.util.DATE_CLICKED
 import kotlinx.android.synthetic.main.add_fragment.*
+import java.nio.file.Files.delete
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.logging.SimpleFormatter
 
 
 class AddFragment : Fragment() {
@@ -36,13 +42,18 @@ class AddFragment : Fragment() {
 
     private lateinit var viewModel: AddViewModel
     private lateinit var saveButton: Button
+    private lateinit var datePickerBtn: Button
+    private lateinit var minusBtn: FloatingActionButton
+
     private lateinit var newDream: Dream
-    private lateinit var datepickerBtn: Button
     private lateinit var include: ConstraintLayout
-    private lateinit var titleToolbar: TextView
     private lateinit var drawerButton: ImageView
 
+    private lateinit var tagsRecycleView: RecyclerView
+    private lateinit var adapterTag: TagListAdapter
 
+    private lateinit var titleToolbar: TextView
+    private lateinit var insertTag: TextInputEditText
     private lateinit var title: TextView
     private lateinit var date: TextView
     private lateinit var description: TextView
@@ -68,7 +79,14 @@ class AddFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.add_fragment, container, false)
 
+        view.setOnClickListener {
+            (activity as MainActivity?)?.closeKeyboard()
+        }
+
+        tagsRecycleView = view.findViewById(R.id.tags_recyclerview)
+        insertTag = view.findViewById(R.id.dream_tag)
         include = view.findViewById<ConstraintLayout>(R.id.toolbar_add)
+        minusBtn = view.findViewById(R.id.minus_action_button)
         titleToolbar = include.findViewById<TextView>(R.id.toolbar_title_normal)
         drawerButton = include.findViewById<ImageView>(R.id.drawer_icon_normal)
 
@@ -84,14 +102,28 @@ class AddFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(AddViewModel::class.java)
 
         //inizializzo il mio bottone che fare comparire il mio date picker
-        datepickerBtn = view.findViewById<Button>(R.id.date_picker)
+        datePickerBtn = view.findViewById<Button>(R.id.date_picker)
 
         //inizializzo il mio bottone di salvataggio
         saveButton = view.findViewById(R.id.save_button)
 
+        //metodo per gestire l'inseriemnto di tag
+        insertTags(view)
+
+        //salvo il sogno nel db in base ai valori inseriti
         saveDream(view)
 
         return view
+    }
+
+    private fun insertTags(view: View?) {
+        val tagList = mutableListOf<String>("test1","test2","test3")
+
+        //creo il mio adapter
+        adapterTag = TagListAdapter(requireContext(), tagList)
+        //assegno il mio adapter alla mia RecyclerView
+        tagsRecycleView.adapter = adapterTag
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -100,6 +132,14 @@ class AddFragment : Fragment() {
         setDatePicker()
         //inizializzazione della toolbar
         initToolbar()
+        //minus back btn
+        initMinusBtn()
+    }
+
+    private fun initMinusBtn() {
+        minusBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun initToolbar() {
@@ -134,7 +174,8 @@ class AddFragment : Fragment() {
 
         date.text = finalDate
 
-        datepickerBtn.setOnClickListener {
+        datePickerBtn.setOnClickListener {
+            (activity as MainActivity?)?.closeKeyboard()
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
@@ -165,6 +206,7 @@ class AddFragment : Fragment() {
         newDream = Dream(0, "00/00/00", "empty", "empty")
 
         saveButton.setOnClickListener {
+            (activity as MainActivity?)?.closeKeyboard()
             //aggiungere un controllo dell'inserimento di titolo e descrizione
             val titleEmpty = title.text.isBlank()
             val descriptionEmpty = description.text.isBlank()
@@ -194,6 +236,9 @@ class AddFragment : Fragment() {
             }
         }
     }
+
+
 }
+
 
 

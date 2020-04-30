@@ -14,4 +14,5 @@
     <dimen name="elevation_two">12dp</dimen>
     <dimen name="description_tf">150dp</dimen>
     <dimen name="drawer_icon_size">25dp</dimen>
+    <dimen name="radius_small">8dp</dimen>
 </resources>
