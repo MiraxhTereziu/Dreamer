@@ -4,17 +4,15 @@ import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -27,7 +25,6 @@ import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.util.DATE_CLICKED
 import kotlinx.android.synthetic.main.add_fragment.*
-import java.nio.file.Files.delete
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,8 +38,10 @@ class AddFragment : Fragment() {
     private var dateClicked: String? = null
 
     private lateinit var viewModel: AddViewModel
+
     private lateinit var saveButton: Button
     private lateinit var datePickerBtn: Button
+    private lateinit var insertTagBtn: ImageButton
     private lateinit var minusBtn: FloatingActionButton
 
     private lateinit var newDream: Dream
@@ -58,10 +57,13 @@ class AddFragment : Fragment() {
     private lateinit var date: TextView
     private lateinit var description: TextView
 
+
+
     //valori data
     private var day = 0
     private var month = 0
     private var year = 0
+    private var tags = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +87,7 @@ class AddFragment : Fragment() {
 
         tagsRecycleView = view.findViewById(R.id.tags_recyclerview)
         insertTag = view.findViewById(R.id.dream_tag)
+        insertTagBtn = view.findViewById(R.id.insert_tag_btn)
         include = view.findViewById<ConstraintLayout>(R.id.toolbar_add)
         minusBtn = view.findViewById(R.id.minus_action_button)
         titleToolbar = include.findViewById<TextView>(R.id.toolbar_title_normal)
@@ -116,14 +119,43 @@ class AddFragment : Fragment() {
         return view
     }
 
-    private fun insertTags(view: View?) {
-        val tagList = mutableListOf<String>("test1","test2","test3")
+    private fun insertTags(view: View) {
+        var firstTime = true
 
-        //creo il mio adapter
-        adapterTag = TagListAdapter(requireContext(), tagList)
+        var tagSet = mutableSetOf<String>("Example")
+        adapterTag = TagListAdapter(requireContext(), tagSet.toList())
         //assegno il mio adapter alla mia RecyclerView
         tagsRecycleView.adapter = adapterTag
 
+        val emptyInputSnackbar = Snackbar.make(view, resources.getString(R.string.empty_tag), Snackbar.LENGTH_SHORT)
+        val dublicateSnackbar = Snackbar.make(view, resources.getString(R.string.duplicate_tag), Snackbar.LENGTH_SHORT)
+
+        insertTagBtn.setOnClickListener {
+            if (firstTime) {
+                if(insertTag.text.toString() != ""){
+                    tagSet = mutableSetOf<String>()
+                    firstTime = false
+                }else{
+                    emptyInputSnackbar.show()
+                }
+            }
+            //prendo in input il tag e lo aggiungo alla lista
+            val input = insertTag.text.toString()
+            if (input != "") {
+                if (tagSet.add(input).not())
+                    dublicateSnackbar.show()
+            } else {
+                emptyInputSnackbar.show()
+            }
+            //sort list
+            tags = tagSet.toMutableList()
+            //creo il mio adapter
+            adapterTag = TagListAdapter(requireContext(), tags)
+            //assegno il mio adapter alla mia RecyclerView
+            tagsRecycleView.adapter = adapterTag
+            //resetto la textfield per inserire i tag
+            insertTag.setText("")
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -203,7 +235,7 @@ class AddFragment : Fragment() {
 
     private fun saveDream(view: View) {
         //inizializzo con valori di default il mio sogno
-        newDream = Dream(0, "00/00/00", "empty", "empty")
+        newDream = Dream(0, "00/00/00", "empty", "empty",listOf<String>())
 
         saveButton.setOnClickListener {
             (activity as MainActivity?)?.closeKeyboard()
@@ -213,11 +245,11 @@ class AddFragment : Fragment() {
 
             //controllo presenza dati nei vari form e display di un toast nel caso non ci siano
             if (titleEmpty && descriptionEmpty) {
-                Snackbar.make(view, "Insert title and description", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, resources.getString(R.string.insert_t_d), Snackbar.LENGTH_SHORT).show()
             } else if (titleEmpty) {
-                Snackbar.make(view, "Insert title", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, resources.getString(R.string.insert_t), Snackbar.LENGTH_SHORT).show()
             } else if (descriptionEmpty) {
-                Snackbar.make(view, "Insert description", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, resources.getString(R.string.insert_d), Snackbar.LENGTH_SHORT).show()
             } else {
                 //aggiungere metodo per chiudere la tastiera ad inserimento completato
 
@@ -226,17 +258,17 @@ class AddFragment : Fragment() {
                     0,
                     date = date.text.toString(),
                     title = title.text.toString(),
-                    description = description.text.toString()
+                    description = description.text.toString(),
+                    tags = tags
                 )
                 //inserisco il nuovo sogno nel db ad aggiorno il tutto
                 viewModel.newDream(newDream)
                 //momentaneamente rimando alla home
                 findNavController().navigate(R.id.home_dest)
-                Snackbar.make(view, "Added ${newDream.title}", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, "${resources.getString(R.string.insert_t_d)} ${newDream.title}", Snackbar.LENGTH_SHORT).show()
             }
         }
     }
-
 
 }
 

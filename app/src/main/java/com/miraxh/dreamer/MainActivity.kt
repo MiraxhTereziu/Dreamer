@@ -64,13 +64,6 @@ class MainActivity() : AppCompatActivity() {
         nav_view.setNavigationItemSelectedListener(navigationListener)
         //inizializzazione classe di lifecycle per gestire gli stati dell'applicazione
         lifecycle.addObserver(MyLifeCycleObserver())
-
-        //how to make status bar full trasperent
-        /*val w: Window = window // in Activity's onCreate() for instance
-        w.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )*/
     }
 
     fun openDrawer() {

@@ -20,4 +20,10 @@
     <string name="dream_title_hint">Dream title</string>
     <string name="insert_dream_tags_hint">Insert dream tags</string>
     <string name="empty"></string>
+    <string name="duplicate_tag">Tag already inserted</string>
+    <string name="empty_tag">Can\'t insert empty tag</string>
+    <string name="insert_t_d">Insert title and description</string>
+    <string name="insert_t">Insert title</string>
+    <string name="insert_d">Insert description</string>
+    <string name="add">Added</string>
 </resources>

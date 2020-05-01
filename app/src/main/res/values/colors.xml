@@ -9,5 +9,5 @@
     <color name="colorSecondaryDark">#FF8F63</color>
     <color name="colorWhite">#FFFEFE</color>
     <color name="almostBlack">#0E011E</color>
-
+    <color name="colorExtra">#6ED1C0</color>
 </resources>

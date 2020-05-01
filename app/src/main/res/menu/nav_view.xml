@@ -20,7 +20,6 @@
         android:icon="@drawable/ic_music"/>
     <item
         android:id="@+id/settings_item"
-
         android:title="@string/settings_title"
         android:icon="@drawable/ic_settings"/>
 </menu>

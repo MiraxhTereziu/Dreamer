@@ -9,10 +9,12 @@
     <dimen name="text_margin">8dp</dimen>
     <dimen name="general_margin">16dp</dimen>
     <dimen name="general_small_margin">8dp</dimen>
-    <dimen name="dream_tile_size">168dp</dimen>
+    <dimen name="dream_tile_size">200dp</dimen>
     <dimen name="elevation_one">10dp</dimen>
     <dimen name="elevation_two">12dp</dimen>
     <dimen name="description_tf">150dp</dimen>
     <dimen name="drawer_icon_size">25dp</dimen>
     <dimen name="radius_small">8dp</dimen>
+    <dimen name="tag_insert_width">280dp</dimen>
+    <dimen name="tag_height">40dp</dimen>
 </resources>

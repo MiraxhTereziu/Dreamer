@@ -1,11 +1,10 @@
 package com.miraxh.dreamer.data.dream
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 
 @Database(entities = [Dream::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class DreamDatabase : RoomDatabase() {
 
     abstract fun dreamDAO(): DreamDAO
@@ -26,5 +25,7 @@ abstract class DreamDatabase : RoomDatabase() {
             }
             return INSTANCE!!
         }
+
     }
+
 }

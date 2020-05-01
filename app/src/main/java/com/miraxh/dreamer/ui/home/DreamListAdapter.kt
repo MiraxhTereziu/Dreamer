@@ -1,10 +1,12 @@
 package com.miraxh.dreamer.ui.home
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.miraxh.dreamer.R
@@ -21,6 +23,11 @@ class DreamListAdapter(
         val date = itemView?.findViewById<TextView>(R.id.date_label)
         val title = itemView?.findViewById<TextView>(R.id.title_label)
         val description = itemView?.findViewById<TextView>(R.id.description_label)
+        //tags
+        val tagwrap =  itemView?.findViewById<LinearLayout>(R.id.tag_wrap)
+        val tag1 = itemView?.findViewById<Button>(R.id.tag1)
+        val tag2 = itemView?.findViewById<Button>(R.id.tag2)
+        val tag3 = itemView?.findViewById<Button>(R.id.tag3)
     }
 
     override fun onCreateViewHolder(
@@ -40,6 +47,29 @@ class DreamListAdapter(
             date?.text = dream.date
             title?.text = dream.title
             description?.text = dream.description
+
+            val textTag1 = dream.tags[0]
+            if(textTag1!=""){
+                tag1.visibility = View.VISIBLE
+                tag1.text = textTag1
+                val textTag2 = dream.tags[1]
+                if (textTag2!=""){
+                    tag2.visibility = View.VISIBLE
+                    tag2.text = textTag2
+                    val textTag3 = dream.tags[2]
+                    if (textTag3!=""){
+                        tag3.visibility = View.VISIBLE
+                        tag3.text = textTag3
+                    }else{
+                        tag3.visibility = View.INVISIBLE
+                    }
+                }else{
+                    tag2.visibility = View.INVISIBLE
+                    tag3.visibility = View.INVISIBLE
+                }
+            }else{
+                tagwrap.visibility = View.GONE
+            }
         }
     }
 }

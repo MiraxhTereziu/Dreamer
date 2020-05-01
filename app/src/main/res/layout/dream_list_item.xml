@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -26,7 +27,7 @@
         android:layout_marginRight="@dimen/general_small_margin"
         android:text="@string/deafult_dream_date"
         android:theme="@style/dream_date"
-        android:translationZ="90dp"
+        android:translationZ="80dp"
         app:layout_constraintLeft_toLeftOf="@+id/backgroud_tile"
         app:layout_constraintTop_toTopOf="@+id/backgroud_tile" />
 
@@ -40,7 +41,7 @@
         android:lines="1"
         android:text="@string/default_dream_titile"
         android:theme="@style/dream_title"
-        android:translationZ="90dp"
+        android:translationZ="80dp"
         app:layout_constraintBottom_toTopOf="@+id/description_label"
         app:layout_constraintLeft_toLeftOf="@+id/backgroud_tile"
         app:layout_constraintRight_toRightOf="@id/backgroud_tile"
@@ -54,14 +55,57 @@
         android:layout_marginTop="@dimen/general_small_margin"
         android:layout_marginRight="@dimen/general_margin"
         android:layout_marginBottom="@dimen/general_margin"
-        android:lines="4"
         android:justificationMode="inter_word"
+        android:lines="6"
         android:text="@string/lorem_ipsum"
         android:theme="@style/dream_description"
-        android:translationZ="90dp"
-        app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
+        android:translationZ="80dp"
+        app:layout_constraintBottom_toTopOf="@id/tag_wrap"
         app:layout_constraintLeft_toLeftOf="@+id/backgroud_tile"
         app:layout_constraintRight_toRightOf="@+id/backgroud_tile"
         app:layout_constraintTop_toBottomOf="@+id/title_label" />
+
+    <LinearLayout
+        android:translationZ="90dp"
+        android:id="@+id/tag_wrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
+        app:layout_constraintLeft_toLeftOf="@id/backgroud_tile"
+        app:layout_constraintRight_toRightOf="@+id/backgroud_tile"
+        >
+
+        <Button
+            android:id="@+id/tag1"
+            style="@style/tag_dream_button"
+            android:layout_marginLeft="@dimen/general_margin"
+            android:layout_marginRight="@dimen/general_small_margin"
+            android:text="tag1"
+            app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
+            app:layout_constraintLeft_toLeftOf="@+id/backgroud_tile"
+            app:layout_constraintRight_toLeftOf="@id/tag2" />
+
+        <Button
+            android:id="@+id/tag2"
+            style="@style/tag_dream_button"
+            android:layout_marginLeft="@dimen/general_small_margin"
+            android:layout_marginRight="@dimen/general_small_margin"
+            android:text="tag2"
+            app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
+            app:layout_constraintLeft_toRightOf="@+id/tag1"
+            app:layout_constraintRight_toLeftOf="@+id/tag3" />
+
+        <Button
+            android:id="@+id/tag3"
+            style="@style/tag_dream_button"
+            android:layout_marginLeft="@dimen/general_small_margin"
+            android:layout_marginRight="@dimen/general_margin"
+            android:text="tag3"
+            app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
+            app:layout_constraintLeft_toRightOf="@+id/tag2"
+            app:layout_constraintRight_toRightOf="@id/backgroud_tile" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
