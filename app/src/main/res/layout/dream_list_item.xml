@@ -73,6 +73,7 @@
         app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
         app:layout_constraintLeft_toLeftOf="@id/backgroud_tile"
         app:layout_constraintRight_toRightOf="@+id/backgroud_tile"
+        android:layout_marginBottom="@dimen/general_margin"
         >
 
         <Button

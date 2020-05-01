@@ -85,7 +85,6 @@
         <item name="android:lines">1</item>
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">@dimen/tag_height</item>
-        <item name="android:layout_marginBottom">@dimen/general_margin</item>
         <item name="android:background">@drawable/bg_savebutton</item>
         <item name="drawableLeftCompat">@drawable/ic_target</item>
         <item name="android:paddingStart">@dimen/general_small_margin</item>
