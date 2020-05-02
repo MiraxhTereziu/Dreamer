@@ -8,15 +8,25 @@
     <Button
         android:id="@+id/backgroud_tile"
         android:layout_width="0dp"
-        android:layout_height="@dimen/dream_tile_size"
+        android:layout_height="0dp"
         android:layout_marginLeft="@dimen/general_margin"
         android:layout_marginTop="@dimen/general_margin"
         android:layout_marginRight="@dimen/general_margin"
         android:background="@drawable/bg_dreamtile"
+        android:paddingBottom="@dimen/general_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rating_display"
+        android:layout_width="@dimen/rating_size"
+        android:layout_height="@dimen/rating_size"
+        android:text="5"
+        android:theme="@style/display_rating"
+        app:layout_constraintRight_toRightOf="@id/backgroud_tile"
+        app:layout_constraintTop_toTopOf="@id/backgroud_tile" />
 
     <TextView
         android:id="@+id/date_label"
@@ -50,13 +60,12 @@
     <TextView
         android:id="@+id/description_label"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/general_margin"
         android:layout_marginTop="@dimen/general_small_margin"
         android:layout_marginRight="@dimen/general_margin"
-        android:layout_marginBottom="@dimen/general_margin"
+        android:layout_marginBottom="@dimen/general_small_margin"
         android:justificationMode="inter_word"
-        android:lines="6"
         android:text="@string/lorem_ipsum"
         android:theme="@style/dream_description"
         android:translationZ="80dp"
@@ -66,15 +75,14 @@
         app:layout_constraintTop_toBottomOf="@+id/title_label" />
 
     <LinearLayout
-        android:translationZ="90dp"
         android:id="@+id/tag_wrap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/general_small_margin"
+        android:translationZ="90dp"
         app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
         app:layout_constraintLeft_toLeftOf="@id/backgroud_tile"
-        app:layout_constraintRight_toRightOf="@+id/backgroud_tile"
-        android:layout_marginBottom="@dimen/general_margin"
-        >
+        app:layout_constraintRight_toRightOf="@+id/backgroud_tile">
 
         <Button
             android:id="@+id/tag1"
@@ -105,6 +113,7 @@
             app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
             app:layout_constraintLeft_toRightOf="@+id/tag2"
             app:layout_constraintRight_toRightOf="@id/backgroud_tile" />
+
 
     </LinearLayout>
 

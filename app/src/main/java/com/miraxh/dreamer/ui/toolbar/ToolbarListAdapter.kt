@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.Day
 
-class ToolbarRecycleAdapter(
+class ToolbarListAdapter(
     val context: Context,
     val days: List<Day>,
     val itemListener: DayListener
-) : RecyclerView.Adapter<ToolbarRecycleAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ToolbarListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val day = itemView?.findViewById<TextView>(R.id.day)

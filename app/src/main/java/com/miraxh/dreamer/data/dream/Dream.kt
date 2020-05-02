@@ -12,5 +12,6 @@ data class Dream(
     val date: String,
     val title: String,
     val description: String,
-    val tags: List<String>
+    val tags: List<String>,
+    val rate: Float
 )

@@ -91,4 +91,13 @@
         <item name="android:paddingEnd">@dimen/general_small_margin</item>
     </style>
 
+    <style name="display_rating">
+        <item name="android:background">@drawable/bg_rating</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:translationZ">90dp</item>
+    </style>
+
 </resources>

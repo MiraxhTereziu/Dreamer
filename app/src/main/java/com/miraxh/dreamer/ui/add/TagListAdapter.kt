@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.data.Day
+import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
 
 class TagListAdapter(
     val context: Context,
-    val tags: List<String>
+    val tags: List<String>,
+    val itemListener: TagListener
 ): RecyclerView.Adapter<TagListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -33,5 +36,13 @@ class TagListAdapter(
         with(holder) {
             tagBtn?.text = tag
         }
+
+        holder.itemView.setOnClickListener{
+            itemListener.onTagItemListener(tag,holder.layoutPosition)
+        }
+    }
+
+    interface TagListener {
+        fun onTagItemListener(tag: String, position: Int)
     }
 }

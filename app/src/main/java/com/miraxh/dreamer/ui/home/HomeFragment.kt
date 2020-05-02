@@ -16,15 +16,15 @@ import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.Day
 import com.miraxh.dreamer.data.dream.Dream
-import com.miraxh.dreamer.ui.toolbar.ToolbarRecycleAdapter
+import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
 import com.miraxh.dreamer.util.DATE_CLICKED
 import kotlinx.android.synthetic.main.home_fragment.*
 
-class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
+class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
 
     private lateinit var daysRecycleView: RecyclerView
     private lateinit var dreamRecyclerView: RecyclerView
-    private lateinit var adapterDay: ToolbarRecycleAdapter
+    private lateinit var adapterDay: ToolbarListAdapter
     private lateinit var adapterDream: DreamListAdapter
     private lateinit var viewModel: HomeViewModel
     private lateinit var addActionButton: FloatingActionButton
@@ -89,7 +89,7 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
         //mi metto in ascolto per eventuali cambiamenti alla lista dei sogni
         viewModel.daysData.observe(viewLifecycleOwner, Observer {
             //in caso un update della lista dei sogni entro in questo metodo dove mi viene passata la nuova lista
-            adapterDay = ToolbarRecycleAdapter(requireContext(), it, this)
+            adapterDay = ToolbarListAdapter(requireContext(), it, this)
             //assegno il mio adapter alla mia RecyclerView
             daysRecycleView.adapter = adapterDay
             //ripristino lo stato di scorrimento della mia agenda nel toolbar
@@ -105,7 +105,7 @@ class HomeFragment : Fragment(), ToolbarRecycleAdapter.DayListener {
         val args = Bundle()
         args.putString(DATE_CLICKED,day.date)
         findNavController().navigate(R.id.add_dest,args)
-        viewModel.changeState(day)
+        //viewModel.changeState(day)
     }
 
     //metodo per salvare lo stato dello scorrimento della lista

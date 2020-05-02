@@ -17,8 +17,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -130,14 +129,13 @@
                         android:id="@+id/insert_tag_btn"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:translationZ="90dp"
-                        android:src="@drawable/ic_forward"
                         android:layout_marginTop="19dp"
                         android:layout_marginRight="@dimen/general_margin"
                         android:background="@color/colorPrimary"
+                        android:src="@drawable/ic_forward"
+                        android:translationZ="90dp"
                         app:layout_constraintRight_toRightOf="@+id/layout_dream_tag"
-                        app:layout_constraintTop_toTopOf="@id/layout_dream_tag"
-                        />
+                        app:layout_constraintTop_toTopOf="@id/layout_dream_tag" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_dream_tag"
@@ -173,13 +171,56 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_marginHorizontal="@dimen/general_margin"
+                        android:animationCache="true"
                         android:background="@drawable/bg_text_bottom"
+                        android:elevation="90dp"
+                        android:fadeScrollbars="true"
                         android:orientation="horizontal"
                         android:paddingHorizontal="2dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="@id/tag_bg"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tag_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/text_field_height"
+                        android:layout_marginHorizontal="@dimen/general_margin"
+                        android:background="@drawable/bg_text_bottom"
+                        android:paddingHorizontal="2dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/layout_dream_tag" />
+
+                    <TextView
+                        android:id="@+id/rating_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/text_field_height"
+                        android:layout_marginHorizontal="@dimen/general_margin"
+                        android:layout_marginTop="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_white"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/general_margin"
+                        android:text="Rate dream"
+                        android:textSize="16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tag_bg" />
+
+                    <RatingBar
+                        android:id="@+id/rating_dream"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/general_margin"
+                        android:numStars="5"
+                        android:paddingTop="@dimen/general_small_margin"
+                        android:rating="2.5"
+                        app:layout_constraintBottom_toBottomOf="@id/rating_bg"
+                        app:layout_constraintRight_toRightOf="@id/rating_bg"
+                        app:layout_constraintTop_toTopOf="@id/rating_bg" />
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>

@@ -8,10 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -29,7 +26,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddFragment : Fragment() {
+class AddFragment : Fragment(), TagListAdapter.TagListener {
 
     companion object {
         fun newInstance() = AddFragment()
@@ -47,6 +44,7 @@ class AddFragment : Fragment() {
     private lateinit var newDream: Dream
     private lateinit var include: ConstraintLayout
     private lateinit var drawerButton: ImageView
+    private lateinit var ratingDream: RatingBar
 
     private lateinit var tagsRecycleView: RecyclerView
     private lateinit var adapterTag: TagListAdapter
@@ -57,13 +55,12 @@ class AddFragment : Fragment() {
     private lateinit var date: TextView
     private lateinit var description: TextView
 
-
-
     //valori data
     private var day = 0
     private var month = 0
     private var year = 0
     private var tags = mutableListOf<String>()
+    var tagSet = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,17 +71,14 @@ class AddFragment : Fragment() {
             Log.i(DATE_CLICKED, dateClicked)
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.add_fragment, container, false)
 
-        view.setOnClickListener {
-            (activity as MainActivity?)?.closeKeyboard()
-        }
-
+        //inizializzazione componenti
+        ratingDream = view.findViewById(R.id.rating_dream)
         tagsRecycleView = view.findViewById(R.id.tags_recyclerview)
         insertTag = view.findViewById(R.id.dream_tag)
         insertTagBtn = view.findViewById(R.id.insert_tag_btn)
@@ -118,12 +112,18 @@ class AddFragment : Fragment() {
 
         return view
     }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        //imposto set on click listener
+        setDatePicker()
+        //inizializzazione della toolbar
+        initToolbar()
+        //minus back btn
+        initMinusBtn()
+    }
 
     private fun insertTags(view: View) {
-        var firstTime = true
-
-        var tagSet = mutableSetOf<String>("Example")
-        adapterTag = TagListAdapter(requireContext(), tagSet.toList())
+        adapterTag = TagListAdapter(requireContext(), tagSet.toList(),this)
         //assegno il mio adapter alla mia RecyclerView
         tagsRecycleView.adapter = adapterTag
 
@@ -131,14 +131,6 @@ class AddFragment : Fragment() {
         val dublicateSnackbar = Snackbar.make(view, resources.getString(R.string.duplicate_tag), Snackbar.LENGTH_SHORT)
 
         insertTagBtn.setOnClickListener {
-            if (firstTime) {
-                if(insertTag.text.toString() != ""){
-                    tagSet = mutableSetOf<String>()
-                    firstTime = false
-                }else{
-                    emptyInputSnackbar.show()
-                }
-            }
             //prendo in input il tag e lo aggiungo alla lista
             val input = insertTag.text.toString()
             if (input != "") {
@@ -150,22 +142,12 @@ class AddFragment : Fragment() {
             //sort list
             tags = tagSet.toMutableList()
             //creo il mio adapter
-            adapterTag = TagListAdapter(requireContext(), tags)
+            adapterTag = TagListAdapter(requireContext(), tags,this)
             //assegno il mio adapter alla mia RecyclerView
             tagsRecycleView.adapter = adapterTag
             //resetto la textfield per inserire i tag
             insertTag.setText("")
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //imposto set on click listener
-        setDatePicker()
-        //inizializzazione della toolbar
-        initToolbar()
-        //minus back btn
-        initMinusBtn()
     }
 
     private fun initMinusBtn() {
@@ -235,7 +217,7 @@ class AddFragment : Fragment() {
 
     private fun saveDream(view: View) {
         //inizializzo con valori di default il mio sogno
-        newDream = Dream(0, "00/00/00", "empty", "empty",listOf<String>())
+        newDream = Dream(0, "00/00/00", "empty", "empty",listOf<String>(),2.5F)
 
         saveButton.setOnClickListener {
             (activity as MainActivity?)?.closeKeyboard()
@@ -259,7 +241,8 @@ class AddFragment : Fragment() {
                     date = date.text.toString(),
                     title = title.text.toString(),
                     description = description.text.toString(),
-                    tags = tags
+                    tags = tags,
+                    rate = ratingDream.rating
                 )
                 //inserisco il nuovo sogno nel db ad aggiorno il tutto
                 viewModel.newDream(newDream)
@@ -270,6 +253,15 @@ class AddFragment : Fragment() {
         }
     }
 
+    override fun onTagItemListener(tag: String, position: Int) {
+        //elimino tag
+        tagSet.remove(tag)
+        tags = tagSet.toMutableList()
+        //creo il mio adapter
+        adapterTag = TagListAdapter(requireContext(), tags,this)
+        //assegno il mio adapter alla mia RecyclerView
+        tagsRecycleView.adapter = adapterTag
+    }
 }
 
 
