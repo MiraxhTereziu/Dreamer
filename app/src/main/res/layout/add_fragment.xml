@@ -220,6 +220,32 @@
                         app:layout_constraintRight_toRightOf="@id/rating_bg"
                         app:layout_constraintTop_toTopOf="@id/rating_bg" />
 
+                    <TextView
+                        android:id="@+id/bg_recording"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginHorizontal="@dimen/general_margin"
+                        android:layout_marginTop="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_white"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/general_margin"
+                        android:textSize="16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rating_bg" />
+
+                    <Button
+                        android:id="@+id/recording_btn"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="@dimen/general_margin"
+                        android:background="@drawable/bg_recordingbtn"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Start"
+                        app:layout_constraintBottom_toBottomOf="@id/bg_recording"
+                        app:layout_constraintLeft_toLeftOf="@id/bg_recording"
+                        app:layout_constraintTop_toTopOf="@id/bg_recording" />
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

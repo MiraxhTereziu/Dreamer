@@ -23,7 +23,6 @@ class MainActivity() : AppCompatActivity() {
 
     lateinit var drawer : DrawerLayout
 
-    //vecchia bottom nav bar
     private val navigationListener =
         NavigationView.OnNavigationItemSelectedListener { item ->
             drawer.closeDrawer(GravityCompat.START)

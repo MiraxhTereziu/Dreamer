@@ -110,8 +110,12 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         //salvo il sogno nel db in base ai valori inseriti
         saveDream(view)
 
+        //classe per gestire la registrazione dell'audio
+        val audioHelper = AudioHelper(view,context)
+
         return view
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //imposto set on click listener
@@ -122,13 +126,58 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         initMinusBtn()
     }
 
+    private fun saveDream(view: View) {
+        //inizializzo con valori di default il mio sogno
+        newDream = Dream(0, "00/00/00", "empty", "empty", listOf<String>(), 2.5F)
+
+        saveButton.setOnClickListener {
+            (activity as MainActivity?)?.closeKeyboard()
+            //aggiungere un controllo dell'inserimento di titolo e descrizione
+            val titleEmpty = title.text.isBlank()
+            val descriptionEmpty = description.text.isBlank()
+
+            //controllo presenza dati nei vari form e display di un toast nel caso non ci siano
+            if (titleEmpty && descriptionEmpty) {
+                Snackbar.make(view, resources.getString(R.string.insert_t_d), Snackbar.LENGTH_SHORT)
+                    .show()
+            } else if (titleEmpty) {
+                Snackbar.make(view, resources.getString(R.string.insert_t), Snackbar.LENGTH_SHORT)
+                    .show()
+            } else if (descriptionEmpty) {
+                Snackbar.make(view, resources.getString(R.string.insert_d), Snackbar.LENGTH_SHORT)
+                    .show()
+            } else {
+                //recupero i dati del nuovo dream
+                newDream = Dream(
+                    0,
+                    date = date.text.toString(),
+                    title = title.text.toString(),
+                    description = description.text.toString(),
+                    tags = tags,
+                    rate = ratingDream.rating
+                )
+                //inserisco il nuovo sogno nel db ad aggiorno il tutto
+                viewModel.newDream(newDream)
+                //momentaneamente rimando alla home
+                findNavController().navigate(R.id.home_dest)
+                Snackbar.make(
+                    view,
+                    "${resources.getString(R.string.insert_t_d)} ${newDream.title}",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
     private fun insertTags(view: View) {
-        adapterTag = TagListAdapter(requireContext(), tagSet.toList(),this)
+        adapterTag = TagListAdapter(requireContext(), tagSet.toList(), this)
         //assegno il mio adapter alla mia RecyclerView
         tagsRecycleView.adapter = adapterTag
 
-        val emptyInputSnackbar = Snackbar.make(view, resources.getString(R.string.empty_tag), Snackbar.LENGTH_SHORT)
-        val dublicateSnackbar = Snackbar.make(view, resources.getString(R.string.duplicate_tag), Snackbar.LENGTH_SHORT)
+        val emptyInputSnackbar =
+            Snackbar.make(view, resources.getString(R.string.empty_tag), Snackbar.LENGTH_SHORT)
+        val dublicateSnackbar =
+            Snackbar.make(view, resources.getString(R.string.duplicate_tag), Snackbar.LENGTH_SHORT)
 
         insertTagBtn.setOnClickListener {
             //prendo in input il tag e lo aggiungo alla lista
@@ -142,7 +191,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
             //sort list
             tags = tagSet.toMutableList()
             //creo il mio adapter
-            adapterTag = TagListAdapter(requireContext(), tags,this)
+            adapterTag = TagListAdapter(requireContext(), tags, this)
             //assegno il mio adapter alla mia RecyclerView
             tagsRecycleView.adapter = adapterTag
             //resetto la textfield per inserire i tag
@@ -215,50 +264,12 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         }
     }
 
-    private fun saveDream(view: View) {
-        //inizializzo con valori di default il mio sogno
-        newDream = Dream(0, "00/00/00", "empty", "empty",listOf<String>(),2.5F)
-
-        saveButton.setOnClickListener {
-            (activity as MainActivity?)?.closeKeyboard()
-            //aggiungere un controllo dell'inserimento di titolo e descrizione
-            val titleEmpty = title.text.isBlank()
-            val descriptionEmpty = description.text.isBlank()
-
-            //controllo presenza dati nei vari form e display di un toast nel caso non ci siano
-            if (titleEmpty && descriptionEmpty) {
-                Snackbar.make(view, resources.getString(R.string.insert_t_d), Snackbar.LENGTH_SHORT).show()
-            } else if (titleEmpty) {
-                Snackbar.make(view, resources.getString(R.string.insert_t), Snackbar.LENGTH_SHORT).show()
-            } else if (descriptionEmpty) {
-                Snackbar.make(view, resources.getString(R.string.insert_d), Snackbar.LENGTH_SHORT).show()
-            } else {
-                //aggiungere metodo per chiudere la tastiera ad inserimento completato
-
-                //recupero i dati del nuovo dream
-                newDream = Dream(
-                    0,
-                    date = date.text.toString(),
-                    title = title.text.toString(),
-                    description = description.text.toString(),
-                    tags = tags,
-                    rate = ratingDream.rating
-                )
-                //inserisco il nuovo sogno nel db ad aggiorno il tutto
-                viewModel.newDream(newDream)
-                //momentaneamente rimando alla home
-                findNavController().navigate(R.id.home_dest)
-                Snackbar.make(view, "${resources.getString(R.string.insert_t_d)} ${newDream.title}", Snackbar.LENGTH_SHORT).show()
-            }
-        }
-    }
-
     override fun onTagItemListener(tag: String, position: Int) {
         //elimino tag
         tagSet.remove(tag)
         tags = tagSet.toMutableList()
         //creo il mio adapter
-        adapterTag = TagListAdapter(requireContext(), tags,this)
+        adapterTag = TagListAdapter(requireContext(), tags, this)
         //assegno il mio adapter alla mia RecyclerView
         tagsRecycleView.adapter = adapterTag
     }

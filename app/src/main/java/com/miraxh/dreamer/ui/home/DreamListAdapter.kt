@@ -54,16 +54,19 @@ class DreamListAdapter(
             title?.text = dream.title
             description?.text = dream.description
             showTags(dream)
+            setRating(dream)
+        }
+    }
 
-            var rate = dream.rate
-            var rateInt: Int = -1
+    private fun ViewHolder.setRating(dream: Dream) {
+        var rate = dream.rate
+        var rateInt: Int = -1
 
-            if((rate%1F)==0F){
-                rateInt = rate.toInt()
-                rating_display.text = rateInt.toString()
-            }else{
-                rating_display.text = rate.toString()
-            }
+        if ((rate % 1F) == 0F) {
+            rateInt = rate.toInt()
+            rating_display.text = rateInt.toString()
+        } else {
+            rating_display.text = rate.toString()
         }
     }
 
