@@ -25,7 +25,5 @@ abstract class DreamDatabase : RoomDatabase() {
             }
             return INSTANCE!!
         }
-
     }
-
 }

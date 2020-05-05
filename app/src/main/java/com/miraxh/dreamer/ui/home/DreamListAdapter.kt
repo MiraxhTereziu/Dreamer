@@ -55,6 +55,7 @@ class DreamListAdapter(
             description?.text = dream.description
             showTags(dream)
             setRating(dream)
+            Log.i("test_audio_save", dream.audioFile)
         }
     }
 

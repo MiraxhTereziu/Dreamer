@@ -61,7 +61,6 @@
         <item name="colorControlActivated">@color/colorSecondaryDark</item>
         <item name="colorControlHighlight">@color/colorSecondaryDark</item>
         <item name="android:textColorHint">@color/colorSecondaryDark</item>
-        <item name="textColor">@color/colorSecondaryDark</item>
     </style>
 
     <style name="text_input_descr">
@@ -75,7 +74,6 @@
         <item name="colorControlActivated">@color/colorExtra</item>
         <item name="colorControlHighlight">@color/colorExtra</item>
         <item name="android:textColorHint">@color/colorExtra</item>
-        <item name="textColor">@color/colorExtra</item>
     </style>
 
     <style name="tag_dream_button">

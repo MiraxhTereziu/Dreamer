@@ -54,6 +54,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
     private lateinit var title: TextView
     private lateinit var date: TextView
     private lateinit var description: TextView
+    private lateinit var audioHelper: AudioHelper
 
     //valori data
     private var day = 0
@@ -111,7 +112,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         saveDream(view)
 
         //classe per gestire la registrazione dell'audio
-        val audioHelper = AudioHelper(view,context)
+        audioHelper = AudioHelper(view,context,null)
 
         return view
     }
@@ -128,7 +129,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
 
     private fun saveDream(view: View) {
         //inizializzo con valori di default il mio sogno
-        newDream = Dream(0, "00/00/00", "empty", "empty", listOf<String>(), 2.5F)
+        newDream = Dream(0, "00/00/00", "empty", "empty", listOf<String>(), 2.5F,"")
 
         saveButton.setOnClickListener {
             (activity as MainActivity?)?.closeKeyboard()
@@ -154,7 +155,8 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
                     title = title.text.toString(),
                     description = description.text.toString(),
                     tags = tags,
-                    rate = ratingDream.rating
+                    rate = ratingDream.rating,
+                    audioFile = audioHelper.getUriAudioFile() ?: "null"
                 )
                 //inserisco il nuovo sogno nel db ad aggiorno il tutto
                 viewModel.newDream(newDream)

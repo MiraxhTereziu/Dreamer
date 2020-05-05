@@ -6,8 +6,5 @@
         <corners
             android:topLeftRadius="@dimen/radius_small"
             android:topRightRadius="@dimen/radius_small" />
-        <stroke
-            android:width="2dp"
-            android:color="@color/colorExtra" />
     </shape>
 </inset>

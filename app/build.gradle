@@ -13,7 +13,6 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -46,8 +45,6 @@ dependencies {
     implementation "android.arch.lifecycle:viewmodel:1.1.1"
     implementation "android.arch.lifecycle:livedata:1.1.1"
     implementation  "androidx.preference:preference-ktx:1.1.1"
-
-    implementation 'com.github.pchmn:MaterialChipsInput:1.0.8'
 
     def room_version = "2.2.5"
     implementation "androidx.room:room-runtime:$room_version"
