@@ -1,6 +1,8 @@
 package com.miraxh.dreamer.ui.add
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
@@ -11,8 +13,10 @@ import android.widget.Button
 import android.widget.Chronometer
 import android.widget.ImageButton
 import android.widget.SeekBar
+import androidx.core.app.ActivityCompat.requestPermissions
 import com.google.android.material.snackbar.Snackbar
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.util.PERMISSION_CODE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

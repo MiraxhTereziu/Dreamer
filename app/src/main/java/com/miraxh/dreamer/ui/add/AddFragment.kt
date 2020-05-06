@@ -21,7 +21,6 @@ import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.util.DATE_CLICKED
-import kotlinx.android.synthetic.main.add_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,10 +35,10 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
 
     private lateinit var viewModel: AddViewModel
 
-    private lateinit var saveButton: Button
+    private lateinit var saveButton: FloatingActionButton
     private lateinit var datePickerBtn: Button
     private lateinit var insertTagBtn: ImageButton
-    private lateinit var minusBtn: FloatingActionButton
+    private lateinit var cancelBtn: TextView
 
     private lateinit var newDream: Dream
     private lateinit var include: ConstraintLayout
@@ -61,7 +60,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
     private var month = 0
     private var year = 0
     private var tags = mutableListOf<String>()
-    var tagSet = mutableSetOf<String>()
+    private var tagSet = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,14 +76,13 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.add_fragment, container, false)
-
         //inizializzazione componenti
         ratingDream = view.findViewById(R.id.rating_dream)
         tagsRecycleView = view.findViewById(R.id.tags_recyclerview)
         insertTag = view.findViewById(R.id.dream_tag)
         insertTagBtn = view.findViewById(R.id.insert_tag_btn)
         include = view.findViewById<ConstraintLayout>(R.id.toolbar_add)
-        minusBtn = view.findViewById(R.id.minus_action_button)
+        cancelBtn = view.findViewById(R.id.cancel_btn)
         titleToolbar = include.findViewById<TextView>(R.id.toolbar_title_normal)
         drawerButton = include.findViewById<ImageView>(R.id.drawer_icon_normal)
 
@@ -93,7 +91,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
 
         //inizializzo i miei componenti da cui andrò a recuperare i dati
         title = view.findViewById<TextView>(R.id.dream_title)
-        date = view.findViewById<TextView>(R.id.display_date)
+        date = view.findViewById<TextView>(R.id.cancel_btn)
         description = view.findViewById<TextView>(R.id.dream_description)
 
         //inizializzo viewModel
@@ -112,8 +110,8 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         saveDream(view)
 
         //classe per gestire la registrazione dell'audio
-        audioHelper = AudioHelper(view,context,null)
 
+        audioHelper = AudioHelper(view,context,null)
         return view
     }
 
@@ -151,7 +149,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
                 //recupero i dati del nuovo dream
                 newDream = Dream(
                     0,
-                    date = date.text.toString(),
+                    date = datePickerBtn.text.toString(),
                     title = title.text.toString(),
                     description = description.text.toString(),
                     tags = tags,
@@ -202,7 +200,8 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
     }
 
     private fun initMinusBtn() {
-        minusBtn.setOnClickListener {
+        cancelBtn.setOnClickListener {
+            (activity as MainActivity?)?.closeKeyboard()
             findNavController().navigateUp()
         }
     }
@@ -237,14 +236,14 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         var finalDate = "$day/$month/$year"
 
 
-        date.text = finalDate
+        datePickerBtn.text = finalDate
 
         datePickerBtn.setOnClickListener {
             (activity as MainActivity?)?.closeKeyboard()
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    display_date.text = "$dayOfMonth/${month + 1}/$year"
+                    datePickerBtn.text = "$dayOfMonth/${month + 1}/$year"
                 },
                 year,
                 month,
@@ -253,6 +252,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
             datePickerDialog.show()
             //datePickerDialog.window?.setBackgroundDrawableResource(colorPrimary)
             val date = Date()
+
             //imposta la ma data massima, ma mi sposto la data di "oggi" alla data massima
             datePickerDialog.datePicker.maxDate = date.time
 

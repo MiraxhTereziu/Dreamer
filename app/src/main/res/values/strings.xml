@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Dreamer</string>
-    <string name="add_toolbar_title">Add new dream</string>
+    <string name="add_toolbar_title">New dream</string>
     <string name="diary_title">Diary</string>
     <string name="stats_title">Statistics</string>
     <string name="add_title">Add new dream</string>
@@ -26,4 +26,5 @@
     <string name="insert_t">Insert title</string>
     <string name="insert_d">Insert description</string>
     <string name="add">Added</string>
+    <string name="cancel_btn_text">Cancel</string>
 </resources>

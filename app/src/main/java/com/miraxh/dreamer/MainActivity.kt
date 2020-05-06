@@ -32,7 +32,7 @@ class MainActivity() : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.stats_item -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.stats_dest)
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.canvasFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.add_item -> {

@@ -1,7 +1,9 @@
 package com.miraxh.dreamer.ui.home
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +14,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.Day
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
 import com.miraxh.dreamer.util.DATE_CLICKED
+import com.miraxh.dreamer.util.PERMISSION
+import com.miraxh.dreamer.util.PERMISSION_CODE
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
@@ -31,9 +36,17 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
 
     private lateinit var daysState: Parcelable
     private lateinit var dreamState: Parcelable
+    private var creationPermission = false
 
     companion object {
         fun newInstance() = HomeFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            creationPermission = it.getBoolean(PERMISSION)
+        }
     }
 
     override fun onCreateView(
@@ -59,7 +72,41 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
         initToolbar()
 
         addActionButton.setOnClickListener {
-            findNavController().navigate(R.id.add_dest)
+            if (creationPermission){
+                findNavController().navigate(R.id.add_dest)
+            }else{
+                checkPermission()
+            }
+        }
+    }
+
+    private fun checkPermission(){
+        Log.i("permission_test","request")
+        requestPermissions(
+            arrayOf(
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.RECORD_AUDIO
+            ),
+            PERMISSION_CODE
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == PERMISSION_CODE) {
+            //controllo
+            creationPermission = grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED
+            if (creationPermission==false){
+                view?.let {
+                    Snackbar.make(it, "You can't use this function without permission", Snackbar.LENGTH_SHORT)
+                        .show()
+                }
+            }
         }
     }
 
@@ -104,8 +151,12 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
         //cambio lo stato di un particolare giorno dell'agenda in caso di click (vecchia implementazione)
         val args = Bundle()
         args.putString(DATE_CLICKED,day.date)
-        findNavController().navigate(R.id.add_dest,args)
-        //viewModel.changeState(day)
+
+        if (creationPermission){
+            findNavController().navigate(R.id.add_dest,args)
+        }else{
+            checkPermission()
+        }
     }
 
     //metodo per salvare lo stato dello scorrimento della lista
