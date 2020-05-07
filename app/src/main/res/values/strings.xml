@@ -27,4 +27,9 @@
     <string name="insert_d">Insert description</string>
     <string name="add">Added</string>
     <string name="cancel_btn_text">Cancel</string>
+    <string name="thick_label_seekbar">Thick</string>
+    <string name="thin_label_seekar">Thin</string>
+    <string name="erase_label">Eraser</string>
+    <string name="undo_label_palette">Undo</string>
+    <string name="reset_label_palette">Reset</string>
 </resources>

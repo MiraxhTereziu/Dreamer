@@ -6,3 +6,4 @@ const val LIFECYCLE_TAG = "lifecycle_log"
 const val DATE_CLICKED = "dateClicked"
 const val PERMISSION_CODE = 1001
 const val PERMISSION = "creationPermission"
+const val STROKE_WIDTH = 14f

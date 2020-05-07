@@ -134,7 +134,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
             //aggiungere un controllo dell'inserimento di titolo e descrizione
             val titleEmpty = title.text.isBlank()
             val descriptionEmpty = description.text.isBlank()
-
             //controllo presenza dati nei vari form e display di un toast nel caso non ci siano
             if (titleEmpty && descriptionEmpty) {
                 Snackbar.make(view, resources.getString(R.string.insert_t_d), Snackbar.LENGTH_SHORT)

@@ -1,33 +1,34 @@
 package com.miraxh.dreamer.ui.draw
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.Rect
+import android.graphics.*
+import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.content.res.ResourcesCompat
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.util.STROKE_WIDTH
+import kotlinx.android.synthetic.main.fragment_canvas.view.*
 
-// Stroke width for the the paint.
-private const val STROKE_WIDTH = 12f
-
-class CanvasHelper(context: Context) : View(context) {
+class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     // Holds the path you are currently drawing.
     private var path = Path()
 
-    private val drawColor = ResourcesCompat.getColor(resources, R.color.colorWhite, null)
-    private val backgroundColor = ResourcesCompat.getColor(resources, R.color.colorPrimary, null)
+    private var pathList = mutableListOf<Path>()
+
+    private var drawColor = ResourcesCompat.getColor(resources, R.color.colorWhite, null)
+    private val backgroundColor =
+        ResourcesCompat.getColor(resources, R.color.colorPrimaryDark, null)
+    private var strokeThickness = STROKE_WIDTH
     private lateinit var extraCanvas: Canvas
     private lateinit var extraBitmap: Bitmap
     private lateinit var frame: Rect
 
     // Set up the paint with which to draw.
-    private val paint = Paint().apply {
+    private var paint = Paint().apply {
         color = drawColor
         // Smooths out edges of what is drawn without affecting shape.
         isAntiAlias = true
@@ -74,7 +75,7 @@ class CanvasHelper(context: Context) : View(context) {
         // Draw the bitmap that has the saved path.
         canvas.drawBitmap(extraBitmap, 0f, 0f, null)
         // Draw a frame around the canvas.
-        extraCanvas.drawRect(frame, paint)
+        //extraCanvas.drawRect(frame, paint)
     }
 
     /**
@@ -84,6 +85,8 @@ class CanvasHelper(context: Context) : View(context) {
     override fun onTouchEvent(event: MotionEvent): Boolean {
         motionTouchEventX = event.x
         motionTouchEventY = event.y
+
+        pathList.add(path)
 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> touchStart()
@@ -113,7 +116,12 @@ class CanvasHelper(context: Context) : View(context) {
         if (dx >= touchTolerance || dy >= touchTolerance) {
             // QuadTo() adds a quadratic bezier from the last point,
             // approaching control point (x1,y1), and ending at (x2,y2).
-            path.quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
+            path.quadTo(
+                currentX,
+                currentY,
+                (motionTouchEventX + currentX) / 2,
+                (motionTouchEventY + currentY) / 2
+            )
             currentX = motionTouchEventX
             currentY = motionTouchEventY
             // Draw the path in the extra bitmap to save it.
@@ -128,5 +136,65 @@ class CanvasHelper(context: Context) : View(context) {
     private fun touchUp() {
         // Reset the path so it doesn't get drawn again.
         path.reset()
+    }
+
+    fun changeColor(color: Int) {
+        when (color) {
+            0 -> drawColor = backgroundColor
+            1 -> drawColor = ResourcesCompat.getColor(resources, R.color.colorWhite, null)
+            2 -> drawColor = ResourcesCompat.getColor(resources, R.color.color2, null)
+            3 -> drawColor = ResourcesCompat.getColor(resources, R.color.color3, null)
+            4 -> drawColor = ResourcesCompat.getColor(resources, R.color.color4, null)
+            5 -> drawColor = ResourcesCompat.getColor(resources, R.color.color5, null)
+            6 -> drawColor = ResourcesCompat.getColor(resources, R.color.color6, null)
+            7 -> drawColor = ResourcesCompat.getColor(resources, R.color.color7, null)
+        }
+        setPaint()
+    }
+
+    fun changeThickness(thickness: Int) {
+        when (thickness) {
+            0 -> strokeThickness = 2f
+            1 -> strokeThickness = 6f
+            2 -> strokeThickness = 10f
+            3 -> strokeThickness = 14f
+            4 -> strokeThickness = 22f
+            5 -> strokeThickness = 30f
+            6 -> strokeThickness = 38f
+            7 -> strokeThickness = 54f
+            8 -> strokeThickness = 70f
+            9 -> strokeThickness = 96f
+            10 -> strokeThickness = 128f
+        }
+        setPaint()
+    }
+
+    fun resetCanvas() {
+        extraCanvas.drawColor(backgroundColor)
+        invalidate()
+        path.reset()
+    }
+
+    fun undo() {
+        resetCanvas()
+        Log.i("test_change_color", "undo ${pathList.size}")
+        pathList.forEach {
+            extraCanvas.drawPath(it,paint)
+        }
+
+    }
+
+    fun setPaint() {
+        paint = Paint().apply {
+            color = drawColor
+            // Smooths out edges of what is drawn without affecting shape.
+            isAntiAlias = true
+            // Dithering affects how colors with higher-precision than the device are down-sampled.
+            isDither = true
+            style = Paint.Style.STROKE // default: FILL
+            strokeJoin = Paint.Join.ROUND // default: MITER
+            strokeCap = Paint.Cap.ROUND // default: BUTT
+            strokeWidth = strokeThickness // default: Hairline-width (really thin)
+        }
     }
 }

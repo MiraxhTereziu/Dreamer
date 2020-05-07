@@ -10,11 +10,11 @@
     <color name="colorWhite">#FFFEFE</color>
     <color name="almostBlack">#0E011E</color>
     <color name="colorExtra">#6ED1C0</color>
-    <!--rating colors-->
-    <color name="rating1">#FF6856</color>
-    <color name="rating2">#FF8A48</color>
-    <color name="rating3">#FFEB78</color>
-    <color name="rating4">#C3FF64</color>
-    <color name="rating5">#00E186</color>
-    <color name="ColorGrey">#8C8C8C</color>
+    <!--palete colors-->
+    <color name="color2">#FFE066</color>
+    <color name="color3">#FFBA59</color>
+    <color name="color4">#FF8C8C</color>
+    <color name="color5">#FF99E5</color>
+    <color name="color6">#8CE2FF</color>
+    <color name="color7">#87F5B5</color>
 </resources>
