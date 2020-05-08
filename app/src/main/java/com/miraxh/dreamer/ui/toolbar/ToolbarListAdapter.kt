@@ -50,7 +50,6 @@ class ToolbarListAdapter(
                         R.color.colorWhite
                     )
                 )
-
             } else {
                 active?.visibility = View.VISIBLE
                 day?.setTextColor(
@@ -68,7 +67,6 @@ class ToolbarListAdapter(
             }
 
             holder.itemView.setOnClickListener{
-
                 itemListener.onDayItemListener(date,holder.layoutPosition)
             }
         }

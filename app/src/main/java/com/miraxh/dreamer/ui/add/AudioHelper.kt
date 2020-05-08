@@ -1,11 +1,10 @@
 package com.miraxh.dreamer.ui.add
 
-import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
+import android.os.Environment
 import android.os.SystemClock
 import android.util.Log
 import android.view.View
@@ -13,10 +12,8 @@ import android.widget.Button
 import android.widget.Chronometer
 import android.widget.ImageButton
 import android.widget.SeekBar
-import androidx.core.app.ActivityCompat.requestPermissions
 import com.google.android.material.snackbar.Snackbar
 import com.miraxh.dreamer.R
-import com.miraxh.dreamer.util.PERMISSION_CODE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,30 +27,50 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
     private var mediaPlayer: MediaPlayer? = null
 
     //mediarecorder
-    private lateinit var titleRecording: String
-    private var seekBar: SeekBar
-    private var deleteBtn: ImageButton
-    private var chronometer: Chronometer
+    lateinit var titleRecording: String
     private var mediaRecorder: MediaRecorder? = null
-    private var state: Int = 0
+    private lateinit var managementBtn: Button
+    private val folderName = "audio_files"
     private var currentPosition: Int = 0
-    private var managementBtn: Button
+    private lateinit var seekBar: SeekBar
+    private lateinit var chronometer: Chronometer
+    private lateinit var deleteBtn: ImageButton
+    var state: Int = 0
 
     init {
+        Log.i("log_restore_state", "$state")
+        //inizializzo i componenti
+        setComponents()
+        managementAudio()
+    }
+
+    private fun setComponents() {
         managementBtn = view.findViewById(R.id.recording_btn)
         chronometer = view.findViewById(R.id.audio_chronometer)
         deleteBtn = view.findViewById(R.id.delete_audio_btn)
         seekBar = view.findViewById(R.id.audio_seekbar)
-        managementAudio()
+    }
+
+    private fun setBottonState() {
+        when (state) {
+            0 -> managementBtn.text = "Start"
+
+            1 -> managementBtn.text = "Stop"
+
+            2 -> managementBtn.text = "Play"
+
+            3 -> managementBtn.text = "Pause"
+        }
     }
 
     private fun managementAudio() {
-
+        setAudio()
         //listener sul bottone per registrare
         managementBtn.setOnClickListener {
             //implementare controllo permessi
             when (state) {
                 0 -> {
+                    setAudio()
                     startRecording()
                     state++
                     managementBtn.text = "Stop"
@@ -61,38 +78,39 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
                 1 -> {
                     stopRecording()
                     state++
+                    setBottonState()
                     managementBtn.text = "Play"
                 }
                 2 -> {
                     play()
                     state++
+                    setBottonState()
                     managementBtn.text = "Pause"
                 }
                 3 -> {
                     pause()
                     state = 2
+                    setBottonState()
                     managementBtn.text = "Play"
                 }
             }
         }
-
         deleteBtn.setOnClickListener {
             deleteAudioFile()
         }
-
     }
 
     private fun setAudio() {
         //conferisco all'audio un indirizzo univoco dato dalla data di oggi
-        val cal = Calendar.getInstance()
-        titleRecording = cal.time.toString()
+        createUniqueName()
 
-        //trimming della string
-        titleRecording = titleRecording.replace(' ', '_').toLowerCase()
-        titleRecording = titleRecording.replace(':', '_').toLowerCase()
-        titleRecording = titleRecording.replace('+', '_').toLowerCase()
+        val myDirectory =
+            File(context?.getExternalFilesDir(null)?.absolutePath, folderName)
+        if (!myDirectory.exists()) {
+            myDirectory.mkdirs()
+        }
 
-        uri = context?.getExternalFilesDir(null)?.absolutePath + "/$titleRecording.mp3"
+        uri = context?.getExternalFilesDir(null)?.absolutePath + "/$folderName/$titleRecording.mp3"
         mediaRecorder = MediaRecorder()
 
         mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -101,9 +119,18 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
         mediaRecorder?.setOutputFile(uri)
     }
 
+    private fun createUniqueName() {
+        val cal = Calendar.getInstance()
+        titleRecording = cal.time.toString()
+
+        //trimming della string
+        titleRecording = titleRecording.replace(' ', '_').toLowerCase()
+        titleRecording = titleRecording.replace(':', '_').toLowerCase()
+        titleRecording = titleRecording.replace('+', '_').toLowerCase()
+    }
+
     private fun startRecording() {
         try {
-            setAudio()
             resetChronometer()
             mediaRecorder?.prepare()
             mediaRecorder?.start()
@@ -129,6 +156,7 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
             "Recording stopped",
             Snackbar.LENGTH_SHORT
         ).show()
+
         deleteBtn.visibility = View.VISIBLE
         seekBar.visibility = View.VISIBLE
         seekBar.progress = 0
@@ -150,7 +178,6 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
             managementBtn.text = "Play"
             state = 2
         }
-
     }
 
     private fun changeSeekbar() {
@@ -202,5 +229,4 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
         state = 0
     }
 
-    //metodi di pausa e resume sono disponibili per 24 up
 }

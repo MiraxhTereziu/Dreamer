@@ -14,4 +14,3 @@ data class Dream(
     val rate: Float,
     val audioFile: String
 )
-

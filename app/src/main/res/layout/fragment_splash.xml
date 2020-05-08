@@ -3,5 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.splash.SplashFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/denied_text"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:justificationMode="inter_word"
+            android:background="@drawable/bg_text_field_no_border"
+            android:padding="@dimen/general_margin"
+            android:text="@string/permission_denied"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            android:id="@+id/request_permission_btn"
+            android:textAllCaps="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_palette_btn_disable"
+            android:text="@string/give_permission_btn_label"
+            android:layout_margin="@dimen/general_margin"
+            app:layout_constraintTop_toBottomOf="@id/denied_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/colorPrimary"
+            android:padding="@dimen/general_margin"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </FrameLayout>

@@ -264,17 +264,18 @@
             app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
-            android:id="@+id/undo_btn"
+            android:id="@+id/save_canvas_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/general_margin"
-            android:drawableLeft="@drawable/ic_undo"
+            android:layout_marginVertical="@dimen/general_small_margin"
+            android:drawableLeft="@drawable/ic_save_thin"
             android:drawablePadding="@dimen/general_small_margin"
             android:drawableTint="@color/colorPrimaryDark"
             android:gravity="center"
             android:paddingHorizontal="@dimen/general_small_margin"
             android:paddingVertical="@dimen/general_small_margin"
-            android:text="@string/undo_label_palette"
+            android:text="@string/save_label_palette"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="@id/palette"
@@ -285,6 +286,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/general_margin"
+            android:layout_marginVertical="@dimen/general_small_margin"
             android:drawableLeft="@drawable/ic_eraser"
             android:drawablePadding="@dimen/general_small_margin"
             android:drawableTint="@color/colorPrimaryDark"
@@ -294,7 +296,7 @@
             android:text="@string/erase_label"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
-            app:layout_constraintLeft_toRightOf="@id/undo_btn"
+            app:layout_constraintLeft_toRightOf="@id/save_canvas_btn"
             app:layout_constraintTop_toBottomOf="@id/seekBar_thickness"
             app:layout_constraintRight_toLeftOf="@id/reset_btn"/>
 
@@ -303,6 +305,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/general_margin"
+            android:layout_marginVertical="@dimen/general_small_margin"
             android:drawableLeft="@drawable/ic_reset"
             android:drawablePadding="@dimen/general_small_margin"
             android:drawableTint="@color/colorPrimaryDark"

@@ -30,6 +30,8 @@
     <string name="thick_label_seekbar">Thick</string>
     <string name="thin_label_seekar">Thin</string>
     <string name="erase_label">Eraser</string>
-    <string name="undo_label_palette">Undo</string>
+    <string name="save_label_palette">Save</string>
     <string name="reset_label_palette">Reset</string>
+    <string name="permission_denied">To save a report of a dream the application need permission to save files in the memory</string>
+    <string name="give_permission_btn_label">Give permission</string>
 </resources>

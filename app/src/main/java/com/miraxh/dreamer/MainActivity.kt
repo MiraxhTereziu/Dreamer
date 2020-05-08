@@ -32,13 +32,11 @@ class MainActivity() : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.stats_item -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.canvasFragment)
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.stats_dest)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.add_item -> {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.add_dest)
-                    //val menu: Menu = nav_view.menu
-                    //menu.findItem(R.id.add_item).setIcon(R.drawable.ic_add_enable)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.music_item -> {

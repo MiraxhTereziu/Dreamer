@@ -14,15 +14,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.Day
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
 import com.miraxh.dreamer.util.DATE_CLICKED
-import com.miraxh.dreamer.util.PERMISSION
-import com.miraxh.dreamer.util.PERMISSION_CODE
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
@@ -36,17 +33,9 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
 
     private lateinit var daysState: Parcelable
     private lateinit var dreamState: Parcelable
-    private var creationPermission = false
 
     companion object {
         fun newInstance() = HomeFragment()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            creationPermission = it.getBoolean(PERMISSION)
-        }
     }
 
     override fun onCreateView(
@@ -70,55 +59,20 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
         dreamListLoader()
         //metodo per inizializzare la toolbar e "l'agenda dei sogni" al suo interno
         initToolbar()
-
         addActionButton.setOnClickListener {
-            if (creationPermission){
-                findNavController().navigate(R.id.add_dest)
-            }else{
-                checkPermission()
-            }
-        }
-    }
-
-    private fun checkPermission(){
-        Log.i("permission_test","request")
-        requestPermissions(
-            arrayOf(
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.RECORD_AUDIO
-            ),
-            PERMISSION_CODE
-        )
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == PERMISSION_CODE) {
-            //controllo
-            creationPermission = grantResults.isNotEmpty() &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[1] == PackageManager.PERMISSION_GRANTED
-            if (creationPermission==false){
-                view?.let {
-                    Snackbar.make(it, "You can't use this function without permission", Snackbar.LENGTH_SHORT)
-                        .show()
-                }
-            }
+            findNavController().navigate(R.id.add_dest)
         }
     }
 
     //metodo per inizializzare lista principale dei sogni
-    private fun dreamListLoader(){
+    private fun dreamListLoader() {
         //mi metto in ascolto per eventuali cambiamenti alla lista dei sogni
         viewModel.dreamData.observe(viewLifecycleOwner, Observer {
             //ordino la lista in base al giorno di creazione
-            (it as MutableList<Dream>).sortByDescending { it.dreamID}
+            (it as MutableList<Dream>).sortByDescending { it.dreamID }
             //in caso un update della lista dei sogni entro in questo metodo dove mi viene passata la nuova lista
             //creo un nuovo adapter da essegnare al mio RecyclerView
-            adapterDream = DreamListAdapter(requireContext(),it)
+            adapterDream = DreamListAdapter(requireContext(), it)
             //assegno il mio adapter alla mia RecyclerView
             dreamRecyclerView.adapter = adapterDream
             //update toolbar
@@ -127,8 +81,8 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
     }
 
     //metodo per inizializzare la toolbar e "l'agenda dei sogni" al suo interno
-    private fun initToolbar(){
-        drawer_icon.setOnClickListener{
+    private fun initToolbar() {
+        drawer_icon.setOnClickListener {
             (activity as MainActivity?)?.openDrawer()
         }
         //inizializzo lo stato di scorrimento dell'agenda per utilizzi futuri
@@ -150,13 +104,8 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
         daysState = saveStateRV(daysRecycleView)
         //cambio lo stato di un particolare giorno dell'agenda in caso di click (vecchia implementazione)
         val args = Bundle()
-        args.putString(DATE_CLICKED,day.date)
-
-        if (creationPermission){
-            findNavController().navigate(R.id.add_dest,args)
-        }else{
-            checkPermission()
-        }
+        args.putString(DATE_CLICKED, day.date)
+        findNavController().navigate(R.id.add_dest, args)
     }
 
     //metodo per salvare lo stato dello scorrimento della lista

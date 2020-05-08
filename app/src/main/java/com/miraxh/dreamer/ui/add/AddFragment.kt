@@ -21,6 +21,9 @@ import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.util.DATE_CLICKED
+import com.miraxh.dreamer.util.TMP_DREAM
+import com.miraxh.dreamer.util.URI_DRAW
+import java.net.URI
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,8 +33,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
     companion object {
         fun newInstance() = AddFragment()
     }
-
-    private var dateClicked: String? = null
 
     private lateinit var viewModel: AddViewModel
 
@@ -53,7 +54,10 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
     private lateinit var title: TextView
     private lateinit var date: TextView
     private lateinit var description: TextView
-    private lateinit var audioHelper: AudioHelper
+    private lateinit var addDraw: TextView
+
+    private var audioHelper: AudioHelper? = null
+    private lateinit var uriAudioFile: String
 
     //valori data
     private var day = 0
@@ -61,11 +65,16 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
     private var year = 0
     private var tags = mutableListOf<String>()
     private var tagSet = mutableSetOf<String>()
+    private var dateClicked: String? = null
+    private var datePicked: String? = null
+    private var uriDraw:String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             dateClicked = it.getString(DATE_CLICKED)
+            uriDraw = it.getString(URI_DRAW)
         }
         if (dateClicked != null)
             Log.i(DATE_CLICKED, dateClicked)
@@ -76,23 +85,12 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.add_fragment, container, false)
-        //inizializzazione componenti
-        ratingDream = view.findViewById(R.id.rating_dream)
-        tagsRecycleView = view.findViewById(R.id.tags_recyclerview)
-        insertTag = view.findViewById(R.id.dream_tag)
-        insertTagBtn = view.findViewById(R.id.insert_tag_btn)
-        include = view.findViewById<ConstraintLayout>(R.id.toolbar_add)
-        cancelBtn = view.findViewById(R.id.cancel_btn)
-        titleToolbar = include.findViewById<TextView>(R.id.toolbar_title_normal)
-        drawerButton = include.findViewById<ImageView>(R.id.drawer_icon_normal)
+
+        //inizializzazione dei componenti
+        initComponents(view)
 
         //inizializzo la toolbar
         //(activity as AppCompatActivity).setSupportActionBar(toolbarNormal)
-
-        //inizializzo i miei componenti da cui andrò a recuperare i dati
-        title = view.findViewById<TextView>(R.id.dream_title)
-        date = view.findViewById<TextView>(R.id.cancel_btn)
-        description = view.findViewById<TextView>(R.id.dream_description)
 
         //inizializzo viewModel
         viewModel = ViewModelProvider(this).get(AddViewModel::class.java)
@@ -110,9 +108,36 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         saveDream(view)
 
         //classe per gestire la registrazione dell'audio
+        initAudioFIle(view)
 
-        audioHelper = AudioHelper(view,context,null)
+        //gestione canvas
+        addDraw.setOnClickListener {
+            (activity as MainActivity?)?.closeKeyboard()
+            findNavController().navigate(R.id.canvasFragment)
+        }
+
         return view
+    }
+
+    private fun initComponents(view: View) {
+        //inizializzazione componenti
+        addDraw = view.findViewById(R.id.add_draw)
+        ratingDream = view.findViewById(R.id.rating_dream)
+        tagsRecycleView = view.findViewById(R.id.tags_recyclerview)
+        insertTag = view.findViewById(R.id.dream_tag)
+        insertTagBtn = view.findViewById(R.id.insert_tag_btn)
+        include = view.findViewById<ConstraintLayout>(R.id.toolbar_add)
+        cancelBtn = view.findViewById(R.id.cancel_btn)
+        titleToolbar = include.findViewById<TextView>(R.id.toolbar_title_normal)
+        drawerButton = include.findViewById<ImageView>(R.id.drawer_icon_normal)
+        title = view.findViewById<TextView>(R.id.dream_title)
+        date = view.findViewById<TextView>(R.id.cancel_btn)
+        description = view.findViewById<TextView>(R.id.dream_description)
+    }
+
+    private fun initAudioFIle(view: View) {
+        Log.i("log_restore_state", "audio")
+        audioHelper = AudioHelper(view, context, null)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -125,9 +150,22 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         initMinusBtn()
     }
 
+    private fun getData(): Dream {
+        val toRtn = Dream(
+            0,
+            date = datePickerBtn.text.toString(),
+            title = title.text.toString(),
+            description = description.text.toString(),
+            tags = tags,
+            rate = ratingDream.rating,
+            audioFile = audioHelper?.getUriAudioFile() ?: "null"
+        )
+        return toRtn
+    }
+
     private fun saveDream(view: View) {
         //inizializzo con valori di default il mio sogno
-        newDream = Dream(0, "00/00/00", "empty", "empty", listOf<String>(), 2.5F,"")
+        newDream = Dream(0, "00/00/00", "empty", "empty", listOf<String>(), 2.5F, "")
 
         saveButton.setOnClickListener {
             (activity as MainActivity?)?.closeKeyboard()
@@ -146,15 +184,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
                     .show()
             } else {
                 //recupero i dati del nuovo dream
-                newDream = Dream(
-                    0,
-                    date = datePickerBtn.text.toString(),
-                    title = title.text.toString(),
-                    description = description.text.toString(),
-                    tags = tags,
-                    rate = ratingDream.rating,
-                    audioFile = audioHelper.getUriAudioFile() ?: "null"
-                )
+                newDream = getData()
                 //inserisco il nuovo sogno nel db ad aggiorno il tutto
                 viewModel.newDream(newDream)
                 //momentaneamente rimando alla home
@@ -213,6 +243,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
     }
 
     private fun setDatePicker() {
+        Log.i("test_dream_state", "set date picker")
         if (dateClicked != null) {
             val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
             val dateSelected = dateFormatter.parse(dateClicked)
@@ -232,8 +263,12 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
             year = calendar.get(Calendar.YEAR)
         }
 
-        var finalDate = "$day/$month/$year"
-
+        var finalDate = "00/00/0000"
+        if (datePicked == null) {
+            finalDate = "$day/$month/$year"
+        } else {
+            finalDate = datePicked as String
+        }
 
         datePickerBtn.text = finalDate
 
@@ -242,7 +277,8 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    datePickerBtn.text = "$dayOfMonth/${month + 1}/$year"
+                    datePicked = "$dayOfMonth/${month + 1}/$year"
+                    datePickerBtn.text = datePicked
                 },
                 year,
                 month,

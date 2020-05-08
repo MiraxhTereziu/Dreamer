@@ -1,5 +1,6 @@
 package com.miraxh.dreamer.ui.draw
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -10,14 +11,15 @@ import android.view.ViewConfiguration
 import androidx.core.content.res.ResourcesCompat
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.util.STROKE_WIDTH
-import kotlinx.android.synthetic.main.fragment_canvas.view.*
+import java.io.File
+import java.io.FileOutputStream
+import java.util.*
+
 
 class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     // Holds the path you are currently drawing.
     private var path = Path()
-
-    private var pathList = mutableListOf<Path>()
 
     private var drawColor = ResourcesCompat.getColor(resources, R.color.colorWhite, null)
     private val backgroundColor =
@@ -26,6 +28,7 @@ class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs)
     private lateinit var extraCanvas: Canvas
     private lateinit var extraBitmap: Bitmap
     private lateinit var frame: Rect
+    private lateinit var titleCanvas: String
 
     // Set up the paint with which to draw.
     private var paint = Paint().apply {
@@ -86,7 +89,7 @@ class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs)
         motionTouchEventX = event.x
         motionTouchEventY = event.y
 
-        pathList.add(path)
+
 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> touchStart()
@@ -175,15 +178,6 @@ class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs)
         path.reset()
     }
 
-    fun undo() {
-        resetCanvas()
-        Log.i("test_change_color", "undo ${pathList.size}")
-        pathList.forEach {
-            extraCanvas.drawPath(it,paint)
-        }
-
-    }
-
     fun setPaint() {
         paint = Paint().apply {
             color = drawColor
@@ -196,5 +190,36 @@ class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs)
             strokeCap = Paint.Cap.ROUND // default: BUTT
             strokeWidth = strokeThickness // default: Hairline-width (really thin)
         }
+    }
+
+    @SuppressLint("WrongThread")
+    fun saveImage() {
+        try {
+            createUniqueName()
+            val folderName = "canvas_files"
+            val myDirectory =
+                File(context?.getExternalFilesDir(null)?.absolutePath, folderName)
+            if (!myDirectory.exists()) {
+                myDirectory.mkdirs()
+            }
+            val filename: String = context?.getExternalFilesDir(null)?.absolutePath + "/$folderName/"
+            Log.i("test_save_canvas",filename)
+            val f = File(filename, "$titleCanvas.png")
+            f.createNewFile()
+            val out = FileOutputStream(f)
+            extraBitmap.compress(Bitmap.CompressFormat.PNG, 90, out)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun createUniqueName() {
+        val cal = Calendar.getInstance()
+        titleCanvas = cal.time.toString()
+
+        //trimming della string
+        titleCanvas = titleCanvas.replace(' ', '_').toLowerCase()
+        titleCanvas = titleCanvas.replace(':', '_').toLowerCase()
+        titleCanvas = titleCanvas.replace('+', '_').toLowerCase()
     }
 }

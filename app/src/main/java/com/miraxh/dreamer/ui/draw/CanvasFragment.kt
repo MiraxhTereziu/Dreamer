@@ -1,6 +1,7 @@
 package com.miraxh.dreamer.ui.draw
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,14 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.data.dream.Dream
+import com.miraxh.dreamer.util.DATE_CLICKED
+import com.miraxh.dreamer.util.TMP_DREAM
+import java.io.Serializable
 
 class CanvasFragment() : Fragment() {
 
@@ -42,9 +48,10 @@ class CanvasFragment() : Fragment() {
     private lateinit var thickness : SeekBar
 
     private lateinit var eraseBtn : TextView
-    private lateinit var undoBtn: TextView
+    private lateinit var saveBtn: TextView
     private lateinit var resetBtn: TextView
 
+    var tmpDream: Serializable? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,7 +86,7 @@ class CanvasFragment() : Fragment() {
         thickness = view.findViewById(R.id.seekBar_thickness)
 
         eraseBtn = view.findViewById(R.id.erase_btn)
-        undoBtn = view.findViewById(R.id.undo_btn)
+        saveBtn = view.findViewById(R.id.save_canvas_btn)
         resetBtn = view.findViewById(R.id.reset_btn)
 
         //listeners
@@ -147,8 +154,15 @@ class CanvasFragment() : Fragment() {
             eraseBtn.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_palette_btn,null)
         }
 
-        undoBtn.setOnClickListener {
-            canvas.undo()
+        saveBtn.setOnClickListener {
+            canvas.saveImage()
+            val bundle = Bundle()
+            findNavController().navigateUp()
+            Snackbar.make(
+                view,
+                "Drawing saved!",
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
 
         resetBtn.setOnClickListener {
