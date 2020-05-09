@@ -46,12 +46,12 @@
                         android:layout_marginRight="@dimen/general_margin"
                         android:background="@drawable/bg_text_field_no_border"
                         android:drawableLeft="@drawable/ic_calendar"
-                        android:drawableTint="@color/colorSecondary"
-                        android:textColor="@color/colorSecondary"
                         android:drawablePadding="@dimen/general_small_margin"
+                        android:drawableTint="@color/colorSecondary"
                         android:padding="@dimen/general_margin"
                         android:text="Pick date"
                         android:textAllCaps="false"
+                        android:textColor="@color/colorSecondary"
                         android:textSize="20sp"
                         app:layout_constraintLeft_toRightOf="@+id/cancel_btn"
                         app:layout_constraintRight_toRightOf="parent"
@@ -64,10 +64,10 @@
                         android:layout_marginVertical="@dimen/general_margin"
                         android:layout_marginLeft="@dimen/general_margin"
                         android:layout_marginRight="@dimen/general_small_margin"
-                        android:gravity="center"
-                        android:text="@string/cancel_btn_text"
                         android:background="@drawable/bg_cancel"
+                        android:gravity="center"
                         android:paddingHorizontal="@dimen/general_small_margin"
+                        android:text="@string/cancel_btn_text"
                         android:textColor="@color/colorPrimaryLight"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/layout_dream_title"
@@ -183,7 +183,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="@id/tag_bg"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"/>
+                        app:layout_constraintRight_toRightOf="parent" />
 
                     <TextView
                         android:id="@+id/tag_bg"
@@ -230,8 +230,9 @@
                         android:layout_marginHorizontal="@dimen/general_margin"
                         android:layout_marginTop="@dimen/general_margin"
                         android:background="@drawable/bg_text_field_no_border"
-                        android:gravity="center_vertical"
+                        android:gravity="right|center_vertical"
                         android:padding="@dimen/general_margin"
+                        android:text="Record audio"
                         android:textSize="16sp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -253,37 +254,14 @@
                         android:id="@+id/audio_chronometer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="24sp"
+                        android:layout_margin="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:padding="@dimen/general_margin"
+                        android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@id/bg_recording"
                         app:layout_constraintLeft_toRightOf="@id/recording_btn"
-                        app:layout_constraintRight_toLeftOf="@id/delete_audio_btn"
                         app:layout_constraintTop_toTopOf="@id/bg_recording" />
-
-                    <ImageButton
-                        android:id="@+id/delete_audio_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/general_margin"
-                        android:background="@drawable/ic_trash"
-                        android:cropToPadding="false"
-                        android:padding="@dimen/general_margin"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="@id/bg_recording"
-                        app:layout_constraintRight_toRightOf="@id/bg_recording"
-                        app:layout_constraintTop_toTopOf="@id/bg_recording" />
-
-                    <SeekBar
-                        android:id="@+id/audio_seekbar"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="@dimen/general_margin"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="@id/bg_recording"
-                        app:layout_constraintLeft_toRightOf="@+id/recording_btn"
-                        app:layout_constraintRight_toLeftOf="@id/delete_audio_btn"
-                        app:layout_constraintTop_toBottomOf="@id/audio_chronometer" />
 
                     <TextView
                         android:id="@+id/add_draw"
@@ -300,6 +278,25 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/bg_recording" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/audio_recyclerview"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/general_margin"
+                        android:layout_marginHorizontal="@dimen/general_margin"
+                        android:animationCache="true"
+                        android:elevation="90dp"
+                        android:fadeScrollbars="true"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toTopOf="@id/bg_recording"
+                        app:layout_constraintBottom_toBottomOf="@id/bg_recording"
+                        app:layout_constraintLeft_toRightOf="@id/audio_chronometer"
+                        app:layout_constraintRight_toRightOf="@id/bg_recording"
+
+                        />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

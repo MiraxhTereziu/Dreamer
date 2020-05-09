@@ -22,11 +22,12 @@ import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.util.DATE_CLICKED
 import com.miraxh.dreamer.util.RESTORE_DREAM
+import kotlinx.android.synthetic.main.add_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddFragment : Fragment(), TagListAdapter.TagListener {
+class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.AudioListener {
 
     companion object {
         fun newInstance() = AddFragment()
@@ -38,6 +39,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
     private lateinit var datePickerBtn: Button
     private lateinit var insertTagBtn: ImageButton
     private lateinit var cancelBtn: TextView
+    private lateinit var audioBtn: Button
 
     private lateinit var newDream: Dream
     private lateinit var include: ConstraintLayout
@@ -46,6 +48,8 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
 
     private lateinit var tagsRecycleView: RecyclerView
     private lateinit var adapterTag: TagListAdapter
+    private lateinit var audioRecycleView: RecyclerView
+    private lateinit var adapterAudio: AudioListAdapter
 
     private lateinit var titleToolbar: TextView
     private lateinit var insertTag: TextInputEditText
@@ -56,14 +60,24 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
 
     private lateinit var audioHelper: AudioHelper
 
+    //varibili gestione audio
+    private var listAudio = mutableListOf<String>()
+    private var recordingState = 0
+    private lateinit var chronometer: Chronometer
+
     //valori data
     private var day = 0
     private var month = 0
     private var year = 0
+
+    //variabili per la gestione dei tag
     private var tags = mutableListOf<String>()
     private var tagSet = mutableSetOf<String>()
+
+    //variabili per la gestione del date picker
     private var dateClicked: String? = null
     private var datePicked: String? = null
+
     private var restoreDream: Dream? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,7 +120,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         saveDream(view)
 
         //classe per gestire la registrazione dell'audio
-        initAudioFIle(view)
+        initAudioFile(view)
 
         //gestione canvas
         addDraw.setOnClickListener {
@@ -128,6 +142,25 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
 
         if (restoreDream != null)
             restoreDreamState()
+    }
+
+    private fun initComponents(view: View) {
+        //inizializzazione componenti
+        chronometer = view.findViewById(R.id.audio_chronometer)
+        audioBtn = view.findViewById(R.id.recording_btn)
+        addDraw = view.findViewById(R.id.add_draw)
+        ratingDream = view.findViewById(R.id.rating_dream)
+        tagsRecycleView = view.findViewById(R.id.tags_recyclerview)
+        audioRecycleView = view.findViewById(R.id.audio_recyclerview)
+        insertTag = view.findViewById(R.id.dream_tag)
+        insertTagBtn = view.findViewById(R.id.insert_tag_btn)
+        include = view.findViewById<ConstraintLayout>(R.id.toolbar_add)
+        cancelBtn = view.findViewById(R.id.cancel_btn)
+        titleToolbar = include.findViewById<TextView>(R.id.toolbar_title_normal)
+        drawerButton = include.findViewById<ImageView>(R.id.drawer_icon_normal)
+        title = view.findViewById<TextView>(R.id.dream_title)
+        date = view.findViewById<TextView>(R.id.cancel_btn)
+        description = view.findViewById<TextView>(R.id.dream_description)
     }
 
     private fun restoreDreamState() {
@@ -160,35 +193,37 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         ratingDream.setIsIndicator(true)
 
         //audio
-        if(restoreDream?.audioFile != "null") {
+        if (restoreDream?.audioFile != "null") {
 
         }
-
-
-
     }
 
-    private fun initComponents(view: View) {
-        //inizializzazione componenti
-        addDraw = view.findViewById(R.id.add_draw)
-        ratingDream = view.findViewById(R.id.rating_dream)
-        tagsRecycleView = view.findViewById(R.id.tags_recyclerview)
-        insertTag = view.findViewById(R.id.dream_tag)
-        insertTagBtn = view.findViewById(R.id.insert_tag_btn)
-        include = view.findViewById<ConstraintLayout>(R.id.toolbar_add)
-        cancelBtn = view.findViewById(R.id.cancel_btn)
-        titleToolbar = include.findViewById<TextView>(R.id.toolbar_title_normal)
-        drawerButton = include.findViewById<ImageView>(R.id.drawer_icon_normal)
-        title = view.findViewById<TextView>(R.id.dream_title)
-        date = view.findViewById<TextView>(R.id.cancel_btn)
-        description = view.findViewById<TextView>(R.id.dream_description)
-    }
+    private fun initAudioFile(view: View) {
+        audioHelper = AudioHelper(view, context)
+        audioBtn.setOnClickListener {
+            var uriAudio: String = "null"
+            when (recordingState) {
+                0 -> {
+                    //inizio a registrare
+                    uriAudio = audioHelper.startRecording(audioBtn, chronometer)
+                    //cambio stato
+                    recordingState = 1
+                }
+                1 -> {
+                    listAudio.add(uriAudio)
+                    bg_recording.text = ""
+                    adapterAudio = AudioListAdapter(requireContext(), listAudio, this)
+                    audioRecycleView.adapter = adapterAudio
+                    //fermo la registrazione
+                    audioHelper.stopRecording(audioBtn, chronometer)
+                    //cambio stato
+                    recordingState = 0
+                }
+            }
 
-    private fun initAudioFIle(view: View) {
-        Log.i("log_restore_state", "audio")
-        audioHelper = AudioHelper(view, context, null)
-    }
 
+        }
+    }
 
     private fun getData(): Dream {
         val toRtn = Dream(
@@ -198,7 +233,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
             description = description.text.toString(),
             tags = tags,
             rate = ratingDream.rating,
-            audioFile = audioHelper.getUriAudioFile() ?: "null"
+            audioFile = "null"//audioHelper.getUriAudioFile() ?: "null"
         )
         Log.i("audio_save_debug", toRtn.toString())
         return toRtn
@@ -226,6 +261,9 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
             } else {
                 //recupero i dati del nuovo dream
                 newDream = getData()
+                listAudio.forEach {
+                    Log.i("rework_audio", "$it")
+                }
                 //inserisco il nuovo sogno nel db ad aggiorno il tutto
                 viewModel.newDream(newDream)
                 //momentaneamente rimando alla home
@@ -350,6 +388,10 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         adapterTag = TagListAdapter(requireContext(), tags, this, 0)
         //assegno il mio adapter alla mia RecyclerView
         tagsRecycleView.adapter = adapterTag
+    }
+
+    override fun onAudioItemListener(tag: String, position: Int) {
+
     }
 }
 

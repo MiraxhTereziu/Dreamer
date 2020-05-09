@@ -3,41 +3,108 @@ package com.miraxh.dreamer.ui.add
 import android.content.Context
 import android.media.MediaPlayer
 import android.media.MediaRecorder
-import android.net.Uri
-import android.os.Environment
 import android.os.SystemClock
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Chronometer
-import android.widget.ImageButton
-import android.widget.SeekBar
 import com.google.android.material.snackbar.Snackbar
-import com.miraxh.dreamer.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
 import java.util.*
 
-class AudioHelper(var view: View, var context: Context?, var uri: String?) {
+class AudioHelper(var view: View, var context: Context?) {
 
     //mediaplayer
     private var mediaPlayer: MediaPlayer? = null
 
-
     //mediarecorder
-    lateinit var titleRecording: String
     private var mediaRecorder: MediaRecorder? = null
-    private lateinit var managementBtn: Button
     private val folderName = "audio_files"
-    private var currentPosition: Int = 0
-    private lateinit var seekBar: SeekBar
-    private lateinit var chronometer: Chronometer
-    private lateinit var deleteBtn: ImageButton
-    var state: Int = 0
+    private var state = 0
 
+    fun startRecording(audioButton: Button, chronometer: Chronometer): String {
+        //impostazione file audio e recupera uri file
+        var uriAudio = setAudio()
+        //inizio a registrare
+        record()
+        //start chronometer
+        chronometer.base = SystemClock.elapsedRealtime()
+        chronometer.start()
+        //cambio label del bottone
+        audioButton.text = "Stop"
+        //ritorno uri del file
+        return uriAudio
+    }
+
+    fun stopRecording(audioButton: Button, chronometer: Chronometer) {
+        //inizio a registrare
+        stop()
+        //stop chronometer
+        chronometer.stop()
+        //cambio label del bottone
+        audioButton.text = "Start"
+    }
+
+
+    private fun setAudio(): String {
+        //conferisco all'audio un indirizzo univoco dato dalla data di oggi
+        var titleRecording = createUniqueName()
+
+        val myDirectory =
+            File(context?.getExternalFilesDir(null)?.absolutePath, folderName)
+        if (!myDirectory.exists()) {
+            myDirectory.mkdirs()
+        }
+
+        val uri =
+            context?.getExternalFilesDir(null)?.absolutePath + "/$folderName/$titleRecording.mp3"
+        mediaRecorder = MediaRecorder()
+
+        mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
+        mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+        mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        mediaRecorder?.setOutputFile(uri)
+
+        return titleRecording
+    }
+
+    private fun createUniqueName(): String {
+        var titleRecording: String
+        val cal = Calendar.getInstance()
+        titleRecording = cal.time.toString()
+        //trimming della string
+        titleRecording = titleRecording.replace(' ', '_').toLowerCase()
+        titleRecording = titleRecording.replace(':', '_').toLowerCase()
+        titleRecording = titleRecording.replace('+', '_').toLowerCase()
+        return titleRecording
+    }
+
+    private fun record() {
+        try {
+            mediaRecorder?.prepare()
+            mediaRecorder?.start()
+            Snackbar.make(
+                view,
+                "Recording started!",
+                Snackbar.LENGTH_SHORT
+            ).show()
+        } catch (e: IllegalStateException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun stop() {
+        mediaRecorder?.release()
+        Snackbar.make(
+            view,
+            "Recording stopped",
+            Snackbar.LENGTH_SHORT
+        ).show()
+    }
+
+    /*
     init {
         //inizializzo i componenti
         setComponents()
@@ -211,5 +278,5 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
         resetChronometer()
         managementBtn.text = "Start"
         state = 0
-    }
+    }*/
 }
