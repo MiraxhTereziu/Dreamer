@@ -1,6 +1,5 @@
 package com.miraxh.dreamer.ui.home
 
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
@@ -20,9 +19,10 @@ import com.miraxh.dreamer.data.Day
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
 import com.miraxh.dreamer.util.DATE_CLICKED
+import com.miraxh.dreamer.util.RESTORE_DREAM
 import kotlinx.android.synthetic.main.home_fragment.*
 
-class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
+class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapter.DreamListener{
 
     private lateinit var daysRecycleView: RecyclerView
     private lateinit var dreamRecyclerView: RecyclerView
@@ -72,7 +72,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
             (it as MutableList<Dream>).sortByDescending { it.dreamID }
             //in caso un update della lista dei sogni entro in questo metodo dove mi viene passata la nuova lista
             //creo un nuovo adapter da essegnare al mio RecyclerView
-            adapterDream = DreamListAdapter(requireContext(), it)
+            adapterDream = DreamListAdapter(requireContext(), it,this)
             //assegno il mio adapter alla mia RecyclerView
             dreamRecyclerView.adapter = adapterDream
             //update toolbar
@@ -98,6 +98,18 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
         })
     }
 
+
+    //metodo per salvare lo stato dello scorrimento della lista
+    private fun saveStateRV(recyclerView: RecyclerView): Parcelable {
+        return recyclerView.layoutManager?.onSaveInstanceState()!!
+    }
+
+    //metodo per ripristinare lo stato di scorrimento della lista
+    private fun restoreStateRV(state: Parcelable, recyclerView: RecyclerView) {
+        recyclerView.layoutManager!!.onRestoreInstanceState(state)
+    }
+
+
     //metodo per gestire il click di un particolare giorno dell'agenda
     override fun onDayItemListener(day: Day, position: Int) {
         //salvo lo stato di scorrimento
@@ -108,14 +120,10 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener {
         findNavController().navigate(R.id.add_dest, args)
     }
 
-    //metodo per salvare lo stato dello scorrimento della lista
-    private fun saveStateRV(recyclerView: RecyclerView): Parcelable {
-        return recyclerView.layoutManager?.onSaveInstanceState()!!
-    }
-
-    //metodo per ripristinare lo stato di scorrimento della lista
-    private fun restoreStateRV(state: Parcelable, recyclerView: RecyclerView) {
-        recyclerView.layoutManager!!.onRestoreInstanceState(state)
+    override fun onDreamItemListener(dream: Dream, position: Int) {
+        val dreamBundle = Bundle()
+        dreamBundle.putSerializable(RESTORE_DREAM,dream)
+        findNavController().navigate(R.id.add_dest,dreamBundle)
     }
 }
 

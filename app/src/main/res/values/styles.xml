@@ -77,13 +77,17 @@
     </style>
 
     <style name="tag_dream_button">
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
         <item name="android:translationZ">90dp</item>
         <item name="fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">14sp</item>
         <item name="android:lines">1</item>
+        <item name="android:maxLength">6</item>
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">@dimen/tag_height</item>
         <item name="android:background">@drawable/bg_savebutton</item>
+        <item name="android:layout_marginBottom">@dimen/general_small_margin</item>
         <item name="drawableLeftCompat">@drawable/ic_target</item>
         <item name="android:paddingStart">@dimen/general_small_margin</item>
         <item name="android:paddingEnd">@dimen/general_small_margin</item>

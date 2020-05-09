@@ -1,11 +1,12 @@
 package com.miraxh.dreamer.data.dream
 
+import android.util.Log
 import androidx.room.TypeConverter
 
 class Converters {
 
     @TypeConverter
-    fun fromList(tagsList: List<String>): String {
+    fun fromList(tagsList: MutableList<String>): String {
         var toRtn = ""
         tagsList.forEach {
             toRtn += "$it,"
@@ -14,7 +15,7 @@ class Converters {
     }
 
     @TypeConverter
-    fun toList(tagsString: String): List<String> {
-        return tagsString.split(",").toList()
+    fun toList(tagsString: String): MutableList<String> {
+        return tagsString.split(",").toMutableList()
     }
 }

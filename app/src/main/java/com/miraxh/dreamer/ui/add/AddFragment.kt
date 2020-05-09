@@ -21,9 +21,7 @@ import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.util.DATE_CLICKED
-import com.miraxh.dreamer.util.TMP_DREAM
-import com.miraxh.dreamer.util.URI_DRAW
-import java.net.URI
+import com.miraxh.dreamer.util.RESTORE_DREAM
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,8 +54,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
     private lateinit var description: TextView
     private lateinit var addDraw: TextView
 
-    private var audioHelper: AudioHelper? = null
-    private lateinit var uriAudioFile: String
+    private lateinit var audioHelper: AudioHelper
 
     //valori data
     private var day = 0
@@ -67,14 +64,15 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
     private var tagSet = mutableSetOf<String>()
     private var dateClicked: String? = null
     private var datePicked: String? = null
-    private var uriDraw:String? = null
-
+    private var restoreDream: Dream? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             dateClicked = it.getString(DATE_CLICKED)
-            uriDraw = it.getString(URI_DRAW)
+            val tmpSerial = it.getSerializable(RESTORE_DREAM)
+            if (tmpSerial != null)
+                restoreDream = tmpSerial as Dream
         }
         if (dateClicked != null)
             Log.i(DATE_CLICKED, dateClicked)
@@ -119,6 +117,57 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         return view
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        //imposto set on click listener
+        setDatePicker()
+        //inizializzazione della toolbar
+        initToolbar()
+        //minus back btn
+        initMinusBtn()
+
+        if (restoreDream != null)
+            restoreDreamState()
+    }
+
+    private fun restoreDreamState() {
+        //ripristiono dati del sogno
+
+        //datepicker
+        datePickerBtn.text = restoreDream?.date
+        datePickerBtn.isEnabled = false
+
+        //titolo
+        title.text = restoreDream?.title
+        title.isFocusableInTouchMode = false
+
+        //descrizione
+        description.text = restoreDream?.description
+        description.isFocusableInTouchMode = false
+
+        //tags
+        insertTag.setText("Inserted tags")
+        insertTag.isFocusableInTouchMode = false
+        insertTagBtn.visibility = View.INVISIBLE
+        adapterTag =
+            TagListAdapter(requireContext(), restoreDream?.tags ?: mutableListOf(), this, 1)
+        tagsRecycleView.adapter = adapterTag
+        tags = restoreDream?.tags ?: mutableListOf()
+
+
+        //rating
+        ratingDream.rating = restoreDream?.rate ?: 2.5F
+        ratingDream.setIsIndicator(true)
+
+        //audio
+        if(restoreDream?.audioFile != "null") {
+
+        }
+
+
+
+    }
+
     private fun initComponents(view: View) {
         //inizializzazione componenti
         addDraw = view.findViewById(R.id.add_draw)
@@ -140,15 +189,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         audioHelper = AudioHelper(view, context, null)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //imposto set on click listener
-        setDatePicker()
-        //inizializzazione della toolbar
-        initToolbar()
-        //minus back btn
-        initMinusBtn()
-    }
 
     private fun getData(): Dream {
         val toRtn = Dream(
@@ -158,14 +198,15 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
             description = description.text.toString(),
             tags = tags,
             rate = ratingDream.rating,
-            audioFile = audioHelper?.getUriAudioFile() ?: "null"
+            audioFile = audioHelper.getUriAudioFile() ?: "null"
         )
+        Log.i("audio_save_debug", toRtn.toString())
         return toRtn
     }
 
     private fun saveDream(view: View) {
         //inizializzo con valori di default il mio sogno
-        newDream = Dream(0, "00/00/00", "empty", "empty", listOf<String>(), 2.5F, "")
+        newDream = Dream(0, "00/00/00", "empty", "empty", mutableListOf<String>(), 2.5F, "")
 
         saveButton.setOnClickListener {
             (activity as MainActivity?)?.closeKeyboard()
@@ -199,7 +240,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
     }
 
     private fun insertTags(view: View) {
-        adapterTag = TagListAdapter(requireContext(), tagSet.toList(), this)
+        adapterTag = TagListAdapter(requireContext(), tagSet.toList(), this, 0)
         //assegno il mio adapter alla mia RecyclerView
         tagsRecycleView.adapter = adapterTag
 
@@ -220,7 +261,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
             //sort list
             tags = tagSet.toMutableList()
             //creo il mio adapter
-            adapterTag = TagListAdapter(requireContext(), tags, this)
+            adapterTag = TagListAdapter(requireContext(), tags, this, 0)
             //assegno il mio adapter alla mia RecyclerView
             tagsRecycleView.adapter = adapterTag
             //resetto la textfield per inserire i tag
@@ -306,7 +347,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener {
         tagSet.remove(tag)
         tags = tagSet.toMutableList()
         //creo il mio adapter
-        adapterTag = TagListAdapter(requireContext(), tags, this)
+        adapterTag = TagListAdapter(requireContext(), tags, this, 0)
         //assegno il mio adapter alla mia RecyclerView
         tagsRecycleView.adapter = adapterTag
     }

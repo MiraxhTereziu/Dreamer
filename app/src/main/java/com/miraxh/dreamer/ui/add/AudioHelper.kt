@@ -26,6 +26,7 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
     //mediaplayer
     private var mediaPlayer: MediaPlayer? = null
 
+
     //mediarecorder
     lateinit var titleRecording: String
     private var mediaRecorder: MediaRecorder? = null
@@ -38,7 +39,6 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
     var state: Int = 0
 
     init {
-        Log.i("log_restore_state", "$state")
         //inizializzo i componenti
         setComponents()
         managementAudio()
@@ -49,18 +49,6 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
         chronometer = view.findViewById(R.id.audio_chronometer)
         deleteBtn = view.findViewById(R.id.delete_audio_btn)
         seekBar = view.findViewById(R.id.audio_seekbar)
-    }
-
-    private fun setBottonState() {
-        when (state) {
-            0 -> managementBtn.text = "Start"
-
-            1 -> managementBtn.text = "Stop"
-
-            2 -> managementBtn.text = "Play"
-
-            3 -> managementBtn.text = "Pause"
-        }
     }
 
     private fun managementAudio() {
@@ -78,19 +66,16 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
                 1 -> {
                     stopRecording()
                     state++
-                    setBottonState()
                     managementBtn.text = "Play"
                 }
                 2 -> {
                     play()
                     state++
-                    setBottonState()
                     managementBtn.text = "Pause"
                 }
                 3 -> {
                     pause()
                     state = 2
-                    setBottonState()
                     managementBtn.text = "Play"
                 }
             }
@@ -122,7 +107,6 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
     private fun createUniqueName() {
         val cal = Calendar.getInstance()
         titleRecording = cal.time.toString()
-
         //trimming della string
         titleRecording = titleRecording.replace(' ', '_').toLowerCase()
         titleRecording = titleRecording.replace(':', '_').toLowerCase()
@@ -228,5 +212,4 @@ class AudioHelper(var view: View, var context: Context?, var uri: String?) {
         managementBtn.text = "Start"
         state = 0
     }
-
 }

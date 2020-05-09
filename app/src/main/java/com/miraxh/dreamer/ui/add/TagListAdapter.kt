@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.miraxh.dreamer.R
-import com.miraxh.dreamer.data.Day
-import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
 
 class TagListAdapter(
     val context: Context,
     val tags: List<String>,
-    val itemListener: TagListener
-): RecyclerView.Adapter<TagListAdapter.ViewHolder>() {
+    val itemListener: TagListener,
+    val mode: Int
+) : RecyclerView.Adapter<TagListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tagBtn = itemView?.findViewById<Button>(R.id.tag_item)
@@ -34,11 +33,20 @@ class TagListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val tag = tags[position]
         with(holder) {
-            tagBtn?.text = tag
+            if(tag == "")
+                tagBtn.visibility = View.GONE
+            else
+                tagBtn?.text = tag
+            if (mode == 1) {
+                tagBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_target, 0, 0, 0);
+            }
+
         }
 
-        holder.itemView.setOnClickListener{
-            itemListener.onTagItemListener(tag,holder.layoutPosition)
+        if (mode == 0) {
+            holder.itemView.setOnClickListener {
+                itemListener.onTagItemListener(tag, holder.layoutPosition)
+            }
         }
     }
 

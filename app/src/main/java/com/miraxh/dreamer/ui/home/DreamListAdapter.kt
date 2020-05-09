@@ -1,25 +1,20 @@
 package com.miraxh.dreamer.ui.home
 
 import android.content.Context
-import android.content.res.Resources
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
 
 class DreamListAdapter(
     val context: Context,
-    val dreams: List<Dream>
-    //val itemListener: DreamListener
+    val dreams: List<Dream>,
+    val itemListener: DreamListener
 ) : RecyclerView.Adapter<DreamListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -30,7 +25,6 @@ class DreamListAdapter(
         val rating_display = itemView?.findViewById<TextView>(R.id.rating_display)
 
         //tags
-        val tagwrap = itemView?.findViewById<LinearLayout>(R.id.tag_wrap)
         val tag1 = itemView?.findViewById<Button>(R.id.tag1)
         val tag2 = itemView?.findViewById<Button>(R.id.tag2)
         val tag3 = itemView?.findViewById<Button>(R.id.tag3)
@@ -55,7 +49,10 @@ class DreamListAdapter(
             description?.text = dream.description
             showTags(dream)
             setRating(dream)
-            Log.i("test_audio_save", dream.audioFile)
+
+            holder.itemView.setOnClickListener{
+                itemListener.onDreamItemListener(dream,holder.layoutPosition)
+            }
         }
     }
 
@@ -94,7 +91,13 @@ class DreamListAdapter(
             }
         } else {
             description.maxLines = 5
-            tagwrap.visibility = View.GONE
+            tag1.visibility = View.GONE
+            tag2.visibility = View.GONE
+            tag3.visibility = View.GONE
         }
+    }
+
+    interface DreamListener {
+        fun onDreamItemListener(dream: Dream, position: Int)
     }
 }

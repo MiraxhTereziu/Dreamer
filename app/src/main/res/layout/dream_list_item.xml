@@ -13,6 +13,8 @@
         android:layout_marginTop="@dimen/general_margin"
         android:layout_marginRight="@dimen/general_margin"
         android:background="@drawable/bg_dreamtile"
+        android:clickable="false"
+        android:focusable="false"
         android:paddingBottom="@dimen/general_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,53 +71,42 @@
         android:text="@string/lorem_ipsum"
         android:theme="@style/dream_description"
         android:translationZ="80dp"
-        app:layout_constraintBottom_toTopOf="@id/tag_wrap"
+        app:layout_constraintBottom_toTopOf="@id/tag1"
         app:layout_constraintLeft_toLeftOf="@+id/backgroud_tile"
         app:layout_constraintRight_toRightOf="@+id/backgroud_tile"
         app:layout_constraintTop_toBottomOf="@+id/title_label" />
 
-    <LinearLayout
-        android:id="@+id/tag_wrap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/general_small_margin"
-        android:translationZ="90dp"
+    <Button
+        android:id="@+id/tag1"
+        style="@style/tag_dream_button"
+        android:layout_marginLeft="@dimen/general_margin"
+        android:layout_marginRight="@dimen/general_small_margin"
+        android:text="tag1"
         app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
-        app:layout_constraintLeft_toLeftOf="@id/backgroud_tile"
-        app:layout_constraintRight_toRightOf="@+id/backgroud_tile">
+        app:layout_constraintLeft_toLeftOf="@+id/backgroud_tile"
+        app:layout_constraintRight_toLeftOf="@id/tag2" />
 
-        <Button
-            android:id="@+id/tag1"
-            style="@style/tag_dream_button"
-            android:layout_marginLeft="@dimen/general_margin"
-            android:layout_marginRight="@dimen/general_small_margin"
-            android:text="tag1"
-            app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
-            app:layout_constraintLeft_toLeftOf="@+id/backgroud_tile"
-            app:layout_constraintRight_toLeftOf="@id/tag2" />
+    <Button
+        android:id="@+id/tag2"
+        style="@style/tag_dream_button"
+        android:layout_marginLeft="@dimen/general_small_margin"
+        android:layout_marginRight="@dimen/general_small_margin"
+        android:text="tag2"
+        app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
+        app:layout_constraintLeft_toRightOf="@+id/tag1"
+        app:layout_constraintRight_toLeftOf="@+id/tag3" />
 
-        <Button
-            android:id="@+id/tag2"
-            style="@style/tag_dream_button"
-            android:layout_marginLeft="@dimen/general_small_margin"
-            android:layout_marginRight="@dimen/general_small_margin"
-            android:text="tag2"
-            app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
-            app:layout_constraintLeft_toRightOf="@+id/tag1"
-            app:layout_constraintRight_toLeftOf="@+id/tag3" />
-
-        <Button
-            android:id="@+id/tag3"
-            style="@style/tag_dream_button"
-            android:layout_marginLeft="@dimen/general_small_margin"
-            android:layout_marginRight="@dimen/general_margin"
-            android:text="tag3"
-            app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
-            app:layout_constraintLeft_toRightOf="@+id/tag2"
-            app:layout_constraintRight_toRightOf="@id/backgroud_tile" />
-
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/tag3"
+        style="@style/tag_dream_button"
+        android:layout_marginLeft="@dimen/general_small_margin"
+        android:layout_marginRight="@dimen/general_margin"
+        android:text="tag3"
+        app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
+        app:layout_constraintLeft_toRightOf="@+id/tag2"
+        app:layout_constraintRight_toRightOf="@id/backgroud_tile" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

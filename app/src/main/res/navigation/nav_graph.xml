@@ -18,6 +18,9 @@
         <argument
             android:name="dateClicked"
             app:argType="string" />
+        <argument
+            android:name="restoreDream"
+            app:argType="reference" />
     </fragment>
     <fragment
         android:id="@+id/settings_dest"

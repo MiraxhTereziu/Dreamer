@@ -61,6 +61,8 @@ class MainActivity() : AppCompatActivity() {
         nav_view.setNavigationItemSelectedListener(navigationListener)
         //inizializzazione classe di lifecycle per gestire gli stati dell'applicazione
         lifecycle.addObserver(MyLifeCycleObserver())
+
+
     }
 
     fun openDrawer() {
