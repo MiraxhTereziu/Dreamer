@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -39,7 +40,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     private lateinit var datePickerBtn: Button
     private lateinit var insertTagBtn: ImageButton
     private lateinit var cancelBtn: TextView
-    private lateinit var audioBtn: Button
+    private lateinit var audioBtn: ImageButton
 
     private lateinit var newDream: Dream
     private lateinit var include: ConstraintLayout
@@ -57,6 +58,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     private lateinit var date: TextView
     private lateinit var description: TextView
     private lateinit var addDraw: TextView
+    private lateinit var recordingLabel: TextView
 
     private lateinit var audioHelper: AudioHelper
 
@@ -147,6 +149,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     private fun initComponents(view: View) {
         //inizializzazione componenti
         chronometer = view.findViewById(R.id.audio_chronometer)
+        recordingLabel = view.findViewById(R.id.recording_label)
         audioBtn = view.findViewById(R.id.recording_btn)
         addDraw = view.findViewById(R.id.add_draw)
         ratingDream = view.findViewById(R.id.rating_dream)
@@ -182,26 +185,40 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         insertTag.setText("Inserted tags")
         insertTag.isFocusableInTouchMode = false
         insertTagBtn.visibility = View.INVISIBLE
-        adapterTag =
-            TagListAdapter(requireContext(), restoreDream?.tags ?: mutableListOf(), this, 1)
-        tagsRecycleView.adapter = adapterTag
         tags = restoreDream?.tags ?: mutableListOf()
+        adapterTag =
+            TagListAdapter(requireContext(), tags, this, 1)
+        tagsRecycleView.adapter = adapterTag
 
 
         //rating
         ratingDream.rating = restoreDream?.rate ?: 2.5F
         ratingDream.setIsIndicator(true)
 
-        //audio
-        if (restoreDream?.audioFile != "null") {
 
+        //audio
+        restoreDream?.audios?.remove("")
+        if (restoreDream?.audios?.size == 0){
+            recording_label.text = "No recording found for this dream"
         }
+        else {
+            recording_label.text = "No recording found for this dream"
+            listAudio = restoreDream?.audios ?: mutableListOf()
+            recording_label.visibility = View.INVISIBLE
+            adapterAudio =
+                AudioListAdapter(requireContext(), listAudio, this, 1)
+            audioRecycleView.adapter = adapterAudio
+        }
+        audioBtn.isEnabled = false
     }
 
     private fun initAudioFile(view: View) {
         audioHelper = AudioHelper(view, context)
+        var uriAudio: String = "null"
+
         audioBtn.setOnClickListener {
-            var uriAudio: String = "null"
+            if (recordingLabel.visibility == View.VISIBLE)
+                recordingLabel.visibility = View.GONE
             when (recordingState) {
                 0 -> {
                     //inizio a registrare
@@ -212,7 +229,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
                 1 -> {
                     listAudio.add(uriAudio)
                     bg_recording.text = ""
-                    adapterAudio = AudioListAdapter(requireContext(), listAudio, this)
+                    adapterAudio = AudioListAdapter(requireContext(), listAudio, this, 0)
                     audioRecycleView.adapter = adapterAudio
                     //fermo la registrazione
                     audioHelper.stopRecording(audioBtn, chronometer)
@@ -220,8 +237,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
                     recordingState = 0
                 }
             }
-
-
         }
     }
 
@@ -233,7 +248,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
             description = description.text.toString(),
             tags = tags,
             rate = ratingDream.rating,
-            audioFile = "null"//audioHelper.getUriAudioFile() ?: "null"
+            audios = listAudio
         )
         Log.i("audio_save_debug", toRtn.toString())
         return toRtn
@@ -241,7 +256,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
 
     private fun saveDream(view: View) {
         //inizializzo con valori di default il mio sogno
-        newDream = Dream(0, "00/00/00", "empty", "empty", mutableListOf<String>(), 2.5F, "")
+        newDream = Dream(0, "00/00/00", "empty", "empty", mutableListOf(), 2.5F, mutableListOf())
 
         saveButton.setOnClickListener {
             (activity as MainActivity?)?.closeKeyboard()
@@ -390,10 +405,41 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         tagsRecycleView.adapter = adapterTag
     }
 
-    override fun onAudioItemListener(tag: String, position: Int) {
 
+    override fun onAudioItemListener(
+        titleRecording: String,
+        playerIcon: ImageView,
+        holder: AudioListAdapter.ViewHolder
+    ) {
+        audioHelper = AudioHelper(requireView(), context)
+        audioHelper.play(titleRecording, playerIcon)
+
+        //gestione stop riproduzione audio (non la migliore delle implementazionni, da rivedere in futuro
+        holder.itemView.setOnClickListener {
+            audioHelper.pause()
+            holder.itemView.setOnClickListener(null)
+            adapterAudio = AudioListAdapter(requireContext(), listAudio, this, 0)
+            audioRecycleView.adapter = adapterAudio
+        }
+    }
+
+    override fun onAudioItemLongListener(
+        titleRecording: String,
+        playerIcon: ImageView,
+        playerLabel: TextView,
+        holder: AudioListAdapter.ViewHolder
+    ) {
+        playerIcon.setImageResource(R.drawable.ic_trash)
+        playerLabel.text = "Delete?"
+        holder.itemView.setOnClickListener {
+            audioHelper.delete(titleRecording)
+            listAudio.remove(titleRecording)
+            adapterAudio = AudioListAdapter(requireContext(), listAudio, this, 0)
+            audioRecycleView.adapter = adapterAudio
+        }
     }
 }
+
 
 
 

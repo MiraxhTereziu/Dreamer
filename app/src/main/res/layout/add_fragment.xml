@@ -226,7 +226,7 @@
                     <TextView
                         android:id="@+id/bg_recording"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="0dp"
                         android:layout_marginHorizontal="@dimen/general_margin"
                         android:layout_marginTop="@dimen/general_margin"
                         android:background="@drawable/bg_text_field_no_border"
@@ -234,18 +234,21 @@
                         android:padding="@dimen/general_margin"
                         android:text="Record audio"
                         android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@id/add_draw"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/bg_rating" />
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/recording_btn"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_margin="@dimen/general_margin"
                         android:background="@drawable/bg_recordingbtn"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="Start"
+                        android:padding="@dimen/general_small_margin"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_record"
                         app:layout_constraintBottom_toBottomOf="@id/bg_recording"
                         app:layout_constraintLeft_toLeftOf="@id/bg_recording"
                         app:layout_constraintTop_toTopOf="@id/bg_recording" />
@@ -282,22 +285,33 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/audio_recyclerview"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_margin="@dimen/general_margin"
-                        android:layout_marginHorizontal="@dimen/general_margin"
+                        android:layout_marginLeft="@dimen/general_margin"
                         android:animationCache="true"
-                        android:elevation="90dp"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:backgroundTint="@color/colorPrimaryLight"
+                        android:clipToPadding="false"
                         android:fadeScrollbars="true"
                         android:orientation="horizontal"
+                        android:paddingLeft="@dimen/general_small_margin"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintTop_toTopOf="@id/bg_recording"
                         app:layout_constraintBottom_toBottomOf="@id/bg_recording"
                         app:layout_constraintLeft_toRightOf="@id/audio_chronometer"
                         app:layout_constraintRight_toRightOf="@id/bg_recording"
+                        app:layout_constraintTop_toTopOf="@id/bg_recording" />
 
-                        />
-
+                    <TextView
+                        android:id="@+id/recording_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/general_margin"
+                        android:gravity="center"
+                        android:text="Press the red button to start a recording"
+                        app:layout_constraintBottom_toBottomOf="@id/audio_recyclerview"
+                        app:layout_constraintLeft_toLeftOf="@id/audio_recyclerview"
+                        app:layout_constraintRight_toRightOf="@id/audio_recyclerview"
+                        app:layout_constraintTop_toTopOf="@id/audio_recyclerview" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

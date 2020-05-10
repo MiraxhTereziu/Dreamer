@@ -1,6 +1,7 @@
 package com.miraxh.dreamer.ui.home
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +50,6 @@ class DreamListAdapter(
             description?.text = dream.description
             showTags(dream)
             setRating(dream)
-
             holder.itemView.setOnClickListener{
                 itemListener.onDreamItemListener(dream,holder.layoutPosition)
             }

@@ -13,7 +13,7 @@ data class Dream(
     val description: String,
     val tags: MutableList<String>,
     val rate: Float,
-    val audioFile: String
+    val audios: MutableList<String>
 ):Serializable{
     override fun toString(): String {
         val toRtn = "[$dreamID\n" +
@@ -21,7 +21,8 @@ data class Dream(
                 "$title\n" +
                 "$description\n" +
                 "$rate\n" +
-                "$audioFile\n"
+                "$audios ]"
+
         return toRtn
     }
 }

@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.fragment_splash.*
 
 class SplashFragment : Fragment() {
 
-    lateinit var permissionsButton : Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,7 +64,10 @@ class SplashFragment : Fragment() {
             ) {
                 displayMainFragment()
             }else{
-                permissionsButton = request_permission_btn
+                val labelPermission = denied_text
+                labelPermission.visibility = View.VISIBLE
+                val permissionsButton = request_permission_btn
+                permissionsButton.visibility = View.VISIBLE
                 permissionsButton.setOnClickListener {
                     requestPemission()
                 }

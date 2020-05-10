@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    >
 
-    <TextView
-        android:layout_marginRight="@dimen/general_margin"
-        android:layout_marginVertical="@dimen/general_margin"
-        android:id="@+id/bg_audio_player"
-        android:background="@drawable/bg_audio_reproducer"
+    <ImageButton
+        android:id="@+id/player"
         android:layout_width="@dimen/audio_player_dimen"
         android:layout_height="@dimen/audio_player_dimen"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/general_small_margin"
+        android:background="@drawable/bg_audio_reproducer"
+        android:clickable="false"
+        android:focusable="false"
+        android:padding="@dimen/general_small_margin"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_play"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/play_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_play"
-        app:layout_constraintTop_toTopOf="@+id/bg_audio_player"
-        app:layout_constraintLeft_toLeftOf="@id/bg_audio_player"
-        app:layout_constraintRight_toRightOf="@id/bg_audio_player"
-        app:layout_constraintBottom_toBottomOf="@id/bg_audio_player"/>
+    <TextView
+        android:id="@+id/audio_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_small_margin"
+        android:text="Audio 1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/player" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

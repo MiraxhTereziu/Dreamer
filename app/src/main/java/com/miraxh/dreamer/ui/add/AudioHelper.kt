@@ -3,11 +3,17 @@ package com.miraxh.dreamer.ui.add
 import android.content.Context
 import android.media.MediaPlayer
 import android.media.MediaRecorder
+import android.net.Uri
 import android.os.SystemClock
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Chronometer
+import android.widget.ImageButton
+import android.widget.ImageView
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.snackbar.Snackbar
+import com.miraxh.dreamer.R
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -20,9 +26,11 @@ class AudioHelper(var view: View, var context: Context?) {
     //mediarecorder
     private var mediaRecorder: MediaRecorder? = null
     private val folderName = "audio_files"
-    private var state = 0
+    private val format = ".mp4"
+    private val basePath =
+        context?.getExternalFilesDir(null)?.absolutePath + "/$folderName/"
 
-    fun startRecording(audioButton: Button, chronometer: Chronometer): String {
+    fun startRecording(audioButton: ImageButton, chronometer: Chronometer): String {
         //impostazione file audio e recupera uri file
         var uriAudio = setAudio()
         //inizio a registrare
@@ -31,20 +39,20 @@ class AudioHelper(var view: View, var context: Context?) {
         chronometer.base = SystemClock.elapsedRealtime()
         chronometer.start()
         //cambio label del bottone
-        audioButton.text = "Stop"
+        audioButton.setImageResource(R.drawable.ic_stop)
         //ritorno uri del file
         return uriAudio
     }
 
-    fun stopRecording(audioButton: Button, chronometer: Chronometer) {
+    fun stopRecording(audioButton: ImageButton, chronometer: Chronometer) {
         //inizio a registrare
         stop()
         //stop chronometer
         chronometer.stop()
+        chronometer.base = SystemClock.elapsedRealtime()
         //cambio label del bottone
-        audioButton.text = "Start"
+        audioButton.setImageResource(R.drawable.ic_record)
     }
-
 
     private fun setAudio(): String {
         //conferisco all'audio un indirizzo univoco dato dalla data di oggi
@@ -56,16 +64,21 @@ class AudioHelper(var view: View, var context: Context?) {
             myDirectory.mkdirs()
         }
 
-        val uri =
-            context?.getExternalFilesDir(null)?.absolutePath + "/$folderName/$titleRecording.mp3"
-        mediaRecorder = MediaRecorder()
+        val uri = getUri(titleRecording)
 
+        mediaRecorder = MediaRecorder()
         mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
         mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-        mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC_ELD)
+        mediaRecorder?.setAudioEncodingBitRate(4*44100)
+        mediaRecorder?.setAudioSamplingRate(44100)
         mediaRecorder?.setOutputFile(uri)
 
         return titleRecording
+    }
+
+    private fun getUri(title : String) : String{
+        return "$basePath$title$format"
     }
 
     private fun createUniqueName(): String {
@@ -103,6 +116,37 @@ class AudioHelper(var view: View, var context: Context?) {
             Snackbar.LENGTH_SHORT
         ).show()
     }
+
+    fun play(title:String, playerIcon : ImageView) {
+        if (mediaPlayer == null) {
+            val uri = getUri(title)
+            Log.i("rework_audio","$uri")
+            mediaPlayer = MediaPlayer.create(context, Uri.parse(uri))
+        }
+        mediaPlayer?.start()
+        playerIcon.setImageResource(R.drawable.ic_stop)
+        mediaPlayer?.setOnCompletionListener {
+            playerIcon.setImageResource(R.drawable.ic_play)
+        }
+    }
+
+    fun pause() {
+        if (mediaPlayer != null) {
+            mediaPlayer?.pause()
+        }
+    }
+
+    fun delete(titleRecording: String) {
+        val audioFile = File(getUri(titleRecording))
+        if(audioFile.delete()){
+            Snackbar.make(
+                view,
+                "Recording deleted!",
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
+    }
+
 
     /*
     init {
