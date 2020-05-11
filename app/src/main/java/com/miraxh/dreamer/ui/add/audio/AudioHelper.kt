@@ -1,4 +1,4 @@
-package com.miraxh.dreamer.ui.add
+package com.miraxh.dreamer.ui.add.audio
 
 import android.content.Context
 import android.media.MediaPlayer
@@ -7,11 +7,9 @@ import android.net.Uri
 import android.os.SystemClock
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.Chronometer
 import android.widget.ImageButton
 import android.widget.ImageView
-import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.snackbar.Snackbar
 import com.miraxh.dreamer.R
 import java.io.File

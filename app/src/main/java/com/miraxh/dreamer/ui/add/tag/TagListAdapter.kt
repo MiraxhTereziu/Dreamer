@@ -1,4 +1,4 @@
-package com.miraxh.dreamer.ui.add
+package com.miraxh.dreamer.ui.add.tag
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -33,10 +33,7 @@ class TagListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val tag = tags[position]
         with(holder) {
-            if(tag == "")
-                tagBtn.visibility = View.GONE
-            else
-                tagBtn?.text = tag
+            tagBtn?.text = tag
             if (mode == 1) {
                 tagBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_target, 0, 0, 0);
             }

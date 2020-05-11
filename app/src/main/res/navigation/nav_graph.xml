@@ -21,6 +21,10 @@
         <argument
             android:name="restoreDream"
             app:argType="reference" />
+        <argument
+            android:name="editable"
+            app:argType="boolean"
+            android:defaultValue="true" />
     </fragment>
     <fragment
         android:id="@+id/settings_dest"
@@ -48,8 +52,11 @@
     </fragment>
     <fragment
         android:id="@+id/canvasFragment"
-        android:name="com.miraxh.dreamer.ui.draw.CanvasFragment"
+        android:name="com.miraxh.dreamer.ui.add.images.CanvasFragment"
         android:label="fragment_canvas"
         tools:layout="@layout/fragment_canvas" >
+        <argument
+            android:name="restoreDream"
+            app:argType="reference" />
     </fragment>
 </navigation>

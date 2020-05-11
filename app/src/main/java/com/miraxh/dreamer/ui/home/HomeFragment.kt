@@ -19,6 +19,7 @@ import com.miraxh.dreamer.data.Day
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
 import com.miraxh.dreamer.util.DATE_CLICKED
+import com.miraxh.dreamer.util.EDITABLE
 import com.miraxh.dreamer.util.RESTORE_DREAM
 import kotlinx.android.synthetic.main.home_fragment.*
 
@@ -123,6 +124,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     override fun onDreamItemListener(dream: Dream, position: Int) {
         val dreamBundle = Bundle()
         dreamBundle.putSerializable(RESTORE_DREAM,dream)
+        dreamBundle.putBoolean(EDITABLE,false)
         findNavController().navigate(R.id.add_dest,dreamBundle)
     }
 }

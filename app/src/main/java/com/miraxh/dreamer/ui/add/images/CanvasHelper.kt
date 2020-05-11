@@ -1,4 +1,4 @@
-package com.miraxh.dreamer.ui.draw
+package com.miraxh.dreamer.ui.add.images
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -193,24 +193,28 @@ class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs)
     }
 
     @SuppressLint("WrongThread")
-    fun saveImage() {
+    fun saveImage(): String {
+        var toRtn = "null"
         try {
             createUniqueName()
-            val folderName = "canvas_files"
+            val folderName = "images_files"
             val myDirectory =
                 File(context?.getExternalFilesDir(null)?.absolutePath, folderName)
             if (!myDirectory.exists()) {
                 myDirectory.mkdirs()
             }
-            val filename: String = context?.getExternalFilesDir(null)?.absolutePath + "/$folderName/"
-            Log.i("test_save_canvas",filename)
+            val filename: String =
+                context?.getExternalFilesDir(null)?.absolutePath + "/$folderName/"
+            Log.i("test_save_canvas", filename)
             val f = File(filename, "$titleCanvas.png")
             f.createNewFile()
             val out = FileOutputStream(f)
             extraBitmap.compress(Bitmap.CompressFormat.PNG, 90, out)
+            toRtn = "$titleCanvas.png"
         } catch (e: Exception) {
             e.printStackTrace()
         }
+        return toRtn
     }
 
     private fun createUniqueName() {

@@ -1,7 +1,6 @@
-package com.miraxh.dreamer.ui.draw
+package com.miraxh.dreamer.ui.add.images
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
-import com.miraxh.dreamer.util.DATE_CLICKED
-import com.miraxh.dreamer.util.TMP_DREAM
-import java.io.Serializable
+import com.miraxh.dreamer.util.RESTORE_DREAM
 
 class CanvasFragment() : Fragment() {
 
@@ -45,13 +42,22 @@ class CanvasFragment() : Fragment() {
     private lateinit var color7: Button
     private lateinit var checked7: ImageView
 
-    private lateinit var thickness : SeekBar
+    private lateinit var thickness: SeekBar
 
-    private lateinit var eraseBtn : TextView
+    private lateinit var eraseBtn: TextView
     private lateinit var saveBtn: TextView
     private lateinit var resetBtn: TextView
 
-    var tmpDream: Serializable? = null
+    private var restoreDream: Dream? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            val tmpSerial = it.getSerializable(RESTORE_DREAM)
+            if (tmpSerial != null)
+                restoreDream = tmpSerial as Dream
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -151,13 +157,15 @@ class CanvasFragment() : Fragment() {
         eraseBtn.setOnClickListener {
             canvas.changeColor(0)
             unCheckAll()
-            eraseBtn.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_palette_btn,null)
+            eraseBtn.background =
+                ResourcesCompat.getDrawable(resources, R.drawable.bg_palette_btn, null)
         }
 
         saveBtn.setOnClickListener {
-            canvas.saveImage()
-            val bundle = Bundle()
-            findNavController().navigateUp()
+            restoreDream?.images?.add(canvas.saveImage())
+            val dreamBundle = Bundle()
+            dreamBundle.putSerializable(RESTORE_DREAM, restoreDream)
+            findNavController().navigate(R.id.add_dest, dreamBundle)
             Snackbar.make(
                 view,
                 "Drawing saved!",
@@ -177,7 +185,7 @@ class CanvasFragment() : Fragment() {
         return view
     }
 
-    private fun unCheckAll(){
+    private fun unCheckAll() {
         checked1.visibility = View.INVISIBLE
         checked2.visibility = View.INVISIBLE
         checked3.visibility = View.INVISIBLE
@@ -185,6 +193,7 @@ class CanvasFragment() : Fragment() {
         checked5.visibility = View.INVISIBLE
         checked6.visibility = View.INVISIBLE
         checked7.visibility = View.INVISIBLE
-        eraseBtn.background = ResourcesCompat.getDrawable(resources, R.drawable.bg_palette_btn_disable,null)
+        eraseBtn.background =
+            ResourcesCompat.getDrawable(resources, R.drawable.bg_palette_btn_disable, null)
     }
 }

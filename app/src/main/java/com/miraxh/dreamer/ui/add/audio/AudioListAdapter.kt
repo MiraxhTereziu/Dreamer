@@ -1,4 +1,4 @@
-package com.miraxh.dreamer.ui.add
+package com.miraxh.dreamer.ui.add.audio
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -36,11 +36,7 @@ class AudioListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val audio = audioList[position]
         with(holder) {
-            //if(audio == "")
-            //    holder.itemView?.visibility = View.GONE
-
             playerLabel.text = "Audio ${(position+1)}"
-
 
             holder.itemView.setOnClickListener {
                 itemListener.onAudioItemListener(audio,playerIcon,holder)

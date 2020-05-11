@@ -1,5 +1,6 @@
 package com.miraxh.dreamer.data.dream
 
+import android.provider.MediaStore
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
@@ -13,7 +14,8 @@ data class Dream(
     val description: String,
     val tags: MutableList<String>,
     val rate: Float,
-    val audios: MutableList<String>
+    val audios: MutableList<String>,
+    val images: MutableList<String>
 ):Serializable{
     override fun toString(): String {
         val toRtn = "[$dreamID\n" +
@@ -21,7 +23,8 @@ data class Dream(
                 "$title\n" +
                 "$description\n" +
                 "$rate\n" +
-                "$audios ]"
+                "$audios\n" +
+                "$images ]"
 
         return toRtn
     }

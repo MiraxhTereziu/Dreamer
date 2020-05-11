@@ -232,7 +232,6 @@
                         android:background="@drawable/bg_text_field_no_border"
                         android:gravity="right|center_vertical"
                         android:padding="@dimen/general_margin"
-                        android:text="Record audio"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@id/add_draw"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -266,22 +265,6 @@
                         app:layout_constraintLeft_toRightOf="@id/recording_btn"
                         app:layout_constraintTop_toTopOf="@id/bg_recording" />
 
-                    <TextView
-                        android:id="@+id/add_draw"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/text_field_height"
-                        android:layout_marginHorizontal="@dimen/general_margin"
-                        android:layout_marginTop="@dimen/general_margin"
-                        android:background="@drawable/bg_text_field_no_border"
-                        android:drawableLeft="@drawable/ic_gesture"
-                        android:gravity="center"
-                        android:padding="@dimen/general_margin"
-                        android:text="Add drawing"
-                        android:textSize="20sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/bg_recording" />
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/audio_recyclerview"
                         android:layout_width="0dp"
@@ -312,6 +295,41 @@
                         app:layout_constraintLeft_toLeftOf="@id/audio_recyclerview"
                         app:layout_constraintRight_toRightOf="@id/audio_recyclerview"
                         app:layout_constraintTop_toTopOf="@id/audio_recyclerview" />
+
+                    <TextView
+                        android:id="@+id/add_draw"
+                        android:layout_width="0dp"
+                        android:lines="1"
+                        android:layout_height="@dimen/text_field_height"
+                        android:layout_marginLeft="@dimen/general_margin"
+                        android:layout_marginRight="@dimen/general_small_margin"
+                        android:layout_marginTop="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:drawableLeft="@drawable/ic_gesture"
+                        android:gravity="center"
+                        android:padding="@dimen/general_margin"
+                        android:text="@string/add_drawing_label"
+                        android:textSize="20sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/add_image"
+                        app:layout_constraintTop_toBottomOf="@id/bg_recording" />
+
+                    <TextView
+                        android:id="@+id/add_image"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/text_field_height"
+                        android:layout_marginLeft="@dimen/general_small_margin"
+                        android:layout_marginRight="@dimen/general_margin"
+                        android:layout_marginTop="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:drawableLeft="@drawable/ic_image"
+                        android:gravity="center"
+                        android:padding="@dimen/general_margin"
+                        android:text="@string/add_image_label"
+                        android:textSize="20sp"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/add_draw"
+                        app:layout_constraintTop_toBottomOf="@id/bg_recording" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

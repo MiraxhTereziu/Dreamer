@@ -34,4 +34,6 @@
     <string name="reset_label_palette">Reset</string>
     <string name="permission_denied">To save a report of a dream the application needs permissions to save files in the memory</string>
     <string name="give_permission_btn_label">Give permission</string>
+    <string name="add_drawing_label">Add drawing</string>
+    <string name="add_image_label">Add image</string>
 </resources>

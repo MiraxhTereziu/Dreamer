@@ -50,6 +50,9 @@ class DreamListAdapter(
             description?.text = dream.description
             showTags(dream)
             setRating(dream)
+            dream.images.forEach {
+                Log.i("saving_canvas",it)
+            }
             holder.itemView.setOnClickListener{
                 itemListener.onDreamItemListener(dream,holder.layoutPosition)
             }
