@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.util.FOLDER_IMAGE
+import java.io.File
 
 class ImageListAdapter(
     val context: Context,

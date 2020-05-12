@@ -1,19 +1,26 @@
 package com.miraxh.dreamer.ui.add
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.DialogInterface
+import android.content.Intent
+import android.database.Cursor
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -29,6 +36,7 @@ import com.miraxh.dreamer.util.EDITABLE
 import com.miraxh.dreamer.util.FOLDER_IMAGE
 import com.miraxh.dreamer.util.RESTORE_DREAM
 import kotlinx.android.synthetic.main.add_fragment.*
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -46,6 +54,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     private lateinit var insertTagBtn: ImageButton
     private lateinit var cancelBtn: TextView
     private lateinit var audioBtn: ImageButton
+
 
     private lateinit var newDream: Dream
     private lateinit var include: ConstraintLayout
@@ -65,6 +74,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     private lateinit var date: TextView
     private lateinit var description: TextView
     private lateinit var addDraw: TextView
+    private lateinit var addImage: TextView
     private lateinit var recordingLabel: TextView
 
     private lateinit var audioHelper: AudioHelper
@@ -159,6 +169,10 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         if (restoreDream != null)
             restoreDreamState(editable)
 
+        addImage.setOnClickListener {
+            pickImageFromGallery()
+        }
+
         initImageRW()
     }
 
@@ -180,6 +194,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         recordingLabel = view.findViewById(R.id.recording_label)
         audioBtn = view.findViewById(R.id.recording_btn)
         addDraw = view.findViewById(R.id.add_draw)
+        addImage = view.findViewById(R.id.add_image)
         ratingDream = view.findViewById(R.id.rating_dream)
         tagsRecycleView = view.findViewById(R.id.tags_recyclerview)
         audioRecycleView = view.findViewById(R.id.audio_recyclerview)
@@ -259,7 +274,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         audioBtn.isEnabled = state
 
         //drawing
-        addDraw.isEnabled = false
+        addDraw.isEnabled = state
 
         //image rw
         imageList = restoreDream?.images ?: mutableListOf()
@@ -481,6 +496,44 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
             //cancel.setBackgroundColor(Color.GREEN)
         }
     }
+
+    private fun pickImageFromGallery() {
+        //Intent to pick image
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, 1000)
+    }
+
+    //handle result of picked image
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 1000) {
+            /*Glide.with(requireContext())
+                .load("${data?.data}")
+                .into(image)*/
+
+            val uriSourceFile = data?.data
+
+            val cr = context?.contentResolver
+            val mime = MimeTypeMap.getSingleton()
+            val type = mime.getExtensionFromMimeType(cr?.getType(uriSourceFile!!))
+            val sourceFile = File(getRealPathFromURI(uriSourceFile))
+
+            val fileName = "${Dream.createUniqueName()}.$type"
+            val destFile = File(Dream.getBasePath(requireContext(), FOLDER_IMAGE),fileName)
+            sourceFile.copyTo(destFile,true)
+            imageList.add(fileName)
+            initImageRW()
+        }
+    }
+
+    private fun getRealPathFromURI(contentUri: Uri?): String? {
+        val proj = arrayOf(MediaStore.Audio.Media.DATA)
+        val cursor: Cursor? = context?.contentResolver?.query(contentUri!!, proj, null, null, null)
+        val column_index: Int? = cursor?.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
+        cursor?.moveToFirst()
+        return cursor?.getString(column_index!!)
+    }
+
 
     override fun onTagItemListener(tag: String, position: Int) {
         //elimino tag

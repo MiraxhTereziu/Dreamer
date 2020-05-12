@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import com.google.android.material.snackbar.Snackbar
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.util.FOLDER_AUDIO
 import java.io.File
 import java.io.IOException
@@ -55,7 +56,7 @@ class AudioHelper(var view: View, var context: Context?) {
 
     private fun setAudio(): String {
         //conferisco all'audio un indirizzo univoco dato dalla data di oggi
-        var titleRecording = createUniqueName()
+        var titleRecording = Dream.createUniqueName()
 
         val myDirectory =
             File(context?.getExternalFilesDir(null)?.absolutePath, folderName)
@@ -78,17 +79,6 @@ class AudioHelper(var view: View, var context: Context?) {
 
     private fun getUri(title : String) : String{
         return "$basePath$title$format"
-    }
-
-    private fun createUniqueName(): String {
-        var titleRecording: String
-        val cal = Calendar.getInstance()
-        titleRecording = cal.time.toString()
-        //trimming della string
-        titleRecording = titleRecording.replace(' ', '_').toLowerCase()
-        titleRecording = titleRecording.replace(':', '_').toLowerCase()
-        titleRecording = titleRecording.replace('+', '_').toLowerCase()
-        return titleRecording
     }
 
     private fun record() {

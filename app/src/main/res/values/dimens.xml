@@ -22,4 +22,5 @@
     <dimen name="color_palette_element_size">35dp</dimen>
     <dimen name="audio_player_dimen">50dp</dimen>
     <dimen name="bg_recording_height">100dp</dimen>
+    <dimen name="image_size">100dp</dimen>
 </resources>

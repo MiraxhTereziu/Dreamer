@@ -5,6 +5,7 @@ import android.provider.MediaStore
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
+import java.util.*
 
 @Entity(tableName = "dreams")
 data class Dream(
@@ -30,8 +31,20 @@ data class Dream(
     }
 
     companion object{
+
         fun getBasePath(context: Context, folderName: String): String {
             return context?.getExternalFilesDir(null)?.absolutePath + "/$folderName/"
+        }
+
+        fun createUniqueName(): String {
+            var titleRecording: String
+            val cal = Calendar.getInstance()
+            titleRecording = cal.time.toString()
+            //trimming della string
+            titleRecording = titleRecording.replace(' ', '_').toLowerCase()
+            titleRecording = titleRecording.replace(':', '_').toLowerCase()
+            titleRecording = titleRecording.replace('+', '_').toLowerCase()
+            return titleRecording
         }
     }
 }
