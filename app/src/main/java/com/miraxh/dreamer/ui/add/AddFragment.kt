@@ -22,16 +22,18 @@ import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.ui.add.audio.AudioHelper
 import com.miraxh.dreamer.ui.add.audio.AudioListAdapter
+import com.miraxh.dreamer.ui.add.images.ImageListAdapter
 import com.miraxh.dreamer.ui.add.tag.TagListAdapter
 import com.miraxh.dreamer.util.DATE_CLICKED
 import com.miraxh.dreamer.util.EDITABLE
+import com.miraxh.dreamer.util.FOLDER_IMAGE
 import com.miraxh.dreamer.util.RESTORE_DREAM
 import kotlinx.android.synthetic.main.add_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.AudioListener {
+class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.AudioListener, ImageListAdapter.ImageListener {
 
     companion object {
         fun newInstance() = AddFragment()
@@ -54,6 +56,8 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     private lateinit var adapterTag: TagListAdapter
     private lateinit var audioRecycleView: RecyclerView
     private lateinit var adapterAudio: AudioListAdapter
+    private lateinit var imageRecycleView: RecyclerView
+    private lateinit var adapterImage: ImageListAdapter
 
     private lateinit var titleToolbar: TextView
     private lateinit var insertTag: TextInputEditText
@@ -154,10 +158,24 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
 
         if (restoreDream != null)
             restoreDreamState(editable)
+
+        initImageRW()
+    }
+
+    private fun initImageRW() {
+        adapterImage =
+            ImageListAdapter(
+                requireContext(),
+                imageList,
+                this,
+                0
+            )
+        imageRecycleView.adapter = adapterImage
     }
 
     private fun initComponents(view: View) {
         //inizializzazione componenti
+        imageRecycleView = view.findViewById(R.id.images_recyclerview)
         chronometer = view.findViewById(R.id.audio_chronometer)
         recordingLabel = view.findViewById(R.id.recording_label)
         audioBtn = view.findViewById(R.id.recording_btn)
@@ -241,7 +259,11 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         audioBtn.isEnabled = state
 
         //drawing
+        addDraw.isEnabled = false
+
+        //image rw
         imageList = restoreDream?.images ?: mutableListOf()
+
     }
 
     private fun initAudioFile(view: View) {
@@ -517,6 +539,10 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
             )
             audioRecycleView.adapter = adapterAudio
         }
+    }
+
+    override fun onImageItemListener(titleRecording: String, playerIcon: ImageView) {
+
     }
 }
 

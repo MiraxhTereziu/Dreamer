@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import com.google.android.material.snackbar.Snackbar
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.util.FOLDER_AUDIO
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -23,7 +24,7 @@ class AudioHelper(var view: View, var context: Context?) {
 
     //mediarecorder
     private var mediaRecorder: MediaRecorder? = null
-    private val folderName = "audio_files"
+    private val folderName = FOLDER_AUDIO
     private val format = ".mp4"
     private val basePath =
         context?.getExternalFilesDir(null)?.absolutePath + "/$folderName/"

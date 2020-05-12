@@ -9,3 +9,5 @@ const val TMP_DREAM = "tmp_dream"
 const val RESTORE_DREAM = "restore_dream"
 const val EDITABLE = "editable"
 const val STROKE_WIDTH = 14f
+const val FOLDER_AUDIO = "audio_files"
+const val FOLDER_IMAGE = "images_files"

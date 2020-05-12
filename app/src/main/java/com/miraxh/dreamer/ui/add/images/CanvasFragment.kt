@@ -1,6 +1,7 @@
 package com.miraxh.dreamer.ui.add.images
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
+import com.miraxh.dreamer.util.FOLDER_IMAGE
 import com.miraxh.dreamer.util.RESTORE_DREAM
 
 class CanvasFragment() : Fragment() {

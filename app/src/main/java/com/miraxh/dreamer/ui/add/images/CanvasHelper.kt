@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.content.res.ResourcesCompat
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.util.FOLDER_IMAGE
 import com.miraxh.dreamer.util.STROKE_WIDTH
 import java.io.File
 import java.io.FileOutputStream
@@ -197,7 +198,7 @@ class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs)
         var toRtn = "null"
         try {
             createUniqueName()
-            val folderName = "images_files"
+            val folderName = FOLDER_IMAGE
             val myDirectory =
                 File(context?.getExternalFilesDir(null)?.absolutePath, folderName)
             if (!myDirectory.exists()) {
@@ -205,7 +206,6 @@ class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs)
             }
             val filename: String =
                 context?.getExternalFilesDir(null)?.absolutePath + "/$folderName/"
-            Log.i("test_save_canvas", filename)
             val f = File(filename, "$titleCanvas.png")
             f.createNewFile()
             val out = FileOutputStream(f)

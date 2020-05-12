@@ -1,5 +1,6 @@
 package com.miraxh.dreamer.data.dream
 
+import android.content.Context
 import android.provider.MediaStore
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -16,7 +17,7 @@ data class Dream(
     val rate: Float,
     val audios: MutableList<String>,
     val images: MutableList<String>
-):Serializable{
+) : Serializable {
     override fun toString(): String {
         val toRtn = "[$dreamID\n" +
                 "$date\n" +
@@ -25,7 +26,12 @@ data class Dream(
                 "$rate\n" +
                 "$audios\n" +
                 "$images ]"
-
         return toRtn
+    }
+
+    companion object{
+        fun getBasePath(context: Context, folderName: String): String {
+            return context?.getExternalFilesDir(null)?.absolutePath + "/$folderName/"
+        }
     }
 }

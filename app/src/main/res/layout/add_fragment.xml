@@ -331,6 +331,25 @@
                         app:layout_constraintLeft_toRightOf="@id/add_draw"
                         app:layout_constraintTop_toBottomOf="@id/bg_recording" />
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/images_recyclerview"
+                        android:layout_margin="@dimen/general_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:animationCache="true"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        android:clipToPadding="false"
+                        android:backgroundTint="@color/colorPrimaryLight"
+                        android:fadeScrollbars="true"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/add_draw"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>

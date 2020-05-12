@@ -48,13 +48,13 @@ class DreamListAdapter(
             date?.text = dream.date
             title?.text = dream.title
             description?.text = dream.description
-            showTags(dream)
+            showTags(dream.tags)
             setRating(dream)
             dream.images.forEach {
-                Log.i("saving_canvas",it)
+                Log.i("saving_canvas", it)
             }
-            holder.itemView.setOnClickListener{
-                itemListener.onDreamItemListener(dream,holder.layoutPosition)
+            holder.itemView.setOnClickListener {
+                itemListener.onDreamItemListener(dream, holder.layoutPosition)
             }
         }
     }
@@ -71,32 +71,38 @@ class DreamListAdapter(
         }
     }
 
-    private fun ViewHolder.showTags(dream: Dream) {
-        val textTag1 = dream.tags[0]
-        if (textTag1 != "") {
-            description.maxLines = 3
-            tag1.visibility = View.VISIBLE
-            tag1.text = textTag1
-            val textTag2 = dream.tags[1]
-            if (textTag2 != "") {
-                tag2.visibility = View.VISIBLE
-                tag2.text = textTag2
-                val textTag3 = dream.tags[2]
-                if (textTag3 != "") {
-                    tag3.visibility = View.VISIBLE
-                    tag3.text = textTag3
-                } else {
-                    tag3.visibility = View.INVISIBLE
-                }
-            } else {
+    private fun ViewHolder.showTags(tagList: MutableList<String>) {
+        when (tagList.size) {
+            0 -> {
+                description.maxLines = 5
+                tag1.visibility = View.GONE
+                tag2.visibility = View.GONE
+                tag3.visibility = View.GONE
+            }
+            1 -> {
+                description.maxLines = 3
+                tag1.visibility = View.VISIBLE
+                tag1.text = tagList[0]
                 tag2.visibility = View.INVISIBLE
                 tag3.visibility = View.INVISIBLE
             }
-        } else {
-            description.maxLines = 5
-            tag1.visibility = View.GONE
-            tag2.visibility = View.GONE
-            tag3.visibility = View.GONE
+            2 ->{
+                description.maxLines = 3
+                tag1.visibility = View.VISIBLE
+                tag1.text = tagList[0]
+                tag2.visibility = View.VISIBLE
+                tag2.text = tagList[1]
+                tag3.visibility = View.INVISIBLE
+            }
+            else ->{
+                description.maxLines = 3
+                tag1.visibility = View.VISIBLE
+                tag1.text = tagList[0]
+                tag2.visibility = View.VISIBLE
+                tag2.text = tagList[1]
+                tag3.visibility = View.VISIBLE
+                tag3.text = tagList[2]
+            }
         }
     }
 
