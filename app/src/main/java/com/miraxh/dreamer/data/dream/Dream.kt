@@ -1,7 +1,6 @@
 package com.miraxh.dreamer.data.dream
 
 import android.content.Context
-import android.provider.MediaStore
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
@@ -20,20 +19,19 @@ data class Dream(
     val images: MutableList<String>
 ) : Serializable {
     override fun toString(): String {
-        val toRtn = "[$dreamID\n" +
+        return "[$dreamID\n" +
                 "$date\n" +
                 "$title\n" +
                 "$description\n" +
                 "$rate\n" +
                 "$audios\n" +
                 "$images ]"
-        return toRtn
     }
 
     companion object{
 
         fun getBasePath(context: Context, folderName: String): String {
-            return context?.getExternalFilesDir(null)?.absolutePath + "/$folderName/"
+            return context.getExternalFilesDir(null)?.absolutePath + "/$folderName/"
         }
 
         fun createUniqueName(): String {
@@ -41,10 +39,10 @@ data class Dream(
             val cal = Calendar.getInstance()
             titleRecording = cal.time.toString()
             //trimming della string
-            titleRecording = titleRecording.replace(' ', '_').toLowerCase()
-            titleRecording = titleRecording.replace(':', '_').toLowerCase()
-            titleRecording = titleRecording.replace('+', '_').toLowerCase()
-            return titleRecording
+            titleRecording = titleRecording.replace(' ', '_')
+            titleRecording = titleRecording.replace(':', '_')
+            titleRecording = titleRecording.replace('+', '_')
+            return titleRecording.toLowerCase(Locale.ROOT)
         }
     }
 }

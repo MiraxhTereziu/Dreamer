@@ -5,7 +5,6 @@ import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.SystemClock
-import android.util.Log
 import android.view.View
 import android.widget.Chronometer
 import android.widget.ImageButton
@@ -16,7 +15,6 @@ import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.util.FOLDER_AUDIO
 import java.io.File
 import java.io.IOException
-import java.util.*
 
 class AudioHelper(var view: View, var context: Context?) {
 
@@ -32,7 +30,7 @@ class AudioHelper(var view: View, var context: Context?) {
 
     fun startRecording(audioButton: ImageButton, chronometer: Chronometer): String {
         //impostazione file audio e recupera uri file
-        var uriAudio = setAudio()
+        val uriAudio = setAudio()
         //inizio a registrare
         record()
         //start chronometer
@@ -56,7 +54,7 @@ class AudioHelper(var view: View, var context: Context?) {
 
     private fun setAudio(): String {
         //conferisco all'audio un indirizzo univoco dato dalla data di oggi
-        var titleRecording = Dream.createUniqueName()
+        val titleRecording = Dream.createUniqueName()
 
         val myDirectory =
             File(context?.getExternalFilesDir(null)?.absolutePath, folderName)
@@ -97,7 +95,7 @@ class AudioHelper(var view: View, var context: Context?) {
         }
     }
 
-    fun stop() {
+    private fun stop() {
         mediaRecorder?.release()
         Snackbar.make(
             view,
@@ -109,7 +107,6 @@ class AudioHelper(var view: View, var context: Context?) {
     fun play(title:String, playerIcon : ImageView) {
         if (mediaPlayer == null) {
             val uri = getUri(title)
-            Log.i("rework_audio","$uri")
             mediaPlayer = MediaPlayer.create(context, Uri.parse(uri))
         }
         mediaPlayer?.start()

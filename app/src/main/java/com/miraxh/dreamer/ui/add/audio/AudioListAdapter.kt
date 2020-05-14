@@ -12,14 +12,14 @@ import com.miraxh.dreamer.R
 
 class AudioListAdapter(
     val context: Context,
-    val audioList: List<String>,
-    val itemListener: AudioListener,
-    var mode: Int
+    private val audioList: List<String>,
+    private val itemListener: AudioListener,
+    private var mode: Int
 ) : RecyclerView.Adapter<AudioListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val playerIcon = itemView?.findViewById<ImageButton>(R.id.player)
-        val playerLabel = itemView?.findViewById<TextView>(R.id.audio_label)
+        val playerIcon:ImageButton = itemView.findViewById(R.id.player)
+        val playerLabel:TextView = itemView.findViewById(R.id.audio_label)
     }
 
     override fun onCreateViewHolder(

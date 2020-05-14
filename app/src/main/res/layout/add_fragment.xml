@@ -15,8 +15,8 @@
             layout="@layout/normal_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
@@ -30,7 +30,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,19 +42,18 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="@dimen/general_margin"
-                        android:layout_marginLeft="@dimen/general_small_margin"
-                        android:layout_marginRight="@dimen/general_margin"
+                        android:layout_marginStart="@dimen/general_small_margin"
+                        android:layout_marginEnd="@dimen/general_margin"
                         android:background="@drawable/bg_text_field_no_border"
-                        android:drawableLeft="@drawable/ic_calendar"
+                        android:drawableStart="@drawable/ic_calendar"
                         android:drawablePadding="@dimen/general_small_margin"
-                        android:drawableTint="@color/colorSecondary"
                         android:padding="@dimen/general_margin"
-                        android:text="Pick date"
+                        android:text="@string/pick_date_label"
                         android:textAllCaps="false"
                         android:textColor="@color/colorSecondary"
                         android:textSize="20sp"
-                        app:layout_constraintLeft_toRightOf="@+id/cancel_btn"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cancel_btn"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
@@ -62,8 +61,8 @@
                         android:layout_width="100dp"
                         android:layout_height="0dp"
                         android:layout_marginVertical="@dimen/general_margin"
-                        android:layout_marginLeft="@dimen/general_margin"
-                        android:layout_marginRight="@dimen/general_small_margin"
+                        android:layout_marginStart="@dimen/general_margin"
+                        android:layout_marginEnd="@dimen/general_small_margin"
                         android:background="@drawable/bg_cancel"
                         android:gravity="center"
                         android:paddingHorizontal="@dimen/general_small_margin"
@@ -71,8 +70,8 @@
                         android:textColor="@color/colorPrimaryLight"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/layout_dream_title"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@id/date_picker"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/date_picker"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -121,7 +120,6 @@
                             android:gravity="top"
                             android:hint="@string/dream_description_hint"
                             android:inputType="textMultiLine"
-                            android:justificationMode="inter_word"
                             android:paddingHorizontal="@dimen/general_small_margin"
                             android:paddingTop="@dimen/general_small_margin"
                             android:textColor="@color/colorWhite"
@@ -129,15 +127,16 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageButton
+                        android:contentDescription="@string/insert_tag_description"
                         android:id="@+id/insert_tag_btn"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="19dp"
-                        android:layout_marginRight="@dimen/general_margin"
-                        android:background="@color/colorPrimary"
+                        android:layout_marginEnd="@dimen/general_margin"
+                        android:background="@android:color/transparent"
                         android:src="@drawable/ic_forward"
                         android:translationZ="90dp"
-                        app:layout_constraintRight_toRightOf="@+id/layout_dream_tag"
+                        app:layout_constraintEnd_toEndOf="@+id/layout_dream_tag"
                         app:layout_constraintTop_toTopOf="@id/layout_dream_tag" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -176,14 +175,14 @@
                         android:layout_marginHorizontal="@dimen/general_margin"
                         android:animationCache="true"
                         android:background="@drawable/bg_text_bottom"
-                        android:elevation="90dp"
+                        android:elevation="@dimen/elevation_one"
                         android:fadeScrollbars="true"
                         android:orientation="horizontal"
                         android:paddingHorizontal="2dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="@id/tag_bg"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                     <TextView
                         android:id="@+id/tag_bg"
@@ -192,8 +191,8 @@
                         android:layout_marginHorizontal="@dimen/general_margin"
                         android:background="@drawable/bg_text_bottom"
                         android:paddingHorizontal="2dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/layout_dream_tag" />
 
                     <TextView
@@ -205,22 +204,22 @@
                         android:background="@drawable/bg_text_field_no_border"
                         android:gravity="center_vertical"
                         android:padding="@dimen/general_margin"
-                        android:text="Rate dream"
+                        android:text="@string/rate_dream_label"
                         android:textSize="16sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tag_bg" />
 
                     <RatingBar
                         android:id="@+id/rating_dream"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/general_margin"
+                        android:layout_marginEnd="@dimen/general_margin"
                         android:numStars="5"
                         android:paddingTop="@dimen/general_small_margin"
                         android:rating="2.5"
                         app:layout_constraintBottom_toBottomOf="@id/bg_rating"
-                        app:layout_constraintRight_toRightOf="@id/bg_rating"
+                        app:layout_constraintEnd_toEndOf="@id/bg_rating"
                         app:layout_constraintTop_toTopOf="@id/bg_rating" />
 
                     <TextView
@@ -230,15 +229,16 @@
                         android:layout_marginHorizontal="@dimen/general_margin"
                         android:layout_marginTop="@dimen/general_margin"
                         android:background="@drawable/bg_text_field_no_border"
-                        android:gravity="right|center_vertical"
+                        android:gravity="end|center_vertical"
                         android:padding="@dimen/general_margin"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@id/add_draw"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/bg_rating" />
 
                     <ImageButton
+                        android:contentDescription="@string/record_audio_desciption"
                         android:id="@+id/recording_btn"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
@@ -249,7 +249,7 @@
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_record"
                         app:layout_constraintBottom_toBottomOf="@id/bg_recording"
-                        app:layout_constraintLeft_toLeftOf="@id/bg_recording"
+                        app:layout_constraintStart_toStartOf="@id/bg_recording"
                         app:layout_constraintTop_toTopOf="@id/bg_recording" />
 
                     <Chronometer
@@ -262,7 +262,7 @@
                         android:padding="@dimen/general_margin"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@id/bg_recording"
-                        app:layout_constraintLeft_toRightOf="@id/recording_btn"
+                        app:layout_constraintStart_toEndOf="@id/recording_btn"
                         app:layout_constraintTop_toTopOf="@id/bg_recording" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -270,30 +270,30 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/general_margin"
+                        android:layout_marginStart="@dimen/general_margin"
                         android:animationCache="true"
                         android:background="@drawable/bg_text_field_no_border"
                         android:backgroundTint="@color/colorPrimaryLight"
                         android:clipToPadding="false"
                         android:fadeScrollbars="true"
                         android:orientation="horizontal"
-                        android:paddingLeft="@dimen/general_small_margin"
+                        android:paddingHorizontal="@dimen/general_small_margin"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="@id/bg_recording"
-                        app:layout_constraintLeft_toRightOf="@id/audio_chronometer"
-                        app:layout_constraintRight_toRightOf="@id/bg_recording"
+                        app:layout_constraintStart_toEndOf="@id/audio_chronometer"
+                        app:layout_constraintEnd_toEndOf="@id/bg_recording"
                         app:layout_constraintTop_toTopOf="@id/bg_recording" />
 
                     <TextView
                         android:id="@+id/recording_label"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="159dp"
+                        android:layout_height="42dp"
                         android:layout_margin="@dimen/general_margin"
                         android:gravity="center"
-                        android:text="Press the red button to start a recording"
+                        android:text="@string/how_to_record_label"
                         app:layout_constraintBottom_toBottomOf="@id/audio_recyclerview"
-                        app:layout_constraintLeft_toLeftOf="@id/audio_recyclerview"
-                        app:layout_constraintRight_toRightOf="@id/audio_recyclerview"
+                        app:layout_constraintEnd_toEndOf="@id/audio_recyclerview"
+                        app:layout_constraintStart_toStartOf="@id/audio_recyclerview"
                         app:layout_constraintTop_toTopOf="@id/audio_recyclerview" />
 
                     <TextView
@@ -301,34 +301,34 @@
                         android:layout_width="0dp"
                         android:lines="1"
                         android:layout_height="@dimen/text_field_height"
-                        android:layout_marginLeft="@dimen/general_margin"
-                        android:layout_marginRight="@dimen/general_small_margin"
+                        android:layout_marginStart="@dimen/general_margin"
+                        android:layout_marginEnd="@dimen/general_small_margin"
                         android:layout_marginTop="@dimen/general_margin"
                         android:background="@drawable/bg_text_field_no_border"
-                        android:drawableLeft="@drawable/ic_gesture"
+                        android:drawableStart="@drawable/ic_gesture"
                         android:gravity="center"
                         android:padding="@dimen/general_margin"
                         android:text="@string/add_drawing_label"
                         android:textSize="20sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@id/add_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/add_image"
                         app:layout_constraintTop_toBottomOf="@id/bg_recording" />
 
                     <TextView
                         android:id="@+id/add_image"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/text_field_height"
-                        android:layout_marginLeft="@dimen/general_small_margin"
-                        android:layout_marginRight="@dimen/general_margin"
+                        android:layout_marginStart="@dimen/general_small_margin"
+                        android:layout_marginEnd="@dimen/general_margin"
                         android:layout_marginTop="@dimen/general_margin"
                         android:background="@drawable/bg_text_field_no_border"
-                        android:drawableLeft="@drawable/ic_image"
+                        android:drawableStart="@drawable/ic_image"
                         android:gravity="center"
                         android:padding="@dimen/general_margin"
                         android:text="@string/add_image_label"
                         android:textSize="20sp"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toRightOf="@id/add_draw"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/add_draw"
                         app:layout_constraintTop_toBottomOf="@id/bg_recording" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -344,8 +344,8 @@
                         android:fadeScrollbars="true"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/add_draw"
                         app:layout_constraintBottom_toBottomOf="parent"
                         />
@@ -360,7 +360,7 @@
             android:id="@+id/save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/general_margin"
+            android:layout_marginEnd="@dimen/general_margin"
             android:layout_marginBottom="@dimen/general_margin"
             android:backgroundTint="@color/colorWhite"
             android:clickable="true"

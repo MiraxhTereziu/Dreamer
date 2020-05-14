@@ -1,14 +1,11 @@
 package com.miraxh.dreamer.data.dream
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.*
 
 class DreamRepository(val app: Application) {
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginRight="@dimen/general_margin"
+    android:layout_marginEnd="@dimen/general_margin"
     android:clickable="true"
     android:focusable="true"
     android:paddingBottom="@dimen/general_small_margin">
@@ -18,8 +18,8 @@
         android:theme="@style/number_day"
         android:translationZ="90dp"
         app:layout_constraintBottom_toTopOf="@+id/week"
-        app:layout_constraintLeft_toLeftOf="@id/active"
-        app:layout_constraintRight_toRightOf="@id/active"
+        app:layout_constraintStart_toStartOf="@id/active"
+        app:layout_constraintEnd_toEndOf="@id/active"
         app:layout_constraintTop_toTopOf="@id/active" />
 
     <TextView
@@ -32,8 +32,8 @@
         android:theme="@style/week_day"
         android:translationZ="90dp"
         app:layout_constraintBottom_toBottomOf="@id/active"
-        app:layout_constraintLeft_toLeftOf="@+id/active"
-        app:layout_constraintRight_toRightOf="@id/active"
+        app:layout_constraintStart_toStartOf="@+id/active"
+        app:layout_constraintEnd_toEndOf="@id/active"
         app:layout_constraintTop_toBottomOf="@+id/day" />
 
     <Button

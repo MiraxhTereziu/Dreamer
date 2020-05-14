@@ -12,7 +12,6 @@ import com.miraxh.dreamer.R
 class MusicFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MusicFragment()
     }
 
     private lateinit var viewModel: MusicViewModel

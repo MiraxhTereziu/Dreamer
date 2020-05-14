@@ -2,7 +2,6 @@ package com.miraxh.dreamer.ui.home
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,7 @@ import com.miraxh.dreamer.util.EDITABLE
 import com.miraxh.dreamer.util.RESTORE_DREAM
 import kotlinx.android.synthetic.main.home_fragment.*
 
-class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapter.DreamListener{
+class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapter.DreamListener {
 
     private lateinit var daysRecycleView: RecyclerView
     private lateinit var dreamRecyclerView: RecyclerView
@@ -33,10 +32,8 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     private lateinit var addActionButton: FloatingActionButton
 
     private lateinit var daysState: Parcelable
-    private lateinit var dreamState: Parcelable
 
     companion object {
-        fun newInstance() = HomeFragment()
     }
 
     override fun onCreateView(
@@ -70,10 +67,10 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         //mi metto in ascolto per eventuali cambiamenti alla lista dei sogni
         viewModel.dreamData.observe(viewLifecycleOwner, Observer {
             //ordino la lista in base al giorno di creazione
-            (it as MutableList<Dream>).sortByDescending { it.dreamID }
+            (it as MutableList<Dream>).sortByDescending { dream -> dream.dreamID }
             //in caso un update della lista dei sogni entro in questo metodo dove mi viene passata la nuova lista
             //creo un nuovo adapter da essegnare al mio RecyclerView
-            adapterDream = DreamListAdapter(requireContext(), it,this)
+            adapterDream = DreamListAdapter(requireContext(), it, this)
             //assegno il mio adapter alla mia RecyclerView
             dreamRecyclerView.adapter = adapterDream
             //update toolbar
@@ -123,9 +120,9 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
 
     override fun onDreamItemListener(dream: Dream, position: Int) {
         val dreamBundle = Bundle()
-        dreamBundle.putSerializable(RESTORE_DREAM,dream)
-        dreamBundle.putBoolean(EDITABLE,false)
-        findNavController().navigate(R.id.add_dest,dreamBundle)
+        dreamBundle.putSerializable(RESTORE_DREAM, dream)
+        dreamBundle.putBoolean(EDITABLE, false)
+        findNavController().navigate(R.id.add_dest, dreamBundle)
     }
 }
 

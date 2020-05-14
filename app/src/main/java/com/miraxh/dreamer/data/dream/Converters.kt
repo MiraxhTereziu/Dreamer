@@ -1,6 +1,5 @@
 package com.miraxh.dreamer.data.dream
 
-import android.util.Log
 import androidx.room.TypeConverter
 
 class Converters {
@@ -9,10 +8,10 @@ class Converters {
     fun fromList(list: MutableList<String>): String {
         var toRtn = ""
         for(i in 0 until list.size){
-            if(i == list.size-1)
-                toRtn += list[i]
+            toRtn += if(i == list.size-1)
+                list[i]
             else
-                toRtn += "${list[i]},"
+                "${list[i]},"
         }
         return toRtn
     }
@@ -21,10 +20,10 @@ class Converters {
     fun toList(list: String): MutableList<String> {
         var toRtn = mutableListOf<String>()
 
-        if(list.isBlank())
-            toRtn = emptyList<String>().toMutableList()
+        toRtn = if(list.isBlank())
+            emptyList<String>().toMutableList()
         else
-            toRtn = list.split(",").toMutableList()
+            list.split(",").toMutableList()
         return toRtn
     }
 }

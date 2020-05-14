@@ -16,12 +16,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:contentDescription="@string/image_label"
+            android:src="@drawable/ic_image"
             android:id="@+id/preview_image"
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
             android:scaleType="centerCrop"/>
 
     </androidx.cardview.widget.CardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

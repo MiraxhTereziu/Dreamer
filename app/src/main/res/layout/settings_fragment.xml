@@ -17,7 +17,7 @@
             android:elevation="10dp"
             android:padding="10dp"
             android:background="@drawable/bg_savebutton"
-            android:text="Delete all"
+            android:text="@string/delete_all_btn_label"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

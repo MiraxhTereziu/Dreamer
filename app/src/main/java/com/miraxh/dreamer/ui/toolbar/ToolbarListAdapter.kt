@@ -13,14 +13,14 @@ import com.miraxh.dreamer.data.Day
 
 class ToolbarListAdapter(
     val context: Context,
-    val days: List<Day>,
-    val itemListener: DayListener
+    private val days: List<Day>,
+    private val itemListener: DayListener
 ) : RecyclerView.Adapter<ToolbarListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val day = itemView?.findViewById<TextView>(R.id.day)
-        val week = itemView?.findViewById<TextView>(R.id.week)
-        val active = itemView?.findViewById<Button>(R.id.active)
+        val day: TextView = itemView.findViewById(R.id.day)
+        val week: TextView = itemView.findViewById(R.id.week)
+        val active: Button = itemView.findViewById(R.id.active)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,31 +34,31 @@ class ToolbarListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val date = days[position]
         with(holder) {
-            day?.text = date.day.toString()
-            week?.text = date.dayOfWeek
+            day.text = date.day.toString()
+            week.text = date.dayOfWeek
             if (date.active.not()) {
-                active?.visibility = View.INVISIBLE
-                day?.setTextColor(
+                active.visibility = View.INVISIBLE
+                day.setTextColor(
                     ContextCompat.getColor(
                         context,
                         R.color.colorWhite
                     )
                 )
-                week?.setTextColor(
+                week.setTextColor(
                     ContextCompat.getColor(
                         context,
                         R.color.colorWhite
                     )
                 )
             } else {
-                active?.visibility = View.VISIBLE
-                day?.setTextColor(
+                active.visibility = View.VISIBLE
+                day.setTextColor(
                     ContextCompat.getColor(
                         context,
                         R.color.colorPrimary
                     )
                 )
-                week?.setTextColor(
+                week.setTextColor(
                     ContextCompat.getColor(
                         context,
                         R.color.colorPrimary
@@ -66,8 +66,8 @@ class ToolbarListAdapter(
                 )
             }
 
-            holder.itemView.setOnClickListener{
-                itemListener.onDayItemListener(date,holder.layoutPosition)
+            holder.itemView.setOnClickListener {
+                itemListener.onDayItemListener(date, holder.layoutPosition)
             }
         }
     }

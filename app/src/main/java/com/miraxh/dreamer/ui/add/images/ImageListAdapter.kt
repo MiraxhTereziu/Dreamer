@@ -1,29 +1,23 @@
 package com.miraxh.dreamer.ui.add.images
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.util.FOLDER_IMAGE
-import java.io.File
 
 class ImageListAdapter(
     val context: Context,
-    val imageList: List<String>,
-    val itemListener: ImageListener,
-    var mode: Int
+    private val imageList: List<String>
 ) : RecyclerView.Adapter<ImageListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imagePreview = itemView?.findViewById<ImageView>(R.id.preview_image)
+        val imagePreview:ImageView = itemView.findViewById(R.id.preview_image)
     }
 
     override fun onCreateViewHolder(

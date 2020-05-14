@@ -10,13 +10,13 @@ import com.miraxh.dreamer.R
 
 class TagListAdapter(
     val context: Context,
-    val tags: List<String>,
-    val itemListener: TagListener,
-    val mode: Int
+    private val tags: List<String>,
+    private val itemListener: TagListener,
+    private val mode: Int
 ) : RecyclerView.Adapter<TagListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tagBtn = itemView?.findViewById<Button>(R.id.tag_item)
+        val tagBtn:Button = itemView.findViewById(R.id.tag_item)
     }
 
     override fun onCreateViewHolder(
@@ -33,9 +33,9 @@ class TagListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val tag = tags[position]
         with(holder) {
-            tagBtn?.text = tag
+            tagBtn.text = tag
             if (mode == 1) {
-                tagBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_target, 0, 0, 0);
+                tagBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_target, 0, 0, 0)
             }
 
         }

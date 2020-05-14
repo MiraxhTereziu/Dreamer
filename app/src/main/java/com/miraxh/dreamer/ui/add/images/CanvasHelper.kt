@@ -4,17 +4,17 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.content.res.ResourcesCompat
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.util.FOLDER_IMAGE
 import com.miraxh.dreamer.util.STROKE_WIDTH
 import java.io.File
 import java.io.FileOutputStream
-import java.util.*
+import kotlin.math.abs
 
 
 class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs) {
@@ -90,8 +90,6 @@ class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs)
         motionTouchEventX = event.x
         motionTouchEventY = event.y
 
-
-
         when (event.action) {
             MotionEvent.ACTION_DOWN -> touchStart()
             MotionEvent.ACTION_MOVE -> touchMove()
@@ -115,8 +113,8 @@ class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs)
     }
 
     private fun touchMove() {
-        val dx = Math.abs(motionTouchEventX - currentX)
-        val dy = Math.abs(motionTouchEventY - currentY)
+        val dx = abs(motionTouchEventX - currentX)
+        val dy = abs(motionTouchEventY - currentY)
         if (dx >= touchTolerance || dy >= touchTolerance) {
             // QuadTo() adds a quadratic bezier from the last point,
             // approaching control point (x1,y1), and ending at (x2,y2).
@@ -179,7 +177,7 @@ class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs)
         path.reset()
     }
 
-    fun setPaint() {
+    private fun setPaint() {
         paint = Paint().apply {
             color = drawColor
             // Smooths out edges of what is drawn without affecting shape.
@@ -197,7 +195,7 @@ class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs)
     fun saveImage(): String {
         var toRtn = "null"
         try {
-            createUniqueName()
+            titleCanvas = Dream.createUniqueName()
             val folderName = FOLDER_IMAGE
             val myDirectory =
                 File(context?.getExternalFilesDir(null)?.absolutePath, folderName)
@@ -215,15 +213,5 @@ class CanvasHelper(context: Context, attrs: AttributeSet) : View(context, attrs)
             e.printStackTrace()
         }
         return toRtn
-    }
-
-    private fun createUniqueName() {
-        val cal = Calendar.getInstance()
-        titleCanvas = cal.time.toString()
-
-        //trimming della string
-        titleCanvas = titleCanvas.replace(' ', '_').toLowerCase()
-        titleCanvas = titleCanvas.replace(':', '_').toLowerCase()
-        titleCanvas = titleCanvas.replace('+', '_').toLowerCase()
     }
 }

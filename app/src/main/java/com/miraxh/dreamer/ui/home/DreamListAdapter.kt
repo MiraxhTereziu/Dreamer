@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.miraxh.dreamer.R
@@ -14,21 +13,20 @@ import com.miraxh.dreamer.data.dream.Dream
 
 class DreamListAdapter(
     val context: Context,
-    val dreams: List<Dream>,
-    val itemListener: DreamListener
+    private val dreams: List<Dream>,
+    private val itemListener: DreamListener
 ) : RecyclerView.Adapter<DreamListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tile = itemView?.findViewById<Button>(R.id.backgroud_tile)
-        val date = itemView?.findViewById<TextView>(R.id.date_label)
-        val title = itemView?.findViewById<TextView>(R.id.title_label)
-        val description = itemView?.findViewById<TextView>(R.id.description_label)
-        val rating_display = itemView?.findViewById<TextView>(R.id.rating_display)
+        val date:TextView = itemView.findViewById(R.id.date_label)
+        val title:TextView = itemView.findViewById(R.id.title_label)
+        val description:TextView = itemView.findViewById(R.id.description_label)
+        val ratingDisplay:TextView = itemView.findViewById(R.id.rating_display)
 
         //tags
-        val tag1 = itemView?.findViewById<Button>(R.id.tag1)
-        val tag2 = itemView?.findViewById<Button>(R.id.tag2)
-        val tag3 = itemView?.findViewById<Button>(R.id.tag3)
+        val tag1:Button = itemView.findViewById(R.id.tag1)
+        val tag2:Button = itemView.findViewById(R.id.tag2)
+        val tag3:Button = itemView.findViewById(R.id.tag3)
     }
 
     override fun onCreateViewHolder(
@@ -45,14 +43,15 @@ class DreamListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dream = dreams[position]
         with(holder) {
-            date?.text = dream.date
-            title?.text = dream.title
-            description?.text = dream.description
+            date.text = dream.date
+            title.text = dream.title
+            if(dream.description.isBlank().not())
+                description.text = dream.description
+            else
+                description.text = "Audio description available"
             showTags(dream.tags)
             setRating(dream)
-            dream.images.forEach {
-                Log.i("saving_canvas", it)
-            }
+
             holder.itemView.setOnClickListener {
                 itemListener.onDreamItemListener(dream, holder.layoutPosition)
             }
@@ -60,14 +59,14 @@ class DreamListAdapter(
     }
 
     private fun ViewHolder.setRating(dream: Dream) {
-        var rate = dream.rate
+        val rate = dream.rate
         var rateInt: Int = -1
 
         if ((rate % 1F) == 0F) {
             rateInt = rate.toInt()
-            rating_display.text = rateInt.toString()
+            ratingDisplay.text = rateInt.toString()
         } else {
-            rating_display.text = rate.toString()
+            ratingDisplay.text = rate.toString()
         }
     }
 

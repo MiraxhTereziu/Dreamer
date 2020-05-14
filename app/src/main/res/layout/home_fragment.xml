@@ -18,8 +18,8 @@
             android:background="@drawable/bg_toolbar"
             android:elevation="@dimen/elevation_one"
             android:gravity="top"
-            android:paddingLeft="@dimen/padding"
-            android:paddingRight="@dimen/padding"
+            android:paddingStart="@dimen/padding"
+            android:paddingEnd="@dimen/padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,12 +32,13 @@
             android:clipToPadding="false"
             android:elevation="@dimen/elevation_two"
             android:orientation="horizontal"
-            android:paddingLeft="@dimen/general_margin"
+            android:paddingStart="@dimen/general_margin"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="@id/toolbar"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_title" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_title"
+            tools:ignore="RtlSymmetry" />
 
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -48,7 +49,7 @@
             android:paddingHorizontal="@dimen/general_margin"
             android:src="@drawable/ic_menu"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar_title"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/toolbar_title"/>
 
         <TextView
@@ -72,8 +73,8 @@
             android:paddingBottom="90dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -81,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/general_margin"
-            android:layout_marginRight="@dimen/general_margin"
+            android:layout_marginEnd="@dimen/general_margin"
             android:backgroundTint="@color/colorWhite"
             android:clickable="true"
             android:focusable="true"

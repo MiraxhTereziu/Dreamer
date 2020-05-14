@@ -1,8 +1,6 @@
 package com.miraxh.dreamer.ui.add.images
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +9,14 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
-import com.miraxh.dreamer.util.FOLDER_IMAGE
 import com.miraxh.dreamer.util.RESTORE_DREAM
 
-class CanvasFragment() : Fragment() {
+class CanvasFragment: Fragment() {
 
     private lateinit var canvas: CanvasHelper
 
@@ -68,7 +65,7 @@ class CanvasFragment() : Fragment() {
         val view = inflater.inflate(R.layout.fragment_canvas, container, false)
 
         //inizializzaione dei componenti della mia palette
-        canvas = view.findViewById<CanvasHelper>(R.id.canvas)
+        canvas = view.findViewById(R.id.canvas)
 
         color1 = view.findViewById(R.id.palette_color1)
         checked1 = view.findViewById(R.id.color_checked1)
