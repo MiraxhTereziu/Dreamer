@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <Button
-        android:id="@+id/backgroud_tile"
+        android:id="@+id/background_tile"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/general_margin"
@@ -26,8 +26,8 @@
         android:layout_height="@dimen/rating_size"
         android:text="@string/default_rating"
         android:theme="@style/display_rating"
-        app:layout_constraintEnd_toEndOf="@id/backgroud_tile"
-        app:layout_constraintTop_toTopOf="@id/backgroud_tile" />
+        app:layout_constraintEnd_toEndOf="@id/background_tile"
+        app:layout_constraintTop_toTopOf="@id/background_tile" />
 
     <TextView
         android:id="@+id/date_label"
@@ -36,11 +36,11 @@
         android:layout_marginStart="@dimen/general_margin"
         android:layout_marginTop="@dimen/general_margin"
         android:layout_marginEnd="@dimen/general_small_margin"
-        android:text="@string/deafult_dream_date"
+        android:text="@string/default_dream_date"
         android:theme="@style/dream_date"
         android:translationZ="80dp"
-        app:layout_constraintStart_toStartOf="@+id/backgroud_tile"
-        app:layout_constraintTop_toTopOf="@+id/backgroud_tile" />
+        app:layout_constraintStart_toStartOf="@+id/background_tile"
+        app:layout_constraintTop_toTopOf="@+id/background_tile" />
 
     <TextView
         android:id="@+id/title_label"
@@ -50,12 +50,12 @@
         android:layout_marginTop="@dimen/general_small_margin"
         android:layout_marginEnd="@dimen/general_margin"
         android:lines="1"
-        android:text="@string/default_dream_titile"
+        android:text="@string/default_dream_title"
         android:theme="@style/dream_title"
         android:translationZ="80dp"
         app:layout_constraintBottom_toTopOf="@+id/description_label"
-        app:layout_constraintEnd_toEndOf="@id/backgroud_tile"
-        app:layout_constraintStart_toStartOf="@+id/backgroud_tile"
+        app:layout_constraintEnd_toEndOf="@id/background_tile"
+        app:layout_constraintStart_toStartOf="@+id/background_tile"
         app:layout_constraintTop_toBottomOf="@+id/date_label" />
 
     <TextView
@@ -70,8 +70,8 @@
         android:theme="@style/dream_description"
         android:translationZ="80dp"
         app:layout_constraintBottom_toTopOf="@id/tag1"
-        app:layout_constraintEnd_toEndOf="@+id/backgroud_tile"
-        app:layout_constraintStart_toStartOf="@+id/backgroud_tile"
+        app:layout_constraintEnd_toEndOf="@+id/background_tile"
+        app:layout_constraintStart_toStartOf="@+id/background_tile"
         app:layout_constraintTop_toBottomOf="@+id/title_label" />
 
     <Button
@@ -80,9 +80,9 @@
         android:layout_marginStart="@dimen/general_margin"
         android:layout_marginEnd="@dimen/general_small_margin"
         android:text="@string/default_tag_label"
-        app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
+        app:layout_constraintBottom_toBottomOf="@id/background_tile"
         app:layout_constraintEnd_toStartOf="@id/tag2"
-        app:layout_constraintStart_toStartOf="@+id/backgroud_tile" />
+        app:layout_constraintStart_toStartOf="@+id/background_tile" />
 
     <Button
         android:id="@+id/tag2"
@@ -90,7 +90,7 @@
         android:layout_marginStart="@dimen/general_small_margin"
         android:layout_marginEnd="@dimen/general_small_margin"
         android:text="@string/default_tag_label"
-        app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
+        app:layout_constraintBottom_toBottomOf="@id/background_tile"
         app:layout_constraintEnd_toStartOf="@+id/tag3"
         app:layout_constraintStart_toEndOf="@+id/tag1" />
 
@@ -100,10 +100,9 @@
         android:layout_marginStart="@dimen/general_small_margin"
         android:layout_marginEnd="@dimen/general_margin"
         android:text="@string/default_tag_label"
-        app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
-        app:layout_constraintEnd_toEndOf="@id/backgroud_tile"
+        app:layout_constraintBottom_toBottomOf="@id/background_tile"
+        app:layout_constraintEnd_toEndOf="@id/background_tile"
         app:layout_constraintStart_toEndOf="@+id/tag2" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

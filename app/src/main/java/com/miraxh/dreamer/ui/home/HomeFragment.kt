@@ -33,8 +33,6 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
 
     private lateinit var daysState: Parcelable
 
-    companion object {
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,6 +68,21 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
             (it as MutableList<Dream>).sortByDescending { dream -> dream.dreamID }
             //in caso un update della lista dei sogni entro in questo metodo dove mi viene passata la nuova lista
             //creo un nuovo adapter da essegnare al mio RecyclerView
+            if(it.isEmpty()) {
+                it.add(
+                    Dream(
+                        0,
+                        date = "00/00/0000",
+                        title = "Dream example",
+                        description = "Hi, welcome in dreamer here you can create a report of a dream you just had",
+                        tags = mutableListOf("Nightmare", "Scary", "NoSleep"),
+                        rate = 1F,
+                        audios = mutableListOf(),
+                        images = mutableListOf()
+                    )
+                )
+            }
+
             adapterDream = DreamListAdapter(requireContext(), it, this)
             //assegno il mio adapter alla mia RecyclerView
             dreamRecyclerView.adapter = adapterDream
@@ -106,7 +119,6 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     private fun restoreStateRV(state: Parcelable, recyclerView: RecyclerView) {
         recyclerView.layoutManager!!.onRestoreInstanceState(state)
     }
-
 
     //metodo per gestire il click di un particolare giorno dell'agenda
     override fun onDayItemListener(day: Day, position: Int) {

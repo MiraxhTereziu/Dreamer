@@ -1,30 +1,23 @@
 package com.miraxh.dreamer.ui.add
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.app.Dialog
-import android.app.ProgressDialog.show
 import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.Message
 import android.provider.MediaStore
-import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -40,7 +33,6 @@ import com.miraxh.dreamer.ui.add.images.ImageListAdapter
 import com.miraxh.dreamer.ui.add.tag.TagListAdapter
 import com.miraxh.dreamer.util.*
 import kotlinx.android.synthetic.main.add_fragment.*
-import org.w3c.dom.Text
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -115,13 +107,16 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
             editable = it.getBoolean(EDITABLE)
         }
 
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                    showDialog()
+        if (editable) {
+            val callback: OnBackPressedCallback =
+                object : OnBackPressedCallback(true /* enabled by default */) {
+                    override fun handleOnBackPressed() {
+                        if (Dream.showSaveDialog(requireContext(), findNavController()).not())
+                            deleteALl()
+                    }
                 }
-            }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+            requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+        }
     }
 
     override fun onCreateView(
@@ -146,7 +141,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         saveButton = view.findViewById(R.id.save_button)
 
         //metodo per gestire l'inseriemnto di tag
-        insertTags(view)
+        initTags(view)
 
         //salvo il sogno nel db in base ai valori inseriti
         saveDream(view)
@@ -166,38 +161,18 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
 
         //imposto set on click listener
         setDatePicker()
+
         //inizializzazione della toolbar
         initToolbar()
+
         //minus back btn
-        initMinusBtn()
+        initBackButton()
 
         //gestione inserimento disegno ed immagine
         initAddDrawAndImage()
 
         //inizializzazione rw immagini
         initImageRW()
-    }
-
-    private fun initAddDrawAndImage() {
-        addDraw.setOnClickListener {
-            (activity as MainActivity?)?.closeKeyboard()
-            val dreamBundle = Bundle()
-            dreamBundle.putSerializable(RESTORE_DREAM, getData())
-            findNavController().navigate(R.id.canvasFragment, dreamBundle)
-        }
-
-        addImage.setOnClickListener {
-            pickImageFromGallery()
-        }
-    }
-
-    private fun initImageRW() {
-        adapterImage =
-            ImageListAdapter(
-                requireContext(),
-                imageList
-            )
-        imageRecycleView.adapter = adapterImage
     }
 
     private fun initComponents(view: View) {
@@ -222,13 +197,41 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         description = view.findViewById(R.id.dream_description)
     }
 
-    private fun showDialog() {
-        val dialog = Dialog(requireContext())
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(true)
-        dialog.setContentView(R.layout.save_dialog)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.show()
+    private fun initAddDrawAndImage() {
+        addDraw.setOnClickListener {
+            (activity as MainActivity?)?.closeKeyboard()
+            val dreamBundle = Bundle()
+            dreamBundle.putSerializable(RESTORE_DREAM, getData())
+            findNavController().navigate(R.id.canvasFragment, dreamBundle)
+        }
+
+        addImage.setOnClickListener {
+            pickImageFromGallery()
+        }
+    }
+
+    private fun initImageRW() {
+        adapterImage =
+            ImageListAdapter(
+                requireContext(),
+                imageList
+            )
+        imageRecycleView.adapter = adapterImage
+    }
+
+    private fun deleteALl() {
+        if (listAudio.isEmpty().not()) {
+            listAudio.forEach {
+                val tmpFile = File(Dream.getBasePath(requireContext(), FOLDER_AUDIO), it)
+                tmpFile.delete()
+            }
+        }
+        if (imageList.isEmpty().not()) {
+            imageList.forEach {
+                val tmpFile = File(Dream.getBasePath(requireContext(), FOLDER_IMAGE), it)
+                tmpFile.delete()
+            }
+        }
     }
 
     private fun restoreDreamState(state: Boolean) {
@@ -353,7 +356,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     }
 
     private fun getData(): Dream {
-        val toRtn = Dream(
+        return Dream(
             0,
             date = datePickerBtn.text.toString(),
             title = title.text.toString(),
@@ -363,8 +366,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
             audios = listAudio,
             images = imageList
         )
-        Log.i("audio_save_debug", toRtn.toString())
-        return toRtn
     }
 
     private fun saveDream(view: View) {
@@ -386,9 +387,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
             val titleEmpty = title.text.isBlank()
             val textDescriptionEmpty = description.text.isBlank()
             val audioDescriptionEmpty = listAudio.isEmpty()
-
-
-            Log.i("fixes", "T:$titleEmpty, D:$textDescriptionEmpty, A:$audioDescriptionEmpty")
 
             //controllo presenza dati nei vari form e display di un toast nel caso non ci siano
             if (titleEmpty && textDescriptionEmpty && audioDescriptionEmpty) {
@@ -416,7 +414,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         }
     }
 
-    private fun insertTags(view: View) {
+    private fun initTags(view: View) {
         adapterTag = TagListAdapter(
             requireContext(),
             tagSet.toList(),
@@ -433,36 +431,50 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
 
         insertTagBtn.setOnClickListener {
             //prendo in input il tag e lo aggiungo alla lista
-            val input = insertTag.text.toString().toLowerCase(Locale.ROOT)
-            if (input != "") {
-                if (tagSet.add(input).not())
-                    dublicateSnackbar.show()
-            } else {
-                emptyInputSnackbar.show()
-            }
-            //sort list
-            tags = tagSet.toMutableList()
-            //creo il mio adapter
-            adapterTag = TagListAdapter(
-                requireContext(),
-                tags,
-                this,
-                0
-            )
-            //assegno il mio adapter alla mia RecyclerView
-            tagsRecycleView.adapter = adapterTag
-            //resetto la textfield per inserire i tag
-            insertTag.setText("")
+            insertTag(dublicateSnackbar, emptyInputSnackbar)
         }
+
+        insertTag.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                insertTag(dublicateSnackbar, emptyInputSnackbar)
+                return@OnKeyListener true
+            }
+            false
+        })
     }
 
-    private fun initMinusBtn() {
+    private fun insertTag(
+        dublicateSnackbar: Snackbar,
+        emptyInputSnackbar: Snackbar
+    ) {
+        val input = insertTag.text.toString().toLowerCase(Locale.ROOT)
+        if (input != "") {
+            if (tagSet.add(input).not())
+                dublicateSnackbar.show()
+        } else {
+            emptyInputSnackbar.show()
+        }
+        //sort list
+        tags = tagSet.toMutableList()
+        //creo il mio adapter
+        adapterTag = TagListAdapter(
+            requireContext(),
+            tags,
+            this,
+            0
+        )
+        //assegno il mio adapter alla mia RecyclerView
+        tagsRecycleView.adapter = adapterTag
+        //resetto la textfield per inserire i tag
+        insertTag.setText("")
+    }
+
+    private fun initBackButton() {
         cancelBtn.setOnClickListener {
             (activity as MainActivity?)?.closeKeyboard()
             findNavController().navigateUp()
         }
     }
-
 
     private fun initToolbar() {
         titleToolbar.text = resources.getString(R.string.add_toolbar_title)
@@ -472,10 +484,9 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     }
 
     private fun setDatePicker() {
-        Log.i("test_dream_state", "set date picker")
         if (dateClicked != null) {
             val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-            val dateSelected = dateFormatter.parse(dateClicked)
+            val dateSelected = dateFormatter.parse(dateClicked!!)
             val yearFormatter = SimpleDateFormat("yyyy", Locale.US)
             val monthFormatter = SimpleDateFormat("MM", Locale.US)
             val dayFormatter = SimpleDateFormat("dd", Locale.US)
@@ -536,7 +547,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         startActivityForResult(intent, 1000)
     }
 
-    //handle result of picked image
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == 1000) {
             val uriSourceFile = data?.data
@@ -544,7 +554,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
             val cr = context?.contentResolver
             val mime = MimeTypeMap.getSingleton()
             val type = mime.getExtensionFromMimeType(cr?.getType(uriSourceFile!!))
-            val sourceFile = File(getRealPathFromURI(uriSourceFile))
+            val sourceFile = File(getRealPathFromURI(uriSourceFile)!!)
 
             val fileName = "${Dream.createUniqueName()}.$type"
             val destFile = File(Dream.getBasePath(requireContext(), FOLDER_IMAGE), fileName)
@@ -555,7 +565,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     }
 
     private fun getRealPathFromURI(contentUri: Uri?): String? {
-
         @Suppress("DEPRECATION")
         val proj = arrayOf(MediaStore.Audio.Media.DATA)
         val cursor: Cursor? = context?.contentResolver?.query(contentUri!!, proj, null, null, null)
@@ -567,7 +576,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         cursor?.close()
         return toRtn
     }
-
 
     override fun onTagItemListener(tag: String, position: Int) {
         //elimino tag

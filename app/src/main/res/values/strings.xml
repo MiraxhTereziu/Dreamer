@@ -12,8 +12,8 @@
         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
         Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.
     </string>
-    <string name="default_dream_titile">Title</string>
-    <string name="deafult_dream_date">24th march</string>
+    <string name="default_dream_title">Title</string>
+    <string name="default_dream_date">24th march</string>
     <string name="dream_description_hint">Dream description</string>
     <string name="dream_title_hint">Dream title</string>
     <string name="insert_dream_tags_hint">Insert dream tags</string>
@@ -23,8 +23,8 @@
     <string name="insert_t">Insert title</string>
     <string name="insert_d">Insert description (text or audio)</string>
     <string name="cancel_btn_text">Cancel</string>
-    <string name="thick_label_seekbar">Thick</string>
-    <string name="thin_label_seekar">Thin</string>
+    <string name="thick_label_seek_bar">Thick</string>
+    <string name="thin_label_seek_bar">Thin</string>
     <string name="erase_label">Eraser</string>
     <string name="save_label_palette">Save</string>
     <string name="reset_label_palette">Reset</string>
@@ -37,15 +37,19 @@
     <string name="pick_date_label">Pick date</string>
     <string name="insert_tag_description">insert tag</string>
     <string name="rate_dream_label">Rate dream</string>
-    <string name="record_audio_desciption">Record audio</string>
+    <string name="record_audio_description">Record audio</string>
     <string name="how_to_record_label">Press the red button to start a recording</string>
     <string name="inserted_tags_label">Inserted tags</string>
     <string name="no_recording_label">No recording found for this dream</string>
     <string name="delete_label">Delete?</string>
     <string name="play_recording_label">Play recording</string>
     <string name="select_palette_color_label">Select palette color</string>
-    <string name="deafult_label_audio_player">Audio 1</string>
+    <string name="default_label_audio_player">Audio 1</string>
     <string name="default_rating">5</string>
     <string name="default_tag_label">tag1</string>
     <string name="delete_all_btn_label">Delete all</string>
+    <string name="popup_cancel_title">Are you sure?</string>
+    <string name="popup_cancel_description">If you go back you are going to loose all your progress</string>
+    <string name="negative_action_dialog_label">Discard</string>
+    <string name="positive_action_dialog_label">Go back</string>
 </resources>

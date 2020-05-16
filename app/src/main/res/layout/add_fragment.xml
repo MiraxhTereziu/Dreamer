@@ -238,7 +238,7 @@
                         app:layout_constraintTop_toBottomOf="@id/bg_rating" />
 
                     <ImageButton
-                        android:contentDescription="@string/record_audio_desciption"
+                        android:contentDescription="@string/record_audio_description"
                         android:id="@+id/recording_btn"
                         android:layout_width="60dp"
                         android:layout_height="60dp"

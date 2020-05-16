@@ -54,7 +54,7 @@ class AudioHelper(var view: View, var context: Context?) {
 
     private fun setAudio(): String {
         //conferisco all'audio un indirizzo univoco dato dalla data di oggi
-        val titleRecording = Dream.createUniqueName()
+        val titleRecording = Dream.createUniqueName()+format
 
         val myDirectory =
             File(context?.getExternalFilesDir(null)?.absolutePath, folderName)
@@ -76,7 +76,7 @@ class AudioHelper(var view: View, var context: Context?) {
     }
 
     private fun getUri(title : String) : String{
-        return "$basePath$title$format"
+        return "$basePath$title"
     }
 
     private fun record() {
