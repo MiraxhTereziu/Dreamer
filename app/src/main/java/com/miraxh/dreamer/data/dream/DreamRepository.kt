@@ -45,7 +45,14 @@ class DreamRepository(val app: Application) {
 
     fun insertNewDream(dream: Dream) {
         CoroutineScope(Dispatchers.IO).launch {
+            dreamDAO.deleteDream(dream.dreamID)
             dreamDAO.insertDream(dream)
+        }
+    }
+
+    fun deleteDream(dream: Dream) {
+        CoroutineScope(Dispatchers.IO).launch {
+            dreamDAO.deleteDream(dream.dreamID)
         }
     }
 }

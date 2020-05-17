@@ -65,7 +65,7 @@ data class Dream(
             val positiveAction = dialog.findViewById<Button>(R.id.positive_action)
             negativeAction.setOnClickListener {
                 dialog.dismiss()
-                navController.navigateUp()
+                navController.navigate(R.id.home_dest)
                 toRtn = false
             }
             positiveAction.setOnClickListener {

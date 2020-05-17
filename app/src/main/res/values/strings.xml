@@ -52,4 +52,5 @@
     <string name="popup_cancel_description">If you go back you are going to loose all your progress</string>
     <string name="negative_action_dialog_label">Discard</string>
     <string name="positive_action_dialog_label">Go back</string>
+    <string name="no_tags_label">No tags inserted</string>
 </resources>

@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -37,13 +39,12 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.AudioListener,
     ImageListAdapter.ImageListener {
 
     private lateinit var viewModel: AddViewModel
 
-    private lateinit var saveButton: FloatingActionButton
+    private lateinit var floatingActionButton: FloatingActionButton
     private lateinit var datePickerBtn: Button
     private lateinit var insertTagBtn: ImageButton
     private lateinit var cancelBtn: TextView
@@ -107,16 +108,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
             editable = it.getBoolean(EDITABLE)
         }
 
-        if (editable) {
-            val callback: OnBackPressedCallback =
-                object : OnBackPressedCallback(true /* enabled by default */) {
-                    override fun handleOnBackPressed() {
-                        if (Dream.showSaveDialog(requireContext(), findNavController()).not())
-                            deleteALl()
-                    }
-                }
-            requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-        }
     }
 
     override fun onCreateView(
@@ -124,6 +115,8 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.add_fragment, container, false)
+
+        setDialogBack(true)
 
         //inizializzazione dei componenti
         initComponents(view)
@@ -138,26 +131,23 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         datePickerBtn = view.findViewById(R.id.date_picker)
 
         //inizializzo il mio bottone di salvataggio
-        saveButton = view.findViewById(R.id.save_button)
+        floatingActionButton = view.findViewById(R.id.save_button)
 
         //metodo per gestire l'inseriemnto di tag
         initTags(view)
 
         //salvo il sogno nel db in base ai valori inseriti
-        saveDream(view)
+        initFloatAction(view)
 
         //classe per gestire la registrazione dell'audio
         initAudioFile(view)
 
+
         return view
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //restore dei dati in caso ce ne fossero
-        if (restoreDream != null)
-            restoreDreamState(editable)
 
         //imposto set on click listener
         setDatePicker()
@@ -171,8 +161,9 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         //gestione inserimento disegno ed immagine
         initAddDrawAndImage()
 
-        //inizializzazione rw immagini
-        initImageRW()
+        //restore dei dati in caso ce ne fossero
+        if (restoreDream != null)
+            restoreDreamState(editable)
     }
 
     private fun initComponents(view: View) {
@@ -197,6 +188,23 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         description = view.findViewById(R.id.dream_description)
     }
 
+    private fun setDialogBack(mode: Boolean) {
+        if (editable) {
+            val callback: OnBackPressedCallback =
+                object : OnBackPressedCallback(true /* enabled by default */) {
+                    override fun handleOnBackPressed() {
+                        if (Dream.showSaveDialog(requireContext(), findNavController()).not()) {
+                            if (mode) {
+                                Log.i("update_dream", "deleteAll")
+                                deleteALl()
+                            }
+                        }
+                    }
+                }
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        }
+    }
+
     private fun initAddDrawAndImage() {
         addDraw.setOnClickListener {
             (activity as MainActivity?)?.closeKeyboard()
@@ -208,15 +216,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         addImage.setOnClickListener {
             pickImageFromGallery()
         }
-    }
-
-    private fun initImageRW() {
-        adapterImage =
-            ImageListAdapter(
-                requireContext(),
-                imageList
-            )
-        imageRecycleView.adapter = adapterImage
     }
 
     private fun deleteALl() {
@@ -239,72 +238,37 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
 
         //datepicker
         datePickerBtn.text = restoreDream?.date
-        datePickerBtn.isEnabled = state
 
         //titolo
         title.text = restoreDream?.title
-        title.isFocusableInTouchMode = state
 
         //descrizione
         description.text = restoreDream?.description
-        description.isFocusableInTouchMode = state
 
         //tags
-        if (state.not())
-            insertTag.setText(getString(R.string.inserted_tags_label))
-        insertTag.isFocusableInTouchMode = state
-        if (state)
-            insertTagBtn.visibility = View.VISIBLE
-        else
-            insertTagBtn.visibility = View.INVISIBLE
-
         tagSet = restoreDream?.tags?.toMutableSet() ?: mutableSetOf()
         tags = restoreDream?.tags ?: mutableListOf()
-        var mode = 0
-        if (state.not())
-            mode = 1
-        adapterTag =
-            TagListAdapter(
-                requireContext(),
-                tags,
-                this,
-                mode
-            )
-        tagsRecycleView.adapter = adapterTag
 
         //rating
         ratingDream.rating = restoreDream?.rate ?: 2.5F
-        ratingDream.setIsIndicator(state.not())
 
         //audio
-        //restoreDream?.audios?.remove("")
-        if (restoreDream?.audios?.size == 0) {
-            if (state.not())
-                recording_label.text = getString(R.string.no_recording_label)
-            else
-                recording_label.text = getString(R.string.how_to_record_label)
-        } else {
-            listAudio = restoreDream?.audios ?: mutableListOf()
-            recording_label.visibility = View.INVISIBLE
-            adapterAudio =
-                AudioListAdapter(
-                    requireContext(),
-                    listAudio,
-                    this,
-                    mode
-                )
-            audioRecycleView.adapter = adapterAudio
-        }
-        audioBtn.isEnabled = state
-
-        //drawing
-        addDraw.isEnabled = state
-
-        //image
-        addImage.isEnabled = state
+        listAudio = restoreDream?.audios ?: mutableListOf()
 
         //image rw
         imageList = restoreDream?.images ?: mutableListOf()
+        adapterImage = ImageListAdapter(
+            requireContext(),
+            imageList
+        )
+
+        images_recyclerview.adapter = adapterImage
+
+        //flating button
+        if (editable.not())
+            floatingActionButton.setImageResource(R.drawable.ic_edit)
+
+        changeStateFields(state)
 
     }
 
@@ -356,8 +320,9 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     }
 
     private fun getData(): Dream {
+        val id: Int? = restoreDream?.dreamID
         return Dream(
-            0,
+            id ?: 0,
             date = datePickerBtn.text.toString(),
             title = title.text.toString(),
             description = description.text.toString(),
@@ -368,7 +333,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         )
     }
 
-    private fun saveDream(view: View) {
+    private fun initFloatAction(view: View) {
         //inizializzo con valori di default il mio sogno
         newDream = Dream(
             0,
@@ -381,37 +346,125 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
             mutableListOf()
         )
 
-        saveButton.setOnClickListener {
-            (activity as MainActivity?)?.closeKeyboard()
-            //aggiungere un controllo dell'inserimento di titolo e descrizione
-            val titleEmpty = title.text.isBlank()
-            val textDescriptionEmpty = description.text.isBlank()
-            val audioDescriptionEmpty = listAudio.isEmpty()
+        floatingActionButton.setOnClickListener {
+            if (editable) {
+                (activity as MainActivity?)?.closeKeyboard()
+                //aggiungere un controllo dell'inserimento di titolo e descrizione
+                val titleEmpty = title.text.isBlank()
+                val textDescriptionEmpty = description.text.isBlank()
+                val audioDescriptionEmpty = listAudio.isEmpty()
 
-            //controllo presenza dati nei vari form e display di un toast nel caso non ci siano
-            if (titleEmpty && textDescriptionEmpty && audioDescriptionEmpty) {
-                Snackbar.make(view, resources.getString(R.string.insert_t_d), Snackbar.LENGTH_SHORT)
-                    .show()
-            } else if (titleEmpty) {
-                Snackbar.make(view, resources.getString(R.string.insert_t), Snackbar.LENGTH_SHORT)
-                    .show()
-            } else if (textDescriptionEmpty && audioDescriptionEmpty) {
-                Snackbar.make(view, resources.getString(R.string.insert_d), Snackbar.LENGTH_SHORT)
-                    .show()
+                //controllo presenza dati nei vari form e display di un toast nel caso non ci siano
+                if (titleEmpty && textDescriptionEmpty && audioDescriptionEmpty) {
+                    Snackbar.make(
+                        view,
+                        resources.getString(R.string.insert_t_d),
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .show()
+                } else if (titleEmpty) {
+                    Snackbar.make(
+                        view,
+                        resources.getString(R.string.insert_t),
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .show()
+                } else if (textDescriptionEmpty && audioDescriptionEmpty) {
+                    Snackbar.make(
+                        view,
+                        resources.getString(R.string.insert_d),
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .show()
+                } else {
+                    //recupero i dati del nuovo dream
+                    newDream = getData()
+                    //inserisco il nuovo sogno nel db ad aggiorno il tutto
+                    viewModel.insertNewDream(newDream)
+                    //momentaneamente rimando alla home
+                    findNavController().navigate(R.id.home_dest)
+                    Snackbar.make(
+                        view,
+                        "${resources.getString(R.string.insert_t_d)} ${newDream.title}",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
             } else {
-                //recupero i dati del nuovo dream
-                newDream = getData()
-                //inserisco il nuovo sogno nel db ad aggiorno il tutto
-                viewModel.newDream(newDream)
-                //momentaneamente rimando alla home
-                findNavController().navigate(R.id.home_dest)
-                Snackbar.make(
-                    view,
-                    "${resources.getString(R.string.insert_t_d)} ${newDream.title}",
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                //change icon
+                floatingActionButton.setImageResource(R.drawable.ic_save)
+
+                //unlock fields
+                changeStateFields(true)
+
+                editable = true
+
+                setDialogBack(false)
+
             }
         }
+    }
+
+    private fun changeStateFields(state: Boolean) {
+        //datepicker
+        datePickerBtn.isEnabled = state
+
+        //titolo
+        title.isFocusableInTouchMode = state
+
+        //descrizione
+        description.isFocusableInTouchMode = state
+
+        //tags
+        insertTag.isFocusableInTouchMode = state
+        if (state.not()) {
+            insertTagBtn.visibility = View.INVISIBLE
+            if (tags.isEmpty())
+                insertTag.setText(getString(R.string.no_tags_label))
+        } else {
+            insertTag.setText("")
+            insertTagBtn.visibility = View.VISIBLE
+        }
+        var mode = 0
+        if (state.not())
+            mode = 1
+        adapterTag =
+            TagListAdapter(
+                requireContext(),
+                tags,
+                this,
+                mode
+            )
+        tagsRecycleView.adapter = adapterTag
+
+        //rating
+        ratingDream.setIsIndicator(state.not())
+
+        //audio
+        if (restoreDream?.audios?.size == 0) {
+            recording_label.visibility = View.VISIBLE
+            if (state.not())
+                recording_label.text = getString(R.string.no_recording_label)
+            else
+                recording_label.text = getString(R.string.how_to_record_label)
+        }else{
+            recording_label.visibility = View.INVISIBLE
+            adapterAudio =
+                AudioListAdapter(
+                    requireContext(),
+                    listAudio,
+                    this,
+                    mode
+                )
+            audioRecycleView.adapter = adapterAudio
+            audioBtn.isEnabled = state
+        }
+
+
+        //drawing
+        addDraw.isEnabled = state
+
+        //image
+        addImage.isEnabled = state
     }
 
     private fun initTags(view: View) {
@@ -560,7 +613,11 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
             val destFile = File(Dream.getBasePath(requireContext(), FOLDER_IMAGE), fileName)
             sourceFile.copyTo(destFile, true)
             imageList.add(fileName)
-            initImageRW()
+            adapterImage = ImageListAdapter(
+                requireContext(),
+                imageList
+            )
+            images_recyclerview.adapter = adapterImage
         }
     }
 

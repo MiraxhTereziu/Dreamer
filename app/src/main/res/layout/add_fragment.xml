@@ -24,7 +24,7 @@
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:orientation="vertical"
-            android:paddingBottom="100dp"
+            android:paddingBottom="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_add">
 
@@ -108,7 +108,7 @@
                         android:gravity="top"
                         android:paddingHorizontal="@dimen/general_small_margin"
                         android:paddingVertical="@dimen/general_margin"
-                        android:textColorHint="@color/colorWhite"
+                        android:theme="@style/text_input_descr"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/layout_dream_title">
 
@@ -195,6 +195,19 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/layout_dream_tag" />
 
+
+                    <TextView
+                        android:id="@+id/label_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rate_dream_label"
+                        android:textSize="16sp"
+                        android:elevation="@dimen/elevation_one"
+                        android:layout_margin="@dimen/general_margin"
+                        app:layout_constraintStart_toStartOf="@id/bg_rating"
+                        app:layout_constraintTop_toTopOf="@id/bg_rating"
+                        app:layout_constraintBottom_toBottomOf="@id/bg_rating"/>
+
                     <TextView
                         android:id="@+id/bg_rating"
                         android:layout_width="match_parent"
@@ -204,8 +217,6 @@
                         android:background="@drawable/bg_text_field_no_border"
                         android:gravity="center_vertical"
                         android:padding="@dimen/general_margin"
-                        android:text="@string/rate_dream_label"
-                        android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tag_bg" />
@@ -214,10 +225,11 @@
                         android:id="@+id/rating_dream"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/general_margin"
+                        android:layout_marginHorizontal="@dimen/general_margin"
                         android:numStars="5"
                         android:paddingTop="@dimen/general_small_margin"
                         android:rating="2.5"
+                        app:layout_constraintStart_toEndOf="@id/label_rating"
                         app:layout_constraintBottom_toBottomOf="@id/bg_rating"
                         app:layout_constraintEnd_toEndOf="@id/bg_rating"
                         app:layout_constraintTop_toTopOf="@id/bg_rating" />
@@ -290,6 +302,7 @@
                         android:layout_height="42dp"
                         android:layout_margin="@dimen/general_margin"
                         android:gravity="center"
+                        android:elevation="@dimen/elevation_two"
                         android:text="@string/how_to_record_label"
                         app:layout_constraintBottom_toBottomOf="@id/audio_recyclerview"
                         app:layout_constraintEnd_toEndOf="@id/audio_recyclerview"

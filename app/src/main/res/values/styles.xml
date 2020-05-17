@@ -77,9 +77,10 @@
     </style>
 
     <style name="text_input_descr">
-        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
         <item name="colorControlActivated">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/colorWhite</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/colorAccent</item>
     </style>
 
     <style name="text_input_tag">
