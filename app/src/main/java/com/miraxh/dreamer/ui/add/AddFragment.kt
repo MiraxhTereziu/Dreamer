@@ -107,7 +107,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
                 restoreDream = tmpSerial as Dream
             editable = it.getBoolean(EDITABLE)
         }
-
     }
 
     override fun onCreateView(
