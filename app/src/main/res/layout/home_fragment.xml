@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="0dp"
@@ -18,68 +19,78 @@
             android:background="@drawable/bg_toolbar"
             android:elevation="@dimen/elevation_one"
             android:gravity="top"
-            android:paddingLeft="@dimen/padding"
-            android:paddingRight="@dimen/padding"
+            android:paddingStart="@dimen/padding"
+            android:paddingEnd="@dimen/padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:titleTextAppearance="@style/ToolbarTheme" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/daysRecyclerview"
-            android:clipToPadding="false"
-            android:paddingRight="@dimen/general_small_margin"
-            android:elevation="@dimen/elevetion_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/general_margin"
-            android:layout_marginRight="@dimen/general_small_margin"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="@id/toolbar"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_title" />
+        android:id="@+id/days_recyclerview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:elevation="@dimen/elevation_two"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/general_margin"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_title"
+        tools:ignore="RtlSymmetry" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/toolbar_icon"
-            android:elevation="@dimen/elevetion_two"
+            android:id="@+id/drawer_icon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_book_open_icon"
+            android:layout_height="0dp"
+            android:elevation="@dimen/elevation_two"
+            android:paddingHorizontal="@dimen/general_margin"
+            android:src="@drawable/ic_menu"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/toolbar_title" />
 
         <TextView
             android:id="@+id/toolbar_title"
-            android:elevation="@dimen/elevetion_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/pacifico_regular"
+            android:layout_marginTop="@dimen/general_margin"
+            android:elevation="@dimen/elevation_two"
             android:text="@string/app_name"
             android:theme="@style/pacifico"
-            app:layout_constraintStart_toEndOf="@+id/toolbar_icon"
+            app:layout_constraintStart_toEndOf="@id/drawer_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dreamRecyclerview"
+            android:id="@+id/dream_recyclerview"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/general_margin"
+            android:paddingBottom="90dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/general_margin"
+            android:layout_marginBottom="@dimen/general_margin"
+            android:backgroundTint="@color/colorWhite"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_add"
+            android:tint="@color/colorPrimary"
+            app:borderWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </FrameLayout>

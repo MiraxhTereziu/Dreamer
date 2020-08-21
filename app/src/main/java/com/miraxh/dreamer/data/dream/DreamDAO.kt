@@ -1,9 +1,9 @@
 package com.miraxh.dreamer.data.dream
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.miraxh.dreamer.data.dream.Dream
 
 @Dao
 interface DreamDAO {
@@ -16,6 +16,12 @@ interface DreamDAO {
 
     @Insert
     suspend fun insertDreams(dreams: List<Dream>)
+
+    @Delete
+    suspend fun delete(dream: Dream)
+
+    @Query("DELETE FROM dreams WHERE dreamID=:id")
+    suspend fun deleteDream(id : Int)
 
     @Query("DELETE FROM dreams")
     suspend fun deleteAll()

@@ -4,9 +4,17 @@
     <color name="colorPrimary">#36175E</color>
     <color name="colorPrimaryDark">#25064C</color>
     <color name="colorAccent">#CEA8FF</color>
+    <color name="colorAccentDark">#521D98</color>
     <color name="colorSecondary">#FFDD66</color>
     <color name="colorSecondaryDark">#FF8F63</color>
-    <color name="colorText">#FFFFFF</color>
-    <color name="colorIcon">#FFFFFF</color>
+    <color name="colorWhite">#FFFEFE</color>
     <color name="almostBlack">#0E011E</color>
+    <color name="colorExtra">#6ED1C0</color>
+    <!--palete colors-->
+    <color name="color2">#FFE066</color>
+    <color name="color3">#FFBA59</color>
+    <color name="color4">#FF8C8C</color>
+    <color name="color5">#FF99E5</color>
+    <color name="color6">#8CE2FF</color>
+    <color name="color7">#87F5B5</color>
 </resources>

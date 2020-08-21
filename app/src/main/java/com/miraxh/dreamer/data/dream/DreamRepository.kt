@@ -1,14 +1,11 @@
 package com.miraxh.dreamer.data.dream
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.*
 
 class DreamRepository(val app: Application) {
 
@@ -48,86 +45,14 @@ class DreamRepository(val app: Application) {
 
     fun insertNewDream(dream: Dream) {
         CoroutineScope(Dispatchers.IO).launch {
+            dreamDAO.deleteDream(dream.dreamID)
             dreamDAO.insertDream(dream)
         }
     }
 
-    suspend fun insertDummyData() {
-        val calendar = Calendar.getInstance()
-        val dayNumberFormatter = SimpleDateFormat("dd")
-        val monthFormatter = SimpleDateFormat("MMMM")
-        val dayNumber = dayNumberFormatter.format(calendar.time)
-        val monthName = monthFormatter.format(calendar.time)
-
-        val time = "${dayNumber}° $monthName"
-
-        val description =
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
-                    "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-
-        dreamDAO.insertDream(
-            Dream(
-                0,
-                time,
-                "Special dinner",
-                description
-            )
-        )
-        dreamDAO.insertDream(
-            Dream(
-                0,
-                time,
-                "Storm in the summer",
-                description
-            )
-        )
-        dreamDAO.insertDream(
-            Dream(
-                0,
-                time,
-                "Star wars",
-                description
-            )
-        )
-        dreamDAO.insertDream(
-            Dream(
-                0,
-                time,
-                "Snow in august",
-                description
-            )
-        )
-        dreamDAO.insertDream(
-            Dream(
-                0,
-                time,
-                "Stop this flame",
-                description
-            )
-        )
-        dreamDAO.insertDream(
-            Dream(
-                0,
-                time,
-                "Run",
-                description
-            )
-        )
-        dreamDAO.insertDream(
-            Dream(
-                0,
-                time,
-                "Good news",
-                description
-            )
-        )
-        dreamDAO.insertDream(
-            Dream(
-                0,
-                time,
-                "King Kuta",
-                description
-            )
-        )
+    fun deleteDream(dream: Dream) {
+        CoroutineScope(Dispatchers.IO).launch {
+            dreamDAO.deleteDream(dream.dreamID)
+        }
     }
 }

@@ -10,103 +10,381 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/date_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/general_margin"
-            android:layout_marginRight="@dimen/general_margin"
-            android:background="@drawable/bg_text_field"
-            android:drawableLeft="@drawable/ic_calendar"
-            android:drawablePadding="@dimen/general_small_margin"
-            android:padding="@dimen/general_margin"
-            android:text="Pick date"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/save_button" />
-
-        <TextView
-            android:id="@+id/displayDate"
+        <include
+            android:id="@+id/toolbar_add"
+            layout="@layout/normal_toolbar"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/general_margin"
-            android:background="@drawable/bg_text_field"
-            android:text="00 Month 0000"
-            android:textSize="22sp"
-            android:gravity="center"
-            app:layout_constraintBottom_toTopOf="@+id/layout_dream_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/date_picker"
-            app:layout_constraintTop_toBottomOf="@id/save_button" />
-
-        <Button
-            android:id="@+id/back_button"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="@dimen/general_margin"
-            android:layout_marginTop="@dimen/general_margin"
-            android:background="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="@+id/save_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/save_button"
-            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/general_margin"
-            android:layout_marginTop="@dimen/general_margin"
-            android:layout_marginEnd="@dimen/general_margin"
-            android:background="@drawable/bg_savebutton"
-            android:drawableLeft="@drawable/ic_save"
-            android:drawableTint="@color/colorSecondaryDark"
-            android:paddingHorizontal="@dimen/general_margin"
-            android:text="@string/label_botton_save"
-            android:textAllCaps="false"
-            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_dream_title"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/general_margin"
-            android:background="@drawable/bg_text_field"
-            android:padding="@dimen/general_small_margin"
-            android:textColorHint="@color/colorText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date_picker">
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingBottom="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_add">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dream_title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Dream title"
-                android:textColor="@color/colorText"
-                android:theme="@style/text_input" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_dream_description"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/description_tf"
-            android:layout_margin="@dimen/general_margin"
-            android:background="@drawable/bg_text_field"
-            android:padding="@dimen/general_small_margin"
-            android:textColorHint="@color/colorText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_dream_title">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dream_description"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="top"
-                android:hint="Dream description"
-                android:textColor="@color/colorText"
-                android:theme="@style/text_input" />
-        </com.google.android.material.textfield.TextInputLayout>
+                    <Button
+                        android:id="@+id/date_picker"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/general_margin"
+                        android:layout_marginStart="@dimen/general_small_margin"
+                        android:layout_marginEnd="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:drawableStart="@drawable/ic_calendar"
+                        android:drawablePadding="@dimen/general_small_margin"
+                        android:padding="@dimen/general_margin"
+                        android:text="@string/pick_date_label"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorSecondary"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toEndOf="@+id/cancel_btn"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/cancel_btn"
+                        android:layout_width="100dp"
+                        android:layout_height="0dp"
+                        android:layout_marginVertical="@dimen/general_margin"
+                        android:layout_marginStart="@dimen/general_margin"
+                        android:layout_marginEnd="@dimen/general_small_margin"
+                        android:background="@drawable/bg_cancel"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        android:text="@string/cancel_btn_text"
+                        android:textColor="@color/colorPrimaryLight"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@+id/layout_dream_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/date_picker"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_dream_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        android:paddingVertical="@dimen/general_margin"
+                        android:theme="@style/text_input_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/date_picker">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dream_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:hint="@string/dream_title_hint"
+                            android:inputType="textAutoCorrect"
+                            android:paddingHorizontal="@dimen/general_small_margin"
+                            android:paddingTop="@dimen/general_small_margin"
+                            android:textColor="@color/colorWhite"
+                            android:theme="@style/text_input_title" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_dream_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:gravity="top"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        android:paddingVertical="@dimen/general_margin"
+                        android:theme="@style/text_input_descr"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/layout_dream_title">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dream_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:gravity="top"
+                            android:hint="@string/dream_description_hint"
+                            android:inputType="textMultiLine"
+                            android:paddingHorizontal="@dimen/general_small_margin"
+                            android:paddingTop="@dimen/general_small_margin"
+                            android:textColor="@color/colorWhite"
+                            android:theme="@style/text_input_descr" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageButton
+                        android:contentDescription="@string/insert_tag_description"
+                        android:id="@+id/insert_tag_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="19dp"
+                        android:layout_marginEnd="@dimen/general_margin"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_forward"
+                        android:translationZ="90dp"
+                        app:layout_constraintEnd_toEndOf="@+id/layout_dream_tag"
+                        app:layout_constraintTop_toTopOf="@id/layout_dream_tag" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_dream_tag"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/general_margin"
+                        android:background="@drawable/bg_text_top"
+                        android:gravity="top"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        android:paddingVertical="@dimen/general_margin"
+                        android:theme="@style/text_input_tag"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/layout_dream_description">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dream_tag"
+                            android:layout_width="@dimen/tag_insert_width"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:gravity="top"
+                            android:hint="@string/insert_dream_tags_hint"
+                            android:inputType="text"
+                            android:paddingHorizontal="@dimen/general_small_margin"
+                            android:paddingTop="@dimen/general_small_margin"
+                            android:text=""
+                            android:textColor="@color/colorWhite"
+                            android:theme="@style/text_input_tag" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/tags_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="@dimen/general_margin"
+                        android:animationCache="true"
+                        android:background="@drawable/bg_text_bottom"
+                        android:elevation="@dimen/elevation_one"
+                        android:fadeScrollbars="true"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="2dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="@id/tag_bg"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tag_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/text_field_height"
+                        android:layout_marginHorizontal="@dimen/general_margin"
+                        android:background="@drawable/bg_text_bottom"
+                        android:paddingHorizontal="2dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_dream_tag" />
+
+
+                    <TextView
+                        android:id="@+id/label_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rate_dream_label"
+                        android:textSize="16sp"
+                        android:elevation="@dimen/elevation_one"
+                        android:layout_margin="@dimen/general_margin"
+                        app:layout_constraintStart_toStartOf="@id/bg_rating"
+                        app:layout_constraintTop_toTopOf="@id/bg_rating"
+                        app:layout_constraintBottom_toBottomOf="@id/bg_rating"/>
+
+                    <TextView
+                        android:id="@+id/bg_rating"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/text_field_height"
+                        android:layout_marginHorizontal="@dimen/general_margin"
+                        android:layout_marginTop="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/general_margin"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tag_bg" />
+
+                    <RatingBar
+                        android:id="@+id/rating_dream"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/general_margin"
+                        android:numStars="5"
+                        android:paddingTop="@dimen/general_small_margin"
+                        android:rating="2.5"
+                        app:layout_constraintStart_toEndOf="@id/label_rating"
+                        app:layout_constraintBottom_toBottomOf="@id/bg_rating"
+                        app:layout_constraintEnd_toEndOf="@id/bg_rating"
+                        app:layout_constraintTop_toTopOf="@id/bg_rating" />
+
+                    <TextView
+                        android:id="@+id/bg_recording"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginHorizontal="@dimen/general_margin"
+                        android:layout_marginTop="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:gravity="end|center_vertical"
+                        android:padding="@dimen/general_margin"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@id/add_draw"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bg_rating" />
+
+                    <ImageButton
+                        android:contentDescription="@string/record_audio_description"
+                        android:id="@+id/recording_btn"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="@dimen/general_margin"
+                        android:background="@drawable/bg_recordingbtn"
+                        android:fontFamily="@font/roboto_bold"
+                        android:padding="@dimen/general_small_margin"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_record"
+                        app:layout_constraintBottom_toBottomOf="@id/bg_recording"
+                        app:layout_constraintStart_toStartOf="@id/bg_recording"
+                        app:layout_constraintTop_toTopOf="@id/bg_recording" />
+
+                    <Chronometer
+                        android:id="@+id/audio_chronometer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:padding="@dimen/general_margin"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/bg_recording"
+                        app:layout_constraintStart_toEndOf="@id/recording_btn"
+                        app:layout_constraintTop_toTopOf="@id/bg_recording" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/audio_recyclerview"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/general_margin"
+                        android:animationCache="true"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:backgroundTint="@color/colorPrimaryLight"
+                        android:clipToPadding="false"
+                        android:fadeScrollbars="true"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="@id/bg_recording"
+                        app:layout_constraintStart_toEndOf="@id/audio_chronometer"
+                        app:layout_constraintEnd_toEndOf="@id/bg_recording"
+                        app:layout_constraintTop_toTopOf="@id/bg_recording" />
+
+                    <TextView
+                        android:id="@+id/recording_label"
+                        android:layout_width="159dp"
+                        android:layout_height="42dp"
+                        android:layout_margin="@dimen/general_margin"
+                        android:gravity="center"
+                        android:elevation="@dimen/elevation_two"
+                        android:text="@string/how_to_record_label"
+                        app:layout_constraintBottom_toBottomOf="@id/audio_recyclerview"
+                        app:layout_constraintEnd_toEndOf="@id/audio_recyclerview"
+                        app:layout_constraintStart_toStartOf="@id/audio_recyclerview"
+                        app:layout_constraintTop_toTopOf="@id/audio_recyclerview" />
+
+                    <TextView
+                        android:id="@+id/add_draw"
+                        android:layout_width="0dp"
+                        android:lines="1"
+                        android:layout_height="@dimen/text_field_height"
+                        android:layout_marginStart="@dimen/general_margin"
+                        android:layout_marginEnd="@dimen/general_small_margin"
+                        android:layout_marginTop="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:drawableStart="@drawable/ic_gesture"
+                        android:gravity="center"
+                        android:padding="@dimen/general_margin"
+                        android:text="@string/add_drawing_label"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/add_image"
+                        app:layout_constraintTop_toBottomOf="@id/bg_recording" />
+
+                    <TextView
+                        android:id="@+id/add_image"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/text_field_height"
+                        android:layout_marginStart="@dimen/general_small_margin"
+                        android:layout_marginEnd="@dimen/general_margin"
+                        android:layout_marginTop="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:drawableStart="@drawable/ic_image"
+                        android:gravity="center"
+                        android:padding="@dimen/general_margin"
+                        android:text="@string/add_image_label"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/add_draw"
+                        app:layout_constraintTop_toBottomOf="@id/bg_recording" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/images_recyclerview"
+                        android:layout_margin="@dimen/general_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:animationCache="true"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        android:clipToPadding="false"
+                        android:backgroundTint="@color/colorPrimaryLight"
+                        android:fadeScrollbars="true"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/add_draw"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/general_margin"
+            android:layout_marginBottom="@dimen/general_margin"
+            android:backgroundTint="@color/colorWhite"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_save"
+            android:tint="@color/colorPrimary"
+            app:borderWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

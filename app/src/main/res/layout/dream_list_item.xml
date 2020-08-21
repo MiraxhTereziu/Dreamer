@@ -5,59 +5,105 @@
     android:layout_height="wrap_content">
 
     <Button
-        android:id="@+id/backgroud_tile"
+        android:id="@+id/background_tile"
         android:layout_width="0dp"
-        android:layout_height="@dimen/dream_tile_size"
-        android:layout_marginLeft="@dimen/general_margin"
-        android:layout_marginRight="@dimen/general_margin"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/general_margin"
         android:layout_marginTop="@dimen/general_margin"
+        android:layout_marginEnd="@dimen/general_margin"
         android:background="@drawable/bg_dreamtile"
+        android:clickable="false"
+        android:focusable="false"
+        android:paddingBottom="@dimen/general_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/rating_display"
+        android:layout_width="@dimen/rating_size"
+        android:layout_height="@dimen/rating_size"
+        android:text="@string/default_rating"
+        android:theme="@style/display_rating"
+        app:layout_constraintEnd_toEndOf="@id/background_tile"
+        app:layout_constraintTop_toTopOf="@id/background_tile" />
+
+    <TextView
         android:id="@+id/date_label"
-        android:theme="@style/dream_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/general_margin"
+        android:layout_marginStart="@dimen/general_margin"
         android:layout_marginTop="@dimen/general_margin"
-        android:layout_marginRight="@dimen/general_small_margin"
-        android:text="@string/deafult_dream_date"
-        android:translationZ="90dp"
-        app:layout_constraintLeft_toLeftOf="@+id/backgroud_tile"
-        app:layout_constraintTop_toTopOf="@+id/backgroud_tile" />
+        android:layout_marginEnd="@dimen/general_small_margin"
+        android:text="@string/default_dream_date"
+        android:theme="@style/dream_date"
+        android:translationZ="80dp"
+        app:layout_constraintStart_toStartOf="@+id/background_tile"
+        app:layout_constraintTop_toTopOf="@+id/background_tile" />
 
     <TextView
         android:id="@+id/title_label"
-        android:theme="@style/dream_title"
-        android:maxLength="28"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/general_margin"
-        android:layout_marginTop="@dimen/general_margin"
-        android:layout_marginRight="@dimen/general_margin"
-        android:text="@string/default_dream_titile"
-        android:translationZ="90dp"
+        android:layout_marginStart="@dimen/general_margin"
+        android:layout_marginTop="@dimen/general_small_margin"
+        android:layout_marginEnd="@dimen/general_margin"
+        android:lines="1"
+        android:text="@string/default_dream_title"
+        android:theme="@style/dream_title"
+        android:translationZ="80dp"
         app:layout_constraintBottom_toTopOf="@+id/description_label"
-        app:layout_constraintLeft_toLeftOf="@+id/backgroud_tile"
+        app:layout_constraintEnd_toEndOf="@id/background_tile"
+        app:layout_constraintStart_toStartOf="@+id/background_tile"
         app:layout_constraintTop_toBottomOf="@+id/date_label" />
 
     <TextView
         android:id="@+id/description_label"
-        android:theme="@style/dream_description"
-        android:maxLength="150"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/general_margin"
+        android:layout_marginStart="@dimen/general_margin"
+        android:layout_marginTop="@dimen/general_small_margin"
+        android:layout_marginEnd="@dimen/general_margin"
+        android:layout_marginBottom="@dimen/general_small_margin"
         android:text="@string/lorem_ipsum"
-        android:translationZ="90dp"
-        app:layout_constraintBottom_toBottomOf="@id/backgroud_tile"
-        app:layout_constraintLeft_toLeftOf="@+id/backgroud_tile"
-        app:layout_constraintRight_toRightOf="@+id/backgroud_tile"
+        android:theme="@style/dream_description"
+        android:translationZ="80dp"
+        app:layout_constraintBottom_toTopOf="@id/tag1"
+        app:layout_constraintEnd_toEndOf="@+id/background_tile"
+        app:layout_constraintStart_toStartOf="@+id/background_tile"
         app:layout_constraintTop_toBottomOf="@+id/title_label" />
 
+    <Button
+        android:id="@+id/tag1"
+        style="@style/tag_dream_button"
+        android:layout_marginStart="@dimen/general_margin"
+        android:layout_marginEnd="@dimen/general_small_margin"
+        android:text="@string/default_tag_label"
+        app:layout_constraintBottom_toBottomOf="@id/background_tile"
+        app:layout_constraintEnd_toStartOf="@id/tag2"
+        app:layout_constraintStart_toStartOf="@+id/background_tile" />
+
+    <Button
+        android:id="@+id/tag2"
+        style="@style/tag_dream_button"
+        android:layout_marginStart="@dimen/general_small_margin"
+        android:layout_marginEnd="@dimen/general_small_margin"
+        android:text="@string/default_tag_label"
+        app:layout_constraintBottom_toBottomOf="@id/background_tile"
+        app:layout_constraintEnd_toStartOf="@+id/tag3"
+        app:layout_constraintStart_toEndOf="@+id/tag1" />
+
+    <Button
+        android:id="@+id/tag3"
+        style="@style/tag_dream_button"
+        android:layout_marginStart="@dimen/general_small_margin"
+        android:layout_marginEnd="@dimen/general_margin"
+        android:text="@string/default_tag_label"
+        app:layout_constraintBottom_toBottomOf="@id/background_tile"
+        app:layout_constraintEnd_toEndOf="@id/background_tile"
+        app:layout_constraintStart_toEndOf="@+id/tag2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

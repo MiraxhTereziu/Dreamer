@@ -9,28 +9,17 @@ import com.miraxh.dreamer.ui.toolbar.ToolbarHelper
 
 class HomeViewModel(val app: Application) : AndroidViewModel(app) {
 
-    private val dreamDAO = DreamDatabase.getDatabase(app)
-        .dreamDAO()
-
-    val dreamRepository = DreamRepository(app)
+    private val dreamRepository = DreamRepository(app)
     val dreamData = dreamRepository.dreamData
 
-
-    private val dataList = ToolbarHelper()
-    val daysData = dataList.days
+    private val toolbarHelper = ToolbarHelper()
+    val daysData = toolbarHelper.days
 
     init {
-        dataList.getDaysData()
+        updateToolbar()
     }
 
-    fun changeState(day: Day){
-        var tmpList = daysData.value
-        tmpList?.forEach {
-            if(day.day == it.day){
-                it.active = it.active.not()
-            }
-        }
-        daysData.value = tmpList
+    fun updateToolbar() {
+        toolbarHelper.getDaysData(dreamRepository.dreamData)
     }
-
 }

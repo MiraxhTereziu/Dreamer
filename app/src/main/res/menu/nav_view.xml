@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/diary_item"
+        android:icon="@drawable/ic_book_open"
+        android:title="@string/diary_title" />
+    <item
+        android:id="@+id/add_item"
+        android:icon="@drawable/ic_add_thin"
+        android:title="@string/add_title" />
+    <item
+        android:id="@+id/stats_item"
+        android:icon="@drawable/ic_statistics"
+        android:title="@string/stats_title" />
+    <item
+        android:id="@+id/music_item"
+        android:icon="@drawable/ic_music"
+        android:title="@string/music_title" />
+    <item
+        android:id="@+id/settings_item"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings_title" />
+</menu>
