@@ -50,7 +50,6 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     private lateinit var cancelBtn: TextView
     private lateinit var audioBtn: ImageButton
 
-
     private lateinit var newDream: Dream
     private lateinit var include: ConstraintLayout
     private lateinit var drawerButton: ImageView

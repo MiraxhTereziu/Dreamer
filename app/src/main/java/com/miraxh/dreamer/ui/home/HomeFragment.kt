@@ -2,6 +2,7 @@ package com.miraxh.dreamer.ui.home
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,33 +63,21 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
 
     //metodo per inizializzare lista principale dei sogni
     private fun dreamListLoader() {
+        Log.i("finaltest", "!empty")
         //mi metto in ascolto per eventuali cambiamenti alla lista dei sogni
         viewModel.dreamData.observe(viewLifecycleOwner, Observer {
             //ordino la lista in base al giorno di creazione
             (it as MutableList<Dream>).sortByDescending { dream -> dream.dreamID }
             //in caso un update della lista dei sogni entro in questo metodo dove mi viene passata la nuova lista
             //creo un nuovo adapter da essegnare al mio RecyclerView
-            if(it.isEmpty()) {
-                it.add(
-                    Dream(
-                        0,
-                        date = "00/00/0000",
-                        title = "Dream example",
-                        description = "Hi, welcome in dreamer here you can create a report of a dream you just had",
-                        tags = mutableListOf("Nightmare", "Scary", "NoSleep"),
-                        rate = 1F,
-                        audios = mutableListOf(),
-                        images = mutableListOf()
-                    )
-                )
-            }
-
+            Log.i("finaltest", it.size.toString())
             adapterDream = DreamListAdapter(requireContext(), it, this)
             //assegno il mio adapter alla mia RecyclerView
             dreamRecyclerView.adapter = adapterDream
             //update toolbar
             viewModel.updateToolbar()
         })
+
     }
 
     //metodo per inizializzare la toolbar e "l'agenda dei sogni" al suo interno

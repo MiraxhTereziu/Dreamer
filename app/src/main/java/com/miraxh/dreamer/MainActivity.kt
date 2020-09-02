@@ -28,18 +28,18 @@ class MainActivity : AppCompatActivity() {
                     R.id.diary_item -> {
                         findNavController(R.id.nav_host_fragment).navigate(R.id.home_dest)
                     }
-                    R.id.stats_item -> {
-                        findNavController(R.id.nav_host_fragment).navigate(R.id.stats_dest)
-                    }
                     R.id.add_item -> {
                         findNavController(R.id.nav_host_fragment).navigate(R.id.add_dest)
+                    }
+                    /*R.id.stats_item -> {
+                        findNavController(R.id.nav_host_fragment).navigate(R.id.stats_dest)
                     }
                     R.id.music_item -> {
                         findNavController(R.id.nav_host_fragment).navigate(R.id.music_dest)
                     }
                     R.id.settings_item -> {
                         findNavController(R.id.nav_host_fragment).navigate(R.id.settings_dest)
-                    }
+                    }*/
                 }
             },0)
             false

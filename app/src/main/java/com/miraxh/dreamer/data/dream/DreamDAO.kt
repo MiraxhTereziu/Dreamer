@@ -25,5 +25,4 @@ interface DreamDAO {
 
     @Query("DELETE FROM dreams")
     suspend fun deleteAll()
-
 }

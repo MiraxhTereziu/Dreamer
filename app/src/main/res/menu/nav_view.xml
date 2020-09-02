@@ -9,6 +9,7 @@
         android:id="@+id/add_item"
         android:icon="@drawable/ic_add_thin"
         android:title="@string/add_title" />
+    <!--
     <item
         android:id="@+id/stats_item"
         android:icon="@drawable/ic_statistics"
@@ -21,4 +22,5 @@
         android:id="@+id/settings_item"
         android:icon="@drawable/ic_settings"
         android:title="@string/settings_title" />
+    -->
 </menu>
