@@ -75,6 +75,5 @@ data class Dream(
             dialog.show()
             return toRtn
         }
-
     }
 }
