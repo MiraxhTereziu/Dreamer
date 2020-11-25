@@ -76,7 +76,7 @@ class SplashFragment : Fragment() {
         //faccio in modo di navigare alla home però in caso di click del pulsante indietro
         // l'applicazione si chiuderà e non tornerà a questo fragment
         findNavController().navigate(
-            R.id.home_dest,
+            R.id.signin_dest,
             null,
             NavOptions.Builder()
                 .setPopUpTo(R.id.splash_dest, true)

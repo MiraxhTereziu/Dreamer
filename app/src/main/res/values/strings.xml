@@ -53,4 +53,12 @@
     <string name="negative_action_dialog_label">Discard</string>
     <string name="positive_action_dialog_label">Go back</string>
     <string name="no_tags_label">No tags inserted</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_slogan">Write your dreams</string>
+    <string name="signin_google">Google</string>
+    <string name="signin_facebook">Facebook</string>
+    <string name="signin_mail">Email</string>
+    <string name="label_signin">Sign in with:</string>
+    <string name="sign_up">Sign up with email</string>
+    <string name="label_signup">Dont\'t have an account yet?</string>
 </resources>
