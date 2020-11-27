@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/signin_dest"
-        android:name="com.miraxh.dreamer.ui.signin.signin"
+        android:name="com.miraxh.dreamer.ui.signin.SignIn"
         android:label="fragment_signin"
         tools:layout="@layout/fragment_signin" />
 </navigation>
