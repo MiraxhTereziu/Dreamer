@@ -10,12 +10,19 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.util.PERMISSION_CODE
 import kotlinx.android.synthetic.main.fragment_splash.*
 
 class SplashFragment : Fragment() {
 
+    private lateinit var auth: FirebaseAuth
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,8 +82,12 @@ class SplashFragment : Fragment() {
     private fun displayMainFragment() {
         //faccio in modo di navigare alla home però in caso di click del pulsante indietro
         // l'applicazione si chiuderà e non tornerà a questo fragment
+        val user = auth.currentUser
         findNavController().navigate(
-            R.id.home_dest,
+            if(user!=null)
+                R.id.home_dest
+            else
+                R.id.signin_dest,
             null,
             NavOptions.Builder()
                 .setPopUpTo(R.id.splash_dest, true)

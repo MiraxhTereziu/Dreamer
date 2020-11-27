@@ -116,4 +116,19 @@
         <item name="android:translationZ">90dp</item>
     </style>
 
+    <style name="signin_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:backgroundTint">@color/colorWhite</item>
+        <item name="android:drawablePadding">@dimen/general_small_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:textSize">@dimen/title</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
 </resources>
