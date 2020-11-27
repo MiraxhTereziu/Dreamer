@@ -61,4 +61,8 @@
     <string name="label_signin">Sign in with:</string>
     <string name="sign_up">Sign up with email</string>
     <string name="label_signup">Dont\'t have an account yet?</string>
+    <string name="logout">Logout</string>
+    <string name="logout_subtitle">Do you want to logout?</string>
+    <string name="logout_description">Logout icon</string>
+    <string name="profile_description">Profile picture</string>
 </resources>
