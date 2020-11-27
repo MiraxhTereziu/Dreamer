@@ -22,26 +22,26 @@ class MainActivity : AppCompatActivity() {
 
     private val navigationListener =
         NavigationView.OnNavigationItemSelectedListener { item ->
-            drawer.closeDrawer(GravityCompat.START)
-            handler.postDelayed(Runnable {
-                when (item.itemId) {
-                    R.id.diary_item -> {
-                        findNavController(R.id.nav_host_fragment).navigate(R.id.home_dest)
-                    }
-                    R.id.add_item -> {
-                        findNavController(R.id.nav_host_fragment).navigate(R.id.add_dest)
-                    }
-                    /*R.id.stats_item -> {
-                        findNavController(R.id.nav_host_fragment).navigate(R.id.stats_dest)
-                    }
-                    R.id.music_item -> {
-                        findNavController(R.id.nav_host_fragment).navigate(R.id.music_dest)
-                    }
-                    R.id.settings_item -> {
-                        findNavController(R.id.nav_host_fragment).navigate(R.id.settings_dest)
-                    }*/
+            drawer.closeDrawer(GravityCompat.END)
+            when (item.itemId) {
+                R.id.diary_item -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.home_dest)
                 }
-            },0)
+                R.id.add_item -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.add_dest)
+                }
+                R.id.settings_item -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.settings_dest)
+                }
+                /*R.id.stats_item -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.stats_dest)
+                }
+                R.id.music_item -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.music_dest)
+                }
+
+                }*/
+            }
             false
         }
 
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openDrawer() {
-        drawer.openDrawer(GravityCompat.START)
+        drawer.openDrawer(GravityCompat.END)
     }
 
     fun closeKeyboard() {

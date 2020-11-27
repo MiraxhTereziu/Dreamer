@@ -24,21 +24,20 @@
         android:paddingHorizontal="@dimen/general_margin"
         android:src="@drawable/ic_menu"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar_title_normal"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/toolbar_title_normal" />
 
     <TextView
         android:id="@+id/toolbar_title_normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/general_margin"
-        android:layout_marginBottom="@dimen/general_margin"
+        android:layout_margin="@dimen/general_margin"
         android:elevation="@dimen/elevation_two"
         android:fontFamily="@font/pacifico_regular"
         android:text="@string/toolbar_normal_title"
         android:theme="@style/pacifico"
         app:layout_constraintBottom_toBottomOf="@id/toolbar_normal"
-        app:layout_constraintStart_toEndOf="@id/drawer_icon_normal"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar_normal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
