@@ -6,13 +6,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.Day
@@ -31,9 +35,19 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     private lateinit var adapterDream: DreamListAdapter
     private lateinit var viewModel: HomeViewModel
     private lateinit var addActionButton: FloatingActionButton
+    private lateinit var homeTitle: TextView
+
 
     private lateinit var daysState: Parcelable
 
+    private lateinit var auth: FirebaseAuth
+    private var user: FirebaseUser? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+        user = auth.currentUser
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +58,9 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         dreamRecyclerView = view.findViewById(R.id.dream_recyclerview)
         daysRecycleView = view.findViewById(R.id.days_recyclerview)
         addActionButton = view.findViewById(R.id.add_action_button)
+        homeTitle = view.findViewById(R.id.toolbar_title)
+        homeTitle.text = user?.displayName
+
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         return view
     }

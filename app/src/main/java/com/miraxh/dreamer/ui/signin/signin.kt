@@ -86,7 +86,7 @@ class signin : Fragment() {
                     // ...
                 }
             } else {
-                //Log.w(TAG, "Google sign in failed", exception.toString())
+                Log.d(TAG, "Google sign in failed"+exception.toString())
             }
         }
     }
@@ -99,7 +99,7 @@ class signin : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
-                    Log.i("MyNameIs", user?.displayName)
+                    Log.i("MyNameIs",user?.displayName ?: "No name" )
                     findNavController().navigate(
                         R.id.home_dest,
                         null
