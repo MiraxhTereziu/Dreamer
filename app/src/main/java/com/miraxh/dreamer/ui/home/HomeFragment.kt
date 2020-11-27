@@ -59,7 +59,8 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         daysRecycleView = view.findViewById(R.id.days_recyclerview)
         addActionButton = view.findViewById(R.id.add_action_button)
         homeTitle = view.findViewById(R.id.toolbar_title)
-        homeTitle.text = user?.displayName
+        val name = user?.displayName?.split(" ")?.get(0)
+        homeTitle.text = name.toString()
 
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         return view
