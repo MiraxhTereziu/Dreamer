@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
@@ -55,6 +56,7 @@ class SettingsFragment : Fragment() {
 
         logoutBtn.setOnClickListener {
             auth.signOut()
+            LoginManager.getInstance().logOut()
             findNavController().navigate(
                 R.id.signin_dest,
                 null

@@ -65,4 +65,7 @@
     <string name="logout_subtitle">Do you want to logout?</string>
     <string name="logout_description">Logout icon</string>
     <string name="profile_description">Profile picture</string>
+    <string name="facebook_app_id">655761071785702</string>
+    <string name="fb_login_protocol_scheme">fb655761071785702</string>
+
 </resources>
