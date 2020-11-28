@@ -24,4 +24,5 @@
     <dimen name="bg_recording_height">100dp</dimen>
     <dimen name="image_size">100dp</dimen>
     <dimen name="button_height">64dp</dimen>
+    <dimen name="input_field_size">80dp</dimen>
 </resources>

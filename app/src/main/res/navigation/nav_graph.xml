@@ -62,7 +62,17 @@
     </fragment>
     <fragment
         android:id="@+id/signin_dest"
-        android:name="com.miraxh.dreamer.ui.signin.SignIn"
+        android:name="com.miraxh.dreamer.ui.authentication.SignIn"
         android:label="fragment_signin"
         tools:layout="@layout/fragment_signin" />
+    <fragment
+        android:id="@+id/signUpEmail_dest"
+        android:name="com.miraxh.dreamer.ui.authentication.SignUpEmail"
+        android:label="fragment_sign_in_email"
+        tools:layout="@layout/fragment_signup_email" />
+    <fragment
+        android:id="@+id/signInEmail_dest"
+        android:name="com.miraxh.dreamer.ui.authentication.SingInEmail"
+        android:label="fragment_singin_email"
+        tools:layout="@layout/fragment_singin_email" />
 </navigation>

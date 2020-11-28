@@ -67,5 +67,13 @@
     <string name="profile_description">Profile picture</string>
     <string name="facebook_app_id">655761071785702</string>
     <string name="fb_login_protocol_scheme">fb655761071785702</string>
+    <string name="name_sug">Name</string>
+    <string name="surname_sug">Surname</string>
+    <string name="username_sug">Username</string>
+    <string name="email_sug">Email</string>
+    <string name="password_sug">Password</string>
+    <string name="repeat_password_sug">Repeat password</string>
+    <string name="register_label">Register</string>
+    <string name="sign_in_label">Sign in</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.miraxh.dreamer.ui.signin
+package com.miraxh.dreamer.ui.authentication
 
 import android.content.Intent
 import android.os.Bundle
@@ -35,6 +35,10 @@ class SignIn : Fragment() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleBtn: FrameLayout
     private lateinit var facebookBtn: FrameLayout
+    private lateinit var emailUpBtn: FrameLayout
+    private lateinit var emailInBtn: FrameLayout
+
+
 
     private lateinit var callbackManager: CallbackManager
 
@@ -66,11 +70,39 @@ class SignIn : Fragment() {
         val view = inflater.inflate(R.layout.fragment_signin, container, false)
         googleBtn = view.findViewById(R.id.layout_google_signin)
         facebookBtn = view.findViewById(R.id.layout_facebook_signin)
+        emailUpBtn = view.findViewById(R.id.layout_mail_signup)
+        emailInBtn = view.findViewById(R.id.layout_mail_signin)
 
+
+        //google sign in
         googleBtn.setOnClickListener {
-            signIn()
+            signInGoogle()
         }
 
+        //facebook sign in
+        signInFacebook(view)
+
+        //email sign up
+        emailUpBtn.setOnClickListener {
+            findNavController().navigate(
+                R.id.signUpEmail_dest,
+                null
+            )
+        }
+
+        //email sign in
+        emailInBtn.setOnClickListener {
+            findNavController().navigate(
+                R.id.signInEmail_dest,
+                null
+            )
+        }
+
+
+        return view
+    }
+
+    private fun signInFacebook(view: View) {
         callbackManager = CallbackManager.Factory.create()
         val loginButton = view.findViewById<LoginButton>(R.id.login_button)
 
@@ -92,7 +124,6 @@ class SignIn : Fragment() {
             override fun onError(error: FacebookException) {
             }
         })
-        return view
     }
 
 
@@ -120,7 +151,8 @@ class SignIn : Fragment() {
             }
     }
 
-    private fun signIn() {
+
+    private fun signInGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }

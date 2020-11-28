@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.authentication.SignUpEmail">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/general_margin"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@id/input_group"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/layout_facebook_signin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        style="@style/signin_button"
+                        android:text="@string/app_name"
+                        android:textSize="40sp"
+                        android:textStyle="normal"
+                        android:theme="@style/pacifico"
+                        app:drawableEndCompat="@drawable/ic_eva_book_open" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/sub_title_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_slogan" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/input_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_field_size"
+                    android:layout_marginHorizontal="@dimen/general_margin"
+                    android:layout_marginTop="@dimen/general_margin"
+                    android:background="@drawable/bg_text_field_no_border"
+                    android:paddingHorizontal="@dimen/general_small_margin"
+                    android:paddingVertical="@dimen/general_margin"
+                    android:theme="@style/signInUp_input">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="@string/name_sug"
+                        android:inputType="textAutoCorrect"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        android:paddingTop="@dimen/general_small_margin"
+                        android:textColor="@color/colorWhite" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_surname_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_field_size"
+                    android:layout_marginHorizontal="@dimen/general_margin"
+                    android:layout_marginTop="@dimen/general_margin"
+                    android:background="@drawable/bg_text_field_no_border"
+                    android:paddingHorizontal="@dimen/general_small_margin"
+                    android:paddingVertical="@dimen/general_margin"
+                    android:theme="@style/signInUp_input">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/surname_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/surname_sug"
+                        android:inputType="textAutoCorrect"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        android:paddingTop="@dimen/general_small_margin"
+                        android:textColor="@color/colorWhite" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_username_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_field_size"
+                    android:layout_marginHorizontal="@dimen/general_margin"
+                    android:layout_marginTop="@dimen/general_margin"
+                    android:background="@drawable/bg_text_field_no_border"
+                    android:paddingHorizontal="@dimen/general_small_margin"
+                    android:paddingVertical="@dimen/general_margin"
+                    android:theme="@style/signInUp_input">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/username_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/username_sug"
+                        android:inputType="textAutoCorrect"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        android:paddingTop="@dimen/general_small_margin"
+                        android:textColor="@color/colorWhite" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_email_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_field_size"
+                    android:layout_marginHorizontal="@dimen/general_margin"
+                    android:layout_marginTop="@dimen/general_margin"
+                    android:background="@drawable/bg_text_field_no_border"
+                    android:paddingHorizontal="@dimen/general_small_margin"
+                    android:paddingVertical="@dimen/general_margin"
+                    android:theme="@style/signInUp_input">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/email_sug"
+                        android:inputType="textEmailAddress"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        android:paddingTop="@dimen/general_small_margin"
+                        android:textColor="@color/colorWhite" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_password_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_field_size"
+                    android:layout_marginHorizontal="@dimen/general_margin"
+                    android:layout_marginTop="@dimen/general_margin"
+                    android:background="@drawable/bg_text_field_no_border"
+                    android:paddingHorizontal="@dimen/general_small_margin"
+                    android:paddingVertical="@dimen/general_margin"
+                    android:theme="@style/signInUp_input">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/password_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/password_sug"
+                        android:inputType="textPassword"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        android:paddingTop="@dimen/general_small_margin"
+                        android:textColor="@color/colorWhite" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_password_repeat_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_field_size"
+                    android:layout_marginHorizontal="@dimen/general_margin"
+                    android:layout_marginTop="@dimen/general_margin"
+                    android:background="@drawable/bg_text_field_no_border"
+                    android:paddingHorizontal="@dimen/general_small_margin"
+                    android:paddingVertical="@dimen/general_margin"
+                    android:theme="@style/signInUp_input">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/password_repeat_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/repeat_password_sug"
+                        android:inputType="textPassword"
+                        android:paddingHorizontal="@dimen/general_small_margin"
+                        android:paddingTop="@dimen/general_small_margin"
+                        android:textColor="@color/colorWhite" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <FrameLayout
+                    android:id="@+id/layout_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_margin="@dimen/general_margin"
+                    android:background="@drawable/bg_dreamtile"
+                    android:backgroundTint="@color/colorWhite"
+                    app:layout_constraintBottom_toTopOf="@id/layout_facebook_signin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/register"
+                        style="@style/signin_button"
+                        android:text="@string/register_label"
+                        android:textColor="@color/colorPrimary"
+                        app:drawableEndCompat="@drawable/ic_check" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</FrameLayout>
