@@ -1,6 +1,7 @@
 package com.miraxh.dreamer.ui.home
 
 import android.os.Bundle
+import android.os.Handler
 import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
@@ -46,7 +47,8 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
-        user = auth.currentUser
+
+
     }
 
     override fun onCreateView(
@@ -59,6 +61,8 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         daysRecycleView = view.findViewById(R.id.days_recyclerview)
         addActionButton = view.findViewById(R.id.add_action_button)
         homeTitle = view.findViewById(R.id.toolbar_title)
+
+        user = auth.currentUser
         val name = user?.displayName?.split(" ")?.get(0)
         homeTitle.text = name.toString()
 
