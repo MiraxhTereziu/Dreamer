@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
+import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -29,7 +31,6 @@ import com.miraxh.dreamer.R
 
 class SignIn : Fragment() {
 
-
     private lateinit var auth: FirebaseAuth
     private lateinit var gso: GoogleSignInOptions
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -37,8 +38,6 @@ class SignIn : Fragment() {
     private lateinit var facebookBtn: FrameLayout
     private lateinit var emailUpBtn: FrameLayout
     private lateinit var emailInBtn: FrameLayout
-
-
 
     private lateinit var callbackManager: CallbackManager
 
@@ -59,8 +58,6 @@ class SignIn : Fragment() {
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-
-
     }
 
     override fun onCreateView(
@@ -72,7 +69,6 @@ class SignIn : Fragment() {
         facebookBtn = view.findViewById(R.id.layout_facebook_signin)
         emailUpBtn = view.findViewById(R.id.layout_mail_signup)
         emailInBtn = view.findViewById(R.id.layout_mail_signin)
-
 
         //google sign in
         googleBtn.setOnClickListener {
@@ -98,7 +94,6 @@ class SignIn : Fragment() {
             )
         }
 
-
         return view
     }
 
@@ -115,13 +110,17 @@ class SignIn : Fragment() {
             override fun onSuccess(loginResult: LoginResult) {
                 Log.i(TAG, loginResult.accessToken.toString())
                 handleFacebookAccessToken(loginResult.accessToken)
-
             }
 
             override fun onCancel() {
             }
 
             override fun onError(error: FacebookException) {
+                Toast.makeText(
+                    requireActivity(),
+                    error.message,
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
     }
@@ -130,23 +129,24 @@ class SignIn : Fragment() {
     // [START auth_with_facebook]
     private fun handleFacebookAccessToken(token: AccessToken) {
         Log.d(TAG, "handleFacebookAccessToken:$token")
-        // [START_EXCLUDE silent]
-        // [END_EXCLUDE]
-
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential)
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
-                    //val user = auth.currentUser
                     findNavController().navigate(
                         R.id.home_dest,
                         null
                     )
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(
+                        requireActivity(),
+                        task.exception.toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    LoginManager.getInstance().logOut()
                 }
             }
     }
@@ -165,7 +165,6 @@ class SignIn : Fragment() {
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            val exception = task.exception
             if (task.isSuccessful) {
                 try {
                     // Google Sign In was successful, authenticate with Firebase
@@ -174,11 +173,18 @@ class SignIn : Fragment() {
                     firebaseAuthWithGoogle(account.idToken!!)
                 } catch (e: ApiException) {
                     // Google Sign In failed, update UI appropriately
-                    Log.w(TAG, "Google sign in failed", e)
-                    // ...
+                    Toast.makeText(
+                        requireActivity(),
+                        task.exception.toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             } else {
-                Log.d(TAG, "Google sign in failed" + exception.toString())
+                Toast.makeText(
+                    requireActivity(),
+                    task.exception.toString(),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -197,8 +203,11 @@ class SignIn : Fragment() {
                         null
                     )
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(
+                        requireActivity(),
+                        task.exception.toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
     }
