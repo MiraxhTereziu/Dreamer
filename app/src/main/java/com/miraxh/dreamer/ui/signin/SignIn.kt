@@ -34,7 +34,7 @@ class SignIn : Fragment() {
     private lateinit var gso: GoogleSignInOptions
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleBtn: FrameLayout
-    //private lateinit var facebookBtn: FrameLayout
+    private lateinit var facebookBtn: FrameLayout
 
     private lateinit var callbackManager: CallbackManager
 
@@ -65,7 +65,7 @@ class SignIn : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_signin, container, false)
         googleBtn = view.findViewById(R.id.layout_google_signin)
-        //facebookBtn = view.findViewById(R.id.layout_facebook_signin)
+        facebookBtn = view.findViewById(R.id.layout_facebook_signin)
 
         googleBtn.setOnClickListener {
             signIn()
@@ -73,15 +73,14 @@ class SignIn : Fragment() {
 
         callbackManager = CallbackManager.Factory.create()
         val loginButton = view.findViewById<LoginButton>(R.id.login_button)
-        loginButton.fragment = this;
-        Log.i(TAG, "1")
 
+        facebookBtn.setOnClickListener {
+            loginButton.callOnClick()
+        }
+        loginButton.fragment = this
         loginButton.setPermissions("email", "public_profile")
-        Log.i(TAG, "2")
-
         loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
-                Log.i(TAG, "3")
                 Log.i(TAG, loginResult.accessToken.toString())
                 handleFacebookAccessToken(loginResult.accessToken)
 
@@ -93,29 +92,6 @@ class SignIn : Fragment() {
             override fun onError(error: FacebookException) {
             }
         })
-
-        //facebookBtn.setFragment(this)
-        /*facebookBtn.setOnClickListener {
-            LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
-            LoginManager.getInstance().registerCallback(callbackManager, object :
-                    FacebookCallback<LoginResult> {
-                    override fun onSuccess(loginResult: LoginResult) {
-                        Log.d(TAG, "facebook:onSuccess:$loginResult")
-                        handleFacebookAccessToken(loginResult.accessToken)
-                    }
-
-                    override fun onCancel() {
-                        Log.d(TAG, "facebook:onCancel")
-                        // ...
-                    }
-
-                    override fun onError(error: FacebookException) {
-                        Log.d(TAG, "facebook:onError", error)
-                        // ...
-                    }
-                }
-            )
-        }*/
         return view
     }
 
@@ -132,7 +108,7 @@ class SignIn : Fragment() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
+                    //val user = auth.currentUser
                     findNavController().navigate(
                         R.id.home_dest,
                         null
