@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".ui.authentication.SignUpEmail">
 
     <ScrollView
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -106,28 +107,6 @@
                         android:textColor="@color/colorWhite" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_username_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/input_field_size"
-                    android:layout_marginHorizontal="@dimen/general_margin"
-                    android:layout_marginTop="@dimen/general_margin"
-                    android:background="@drawable/bg_text_field_no_border"
-                    android:paddingHorizontal="@dimen/general_small_margin"
-                    android:paddingVertical="@dimen/general_margin"
-                    android:theme="@style/signInUp_input">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/username_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:hint="@string/username_sug"
-                        android:inputType="textAutoCorrect"
-                        android:paddingHorizontal="@dimen/general_small_margin"
-                        android:paddingTop="@dimen/general_small_margin"
-                        android:textColor="@color/colorWhite" />
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_email_input"
