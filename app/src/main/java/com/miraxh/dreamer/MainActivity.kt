@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawer: DrawerLayout
     private lateinit var handler: Handler
 
+
     private val navigationListener =
         NavigationView.OnNavigationItemSelectedListener { item ->
             drawer.closeDrawer(GravityCompat.END)

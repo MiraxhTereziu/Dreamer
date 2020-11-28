@@ -5,21 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".ui.signin.signin">
+    tools:context=".ui.signin.SignIn">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center"
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
+            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/label_signin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -30,11 +31,11 @@
 
                 <TextView
                     style="@style/signin_button"
-                    android:drawableEnd="@drawable/ic_eva_book_open"
-                    android:theme="@style/pacifico"
                     android:text="@string/app_name"
+                    android:textSize="40sp"
                     android:textStyle="normal"
-                    android:textSize="40sp"/>
+                    android:theme="@style/pacifico"
+                    app:drawableEndCompat="@drawable/ic_eva_book_open" />
             </FrameLayout>
 
             <TextView
@@ -71,8 +72,8 @@
                 android:id="@+id/google_signin"
                 style="@style/signin_button"
                 android:textColor="@color/almostBlack"
-                android:drawableEnd="@drawable/ic_google"
-                android:text="@string/signin_google" />
+                android:text="@string/signin_google"
+                app:drawableEndCompat="@drawable/ic_google" />
         </FrameLayout>
 
         <FrameLayout
@@ -91,9 +92,20 @@
                 android:id="@+id/facebook_signin"
                 style="@style/signin_button"
                 android:textColor="@color/colorWhite"
-                android:drawableEnd="@drawable/ic_facebook"
-                android:text="@string/signin_facebook" />
+                android:text="@string/signin_facebook"
+                app:drawableEndCompat="@drawable/ic_facebook" />
         </FrameLayout>
+
+        <com.facebook.login.widget.LoginButton
+            android:visibility="gone"
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <FrameLayout
             android:id="@+id/layout_mail_signin"
@@ -111,7 +123,7 @@
                 android:id="@+id/mail_signin"
                 style="@style/signin_button"
                 android:text="@string/signin_mail"
-                android:drawableEnd="@drawable/ic_iconmail"/>
+                app:drawableEndCompat="@drawable/ic_iconmail" />
         </FrameLayout>
 
         <TextView
@@ -143,7 +155,7 @@
                 style="@style/signin_button"
                 android:textStyle="normal"
                 android:text="@string/sign_up"
-                android:drawableEnd="@drawable/ic_signup"/>
+                app:drawableEndCompat="@drawable/ic_signup" />
         </FrameLayout>
 
 
