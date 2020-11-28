@@ -75,5 +75,7 @@
     <string name="repeat_password_sug">Repeat password</string>
     <string name="register_label">Register</string>
     <string name="sign_in_label">Sign in</string>
+    <string name="enter_credential_label">Enter credentials:</string>
+    <string name="sign_up_email_label">Enter your information:</string>
 
 </resources>
