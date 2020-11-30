@@ -75,4 +75,9 @@
         android:name="com.miraxh.dreamer.ui.authentication.SingInEmail"
         android:label="fragment_singin_email"
         tools:layout="@layout/fragment_singin_email" />
+    <fragment
+        android:id="@+id/profile_dest"
+        android:name="com.miraxh.dreamer.ui.profile.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

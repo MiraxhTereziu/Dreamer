@@ -49,12 +49,13 @@
             android:id="@+id/label_signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_signin"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/layout_google_signin"
             android:layout_marginStart="@dimen/general_margin"
-            android:layout_marginBottom="@dimen/general_margin"/>
+            android:layout_marginBottom="@dimen/general_margin"
+            android:text="@string/label_signin"
+            android:textSize="@dimen/label_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/layout_google_signin"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <FrameLayout
             android:id="@+id/layout_google_signin"
@@ -71,8 +72,8 @@
             <TextView
                 android:id="@+id/google_signin"
                 style="@style/signin_button"
-                android:textColor="@color/almostBlack"
                 android:text="@string/signin_google"
+                android:textColor="@color/almostBlack"
                 app:drawableEndCompat="@drawable/ic_google" />
         </FrameLayout>
 
@@ -91,17 +92,17 @@
             <TextView
                 android:id="@+id/facebook_signin"
                 style="@style/signin_button"
-                android:textColor="@color/colorWhite"
                 android:text="@string/signin_facebook"
+                android:textColor="@color/colorWhite"
                 app:drawableEndCompat="@drawable/ic_facebook" />
         </FrameLayout>
 
         <com.facebook.login.widget.LoginButton
-            android:visibility="gone"
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -130,13 +131,14 @@
             android:id="@+id/label_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_signup"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/layout_mail_signup"
             android:layout_marginStart="@dimen/general_margin"
             android:layout_marginBottom="@dimen/general_margin"
-            />
+            android:text="@string/label_signup"
+
+            android:textSize="@dimen/label_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/layout_mail_signup"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <FrameLayout
             android:id="@+id/layout_mail_signup"
@@ -153,11 +155,10 @@
             <TextView
                 android:id="@+id/mail_signup"
                 style="@style/signin_button"
-                android:textStyle="normal"
                 android:text="@string/sign_up"
+                android:textStyle="normal"
                 app:drawableEndCompat="@drawable/ic_signup" />
         </FrameLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
