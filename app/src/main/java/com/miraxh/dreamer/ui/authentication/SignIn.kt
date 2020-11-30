@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 
 
@@ -48,6 +49,8 @@ class SignIn : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        (activity as MainActivity?)?.disableDrawer()
 
         //firebase init
         auth = Firebase.auth

@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -25,6 +28,7 @@ import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
 import com.miraxh.dreamer.util.DATE_CLICKED
 import com.miraxh.dreamer.util.EDITABLE
+import com.miraxh.dreamer.util.FOLDER_IMAGE
 import com.miraxh.dreamer.util.RESTORE_DREAM
 import kotlinx.android.synthetic.main.home_fragment.*
 
@@ -37,6 +41,8 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     private lateinit var viewModel: HomeViewModel
     private lateinit var addActionButton: FloatingActionButton
     private lateinit var homeTitle: TextView
+    private lateinit var imageProfile: ImageView
+    private lateinit var profileBtn: LinearLayout
 
 
     private lateinit var daysState: Parcelable
@@ -47,8 +53,6 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
-
-
     }
 
     override fun onCreateView(
@@ -61,10 +65,26 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         daysRecycleView = view.findViewById(R.id.days_recyclerview)
         addActionButton = view.findViewById(R.id.add_action_button)
         homeTitle = view.findViewById(R.id.toolbar_title)
+        imageProfile = view.findViewById(R.id.profile_image)
+        profileBtn = view.findViewById(R.id.title_group)
 
+        (activity as MainActivity?)?.enableDrawer()
+
+
+        //setting user name
         user = auth.currentUser
         val name = user?.displayName?.split(" ")?.get(0)
         homeTitle.text = name.toString()
+
+        //setting user image profile
+        Glide.with(requireContext())
+            .load(user?.photoUrl)
+            .into(imageProfile)
+
+        //init profile btn
+        profileBtn.setOnClickListener {
+            findNavController().navigate(R.id.profile_dest)
+        }
 
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         return view

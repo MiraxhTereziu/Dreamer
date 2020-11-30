@@ -65,6 +65,14 @@ class MainActivity : AppCompatActivity() {
         drawer.openDrawer(GravityCompat.END)
     }
 
+    fun disableDrawer(){
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+    }
+
+    fun enableDrawer(){
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+    }
+
     fun closeKeyboard() {
         val view = this.currentFocus
         if (view != null) {
