@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -41,6 +42,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     private lateinit var addActionButton: FloatingActionButton
     private lateinit var homeTitle: TextView
     private lateinit var imageProfile: ImageView
+    private lateinit var profileBtn: LinearLayout
 
 
     private lateinit var daysState: Parcelable
@@ -64,15 +66,25 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         addActionButton = view.findViewById(R.id.add_action_button)
         homeTitle = view.findViewById(R.id.toolbar_title)
         imageProfile = view.findViewById(R.id.profile_image)
+        profileBtn = view.findViewById(R.id.title_group)
+
         (activity as MainActivity?)?.enableDrawer()
 
+
+        //setting user name
         user = auth.currentUser
         val name = user?.displayName?.split(" ")?.get(0)
         homeTitle.text = name.toString()
 
+        //setting user image profile
         Glide.with(requireContext())
             .load(user?.photoUrl)
             .into(imageProfile)
+
+        //init profile btn
+        profileBtn.setOnClickListener {
+            findNavController().navigate(R.id.profile_dest)
+        }
 
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         return view
