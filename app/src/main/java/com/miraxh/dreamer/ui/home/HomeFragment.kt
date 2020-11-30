@@ -44,7 +44,6 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     private lateinit var imageProfile: ImageView
     private lateinit var profileBtn: LinearLayout
 
-
     private lateinit var daysState: Parcelable
 
     private lateinit var auth: FirebaseAuth
@@ -70,16 +69,18 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
 
         (activity as MainActivity?)?.enableDrawer()
 
-
         //setting user name
         user = auth.currentUser
         val name = user?.displayName?.split(" ")?.get(0)
         homeTitle.text = name.toString()
 
         //setting user image profile
-        Glide.with(requireContext())
-            .load(user?.photoUrl)
-            .into(imageProfile)
+        if (user?.photoUrl != null) {
+            Glide.with(requireContext())
+                .load(user?.photoUrl)
+                .into(imageProfile)
+        }
+
 
         //init profile btn
         profileBtn.setOnClickListener {
@@ -112,7 +113,6 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
             (it as MutableList<Dream>).sortByDescending { dream -> dream.dreamID }
             //in caso un update della lista dei sogni entro in questo metodo dove mi viene passata la nuova lista
             //creo un nuovo adapter da essegnare al mio RecyclerView
-            Log.i("finaltest", it.size.toString())
             adapterDream = DreamListAdapter(requireContext(), it, this)
             //assegno il mio adapter alla mia RecyclerView
             dreamRecyclerView.adapter = adapterDream

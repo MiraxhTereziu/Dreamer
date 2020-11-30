@@ -47,6 +47,9 @@
                     android:id="@+id/profile_image"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:elevation="@dimen/general_margin"
+                    android:src="@drawable/ic_profile"
                     android:contentDescription="@string/profile_description"
                     android:scaleType="fitCenter" />
             </androidx.cardview.widget.CardView>
@@ -66,6 +69,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -142,6 +146,24 @@
 
                 </LinearLayout>
 
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/users_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/general_margin"
+                android:layout_marginTop="@dimen/general_margin"
+                android:background="@drawable/bg_dreamtile">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/users_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingBottom="90dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
             </FrameLayout>
 

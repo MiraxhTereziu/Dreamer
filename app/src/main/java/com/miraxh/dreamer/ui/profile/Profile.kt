@@ -8,13 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.data.user.User
+import com.miraxh.dreamer.ui.home.DreamListAdapter
+import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
+import com.miraxh.dreamer.util.DbUtil
 import java.net.URL
 
-class Profile : Fragment() {
+class Profile : Fragment() , UsersListAdapter.UserListener{
 
     private lateinit var homeTitle: TextView
     private lateinit var imageProfile: ImageView
@@ -22,6 +29,9 @@ class Profile : Fragment() {
     private lateinit var surnameInfo: TextView
     private lateinit var emailInfo: TextView
     private lateinit var passwordInfo: TextView
+
+    private lateinit var usersRecyclerView: RecyclerView
+    private lateinit var adapterUsers: UsersListAdapter
 
 
     private lateinit var auth: FirebaseAuth
@@ -48,13 +58,17 @@ class Profile : Fragment() {
         emailInfo = view.findViewById(R.id.email_info)
         passwordInfo = view.findViewById(R.id.password_info)
 
+        usersRecyclerView = view.findViewById(R.id.users_recyclerview)
+
         //setting user name
         homeTitle.text = "My profile"
 
         //setting user image profile
-        Glide.with(requireContext())
-            .load(user?.photoUrl)
-            .into(imageProfile)
+        if (user?.photoUrl != null) {
+            Glide.with(requireContext())
+                .load(user?.photoUrl)
+                .into(imageProfile)
+        }
 
         //display user info
         val name = user?.displayName?.split(" ")
@@ -64,7 +78,29 @@ class Profile : Fragment() {
         emailInfo.text = "Email: ${user?.email}"
         passwordInfo.text = "Password: ************"
 
+        val userList = mutableListOf<User>()
+        val users = DbUtil(auth, Firebase.firestore).getUser()
+        users.get()
+            .addOnSuccessListener { document ->
+                document.forEach {
+                    val newUser = User(
+                        it.data["email"] as String,
+                        it.data["name"] as String,
+                        it.data["profilePic"] as String
+                    )
+                    userList.add(newUser)
+                }
+                adapterUsers = UsersListAdapter(requireContext(),userList.toList(),this)
+                //assegno il mio adapter alla mia RecyclerView
+                usersRecyclerView.adapter = adapterUsers
+            }
+
+
         return view
+    }
+
+    override fun onUserItemListener(selectedUser: User, position: Int) {
+        TODO("Not yet implemented")
     }
 
 }
