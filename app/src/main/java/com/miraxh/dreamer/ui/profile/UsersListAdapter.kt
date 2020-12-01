@@ -15,7 +15,7 @@ import com.miraxh.dreamer.data.user.User
 class UsersListAdapter(
     val context: Context,
     private val users: List<User>,
-    private val itemListener: UsersListAdapter.UserListener
+    private val itemListener: UserListener
 ) : RecyclerView.Adapter<UsersListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

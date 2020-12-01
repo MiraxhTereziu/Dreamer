@@ -100,7 +100,6 @@ class Profile : Fragment() , UsersListAdapter.UserListener{
     }
 
     override fun onUserItemListener(selectedUser: User, position: Int) {
-        TODO("Not yet implemented")
-    }
 
+    }
 }

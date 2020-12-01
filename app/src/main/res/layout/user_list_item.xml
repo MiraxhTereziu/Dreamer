@@ -2,48 +2,65 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/general_margin"
+    android:layout_marginTop="@dimen/general_margin">
 
-    <LinearLayout
-        android:id="@+id/user_group"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layout_profile_image"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/general_margin"
-        android:layout_marginTop="@dimen/general_margin"
-        android:elevation="@dimen/elevation_two"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/general_margin"
+        android:shape="ring"
+        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/general_margin"
-            android:shape="ring"
-            app:cardCornerRadius="20dp">
+        <ImageView
+            android:id="@+id/user_profile_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimaryDark"
+            android:contentDescription="@string/profile_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_profile" />
+    </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:id="@+id/user_profile_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@color/colorPrimaryDark"
-                android:contentDescription="@string/profile_description"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_profile" />
-        </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="@string/app_name"
+        android:layout_marginHorizontal="@dimen/general_margin"
+        android:textSize="20sp"
+        android:lines="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/follow_btn"
+        app:layout_constraintStart_toEndOf="@id/layout_profile_image"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingVertical="@dimen/general_margin"
-            android:text="@string/app_name"
-            android:textSize="@dimen/title" />
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/follow_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dreamtile"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:text="@string/follow_btn"
+        android:textAllCaps="false"
+        android:textColor="@color/colorSecondaryDark"
+        android:textSize="16sp"
+        android:drawablePadding="@dimen/general_margin"
+        android:textStyle="bold"
+        android:drawableEnd="@drawable/ic_follow"
+        android:paddingHorizontal="@dimen/general_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

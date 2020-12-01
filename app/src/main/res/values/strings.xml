@@ -79,5 +79,9 @@
     <string name="sign_up_email_label">Enter your information:</string>
     <string name="InfoLabel">Info</string>
     <string name="edit_info_btn">Edit info</string>
+    <string name="profile_info_label">Profile info:</string>
+    <string name="following_label">People you are following:</string>
+    <string name="follow_btn">Follow</string>
+    <string name="search_friend_btn">Search friend</string>
 
 </resources>
