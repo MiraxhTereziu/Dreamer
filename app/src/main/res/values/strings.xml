@@ -58,9 +58,9 @@
     <string name="signin_google">Google</string>
     <string name="signin_facebook">Facebook</string>
     <string name="signin_mail">Email</string>
-    <string name="label_signin">Sign in with:</string>
+    <string name="label_signin">Continue with:</string>
     <string name="sign_up">Sign up with email</string>
-    <string name="label_signup">Dont\'t have an account yet?</string>
+    <string name="label_signup">Or create a new account:</string>
     <string name="logout">Logout</string>
     <string name="logout_subtitle">Do you want to logout?</string>
     <string name="logout_description">Logout icon</string>
@@ -79,5 +79,10 @@
     <string name="sign_up_email_label">Enter your information:</string>
     <string name="InfoLabel">Info</string>
     <string name="edit_info_btn">Edit info</string>
+    <string name="profile_info_label">Profile info:</string>
+    <string name="following_label">People you are following:</string>
+    <string name="follow_btn">Follow</string>
+    <string name="search_friend_btn">Search friend</string>
+    <string name="save_dream_label">Save Dream</string>
 
 </resources>
