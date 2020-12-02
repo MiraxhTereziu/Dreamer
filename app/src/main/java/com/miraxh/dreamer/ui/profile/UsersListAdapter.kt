@@ -1,6 +1,7 @@
 package com.miraxh.dreamer.ui.profile
 
 import android.content.Context
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,7 @@ import com.miraxh.dreamer.data.user.User
 class UsersListAdapter(
     val context: Context,
     private val users: List<User>,
-    private val itemListener: UserListener
+    private val itemListener : UserListener
 ) : RecyclerView.Adapter<UsersListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

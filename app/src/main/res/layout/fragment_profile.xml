@@ -188,7 +188,8 @@
                     android:inputType="textEmailAddress"
                     android:paddingHorizontal="@dimen/general_small_margin"
                     android:paddingTop="@dimen/general_small_margin"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/colorWhite"
+                    android:drawableEnd="@drawable/ic_search"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <FrameLayout

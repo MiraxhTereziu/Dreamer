@@ -36,24 +36,20 @@
 
     <style name="nav_view_text" parent="android:Widget.TextView">
         <item name="android:includeFontPadding">false</item>
-        <item name="fontFamily">@font/roboto_regular</item>
         <item name="titleTextColor">@color/colorWhite</item>
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="dream_description">
-        <item name="fontFamily">@font/roboto_light</item>
-    </style>
+    <style name="dream_description"></style>
 
     <style name="dream_title">
         <item name="android:textColor">@color/colorSecondaryDark</item>
         <item name="android:textSize">18sp</item>
-        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="dream_date">
         <item name="android:textColor">@color/colorSecondary</item>
-        <item name="fontFamily">@font/roboto_medium</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -66,7 +62,7 @@
     <style name="number_day">
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">18sp</item>
-        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="signInUp_input">
@@ -101,11 +97,11 @@
         <item name="android:clickable">false</item>
         <item name="android:focusable">false</item>
         <item name="android:translationZ">90dp</item>
-        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">14sp</item>
         <item name="android:lines">1</item>
         <item name="android:maxLength">6</item>
-        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/tag_height</item>
         <item name="android:background">@drawable/bg_savebutton</item>
         <item name="android:layout_marginBottom">@dimen/general_small_margin</item>
@@ -116,7 +112,7 @@
 
     <style name="display_rating">
         <item name="android:background">@drawable/bg_rating</item>
-        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">16sp</item>
