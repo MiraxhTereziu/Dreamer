@@ -29,7 +29,7 @@ class UsersListAdapter(
         viewType: Int
     ): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.user_list_item, parent, false)
+        val view = inflater.inflate(R.layout.item_user_list, parent, false)
         return ViewHolder(view)
     }
 

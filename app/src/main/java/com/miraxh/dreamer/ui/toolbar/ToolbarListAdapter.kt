@@ -25,7 +25,7 @@ class ToolbarListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.date_list_item, parent, false)
+        val view = inflater.inflate(R.layout.item_date_list, parent, false)
         return ViewHolder(view)
     }
 

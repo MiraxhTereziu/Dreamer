@@ -1,7 +1,6 @@
 package com.miraxh.dreamer.ui.home
 
 import android.os.Bundle
-import android.os.Handler
 import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,9 +26,8 @@ import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
 import com.miraxh.dreamer.util.DATE_CLICKED
 import com.miraxh.dreamer.util.EDITABLE
-import com.miraxh.dreamer.util.FOLDER_IMAGE
 import com.miraxh.dreamer.util.RESTORE_DREAM
-import kotlinx.android.synthetic.main.home_fragment.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapter.DreamListener {
 
@@ -58,7 +55,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.home_fragment, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
         //inizializzaizone RecyclerView
         dreamRecyclerView = view.findViewById(R.id.dream_recyclerview)
         daysRecycleView = view.findViewById(R.id.days_recyclerview)
@@ -67,7 +64,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         imageProfile = view.findViewById(R.id.profile_image)
         profileBtn = view.findViewById(R.id.title_group)
 
-        (activity as MainActivity?)?.enableDrawer()
+
 
         //setting user name
         user = auth.currentUser
@@ -84,7 +81,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
 
         //init profile btn
         profileBtn.setOnClickListener {
-            findNavController().navigate(R.id.profile_dest)
+            findNavController().navigate(R.id.profileTabHost_dest)
         }
 
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
@@ -124,6 +121,9 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
 
     //metodo per inizializzare la toolbar e "l'agenda dei sogni" al suo interno
     private fun initToolbar() {
+
+        //delete commet to enable drawer
+        (activity as MainActivity?)?.disableDrawer()
         drawer_icon.setOnClickListener {
             (activity as MainActivity?)?.openDrawer()
         }
