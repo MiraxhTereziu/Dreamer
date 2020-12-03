@@ -24,7 +24,7 @@ class TagListAdapter(
         viewType: Int
     ): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.tag_list_item, parent, false)
+        val view = inflater.inflate(R.layout.item_tag_list, parent, false)
         return ViewHolder(view)
     }
 

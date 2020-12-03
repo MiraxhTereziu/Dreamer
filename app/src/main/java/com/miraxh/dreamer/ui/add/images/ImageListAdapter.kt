@@ -25,7 +25,7 @@ class ImageListAdapter(
         viewType: Int
     ): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.image_list_item, parent, false)
+        val view = inflater.inflate(R.layout.item_image_list, parent, false)
         return ViewHolder(view)
     }
 

@@ -21,7 +21,7 @@
         app:itemIconTint="@color/colorAccent"
         app:itemTextColor="@color/colorWhite"
         app:menu="@menu/nav_view"
-        app:headerLayout="@layout/header_nav"
+        app:headerLayout="@layout/layout_header_nav"
         app:itemTextAppearance="@style/nav_view_text"
         app:itemIconSize="@dimen/drawer_icon_size"/>
 

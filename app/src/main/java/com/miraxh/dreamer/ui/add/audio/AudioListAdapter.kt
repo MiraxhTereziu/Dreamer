@@ -27,7 +27,7 @@ class AudioListAdapter(
         viewType: Int
     ): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.audio_list_item, parent, false)
+        val view = inflater.inflate(R.layout.item_audio_list, parent, false)
         return ViewHolder(view)
     }
 

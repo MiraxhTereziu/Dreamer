@@ -12,7 +12,7 @@
 
         <include
             android:id="@+id/toolbar_settings"
-            layout="@layout/normal_toolbar"
+            layout="@layout/layout_normal_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"

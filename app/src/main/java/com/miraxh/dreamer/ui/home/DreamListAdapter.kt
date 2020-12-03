@@ -34,7 +34,7 @@ class DreamListAdapter(
         viewType: Int
     ): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.dream_list_item, parent, false)
+        val view = inflater.inflate(R.layout.item_dream_list, parent, false)
         return ViewHolder(view)
     }
 
