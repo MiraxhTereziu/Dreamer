@@ -25,9 +25,11 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.util.DbUtil
 
 
 class SignIn : Fragment() {
@@ -137,7 +139,7 @@ class SignIn : Fragment() {
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithCredential:success")
+                    DbUtil(auth,Firebase.firestore).saveUser()
                     findNavController().navigate(
                         R.id.home_dest,
                         null
@@ -174,6 +176,8 @@ class SignIn : Fragment() {
                     val account = task.getResult(ApiException::class.java)!!
                     Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
                     firebaseAuthWithGoogle(account.idToken!!)
+                    //saving new user info in the db
+                    DbUtil(auth,Firebase.firestore).saveUser()
                 } catch (e: ApiException) {
                     // Google Sign In failed, update UI appropriately
                     Toast.makeText(
@@ -198,9 +202,7 @@ class SignIn : Fragment() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-                    Log.i("MyNameIs", user?.displayName ?: "No name")
+                    DbUtil(auth,Firebase.firestore).saveUser()
                     findNavController().navigate(
                         R.id.home_dest,
                         null

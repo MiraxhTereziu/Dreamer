@@ -20,7 +20,7 @@ class MusicFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.music_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_music, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

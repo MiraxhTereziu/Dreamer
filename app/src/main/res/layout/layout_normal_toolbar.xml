@@ -23,6 +23,7 @@
         android:elevation="@dimen/elevation_two"
         android:paddingHorizontal="@dimen/general_margin"
         android:src="@drawable/ic_menu"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar_title_normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/toolbar_title_normal" />

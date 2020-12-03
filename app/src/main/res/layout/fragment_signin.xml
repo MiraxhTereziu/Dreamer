@@ -55,7 +55,7 @@
             android:textSize="@dimen/label_text_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/layout_google_signin"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <FrameLayout
             android:id="@+id/layout_google_signin"

@@ -2,6 +2,7 @@ package com.miraxh.dreamer.ui.authentication
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,16 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.util.DbUtil
 
 class SignUpEmail : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+
     private lateinit var email: TextInputEditText
     private lateinit var name: TextInputEditText
     private lateinit var surname: TextInputEditText
@@ -86,9 +91,16 @@ class SignUpEmail : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     val user = auth.currentUser
                     val profileUpdates =
-                        UserProfileChangeRequest.Builder()
-                            .setDisplayName("${name.text} ${surname.text}").build()
+                        UserProfileChangeRequest
+                            .Builder()
+                            .setDisplayName("${name.text} ${surname.text}")
+                            .build()
+
                     user?.updateProfile(profileUpdates)?.addOnCompleteListener {
+                        //saving new user info in the db
+                        DbUtil(auth,Firebase.firestore).saveUser()
+
+                        //navigate to homepage
                         findNavController().navigate(
                             R.id.home_dest,
                             null
@@ -102,8 +114,6 @@ class SignUpEmail : Fragment() {
                     ).show()
                 }
             }
-
-
     }
 
 

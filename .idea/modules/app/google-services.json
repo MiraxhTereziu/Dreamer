@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "77601789471",
+    "firebase_url": "https://dreamer-9a943.firebaseio.com",
+    "project_id": "dreamer-9a943",
+    "storage_bucket": "dreamer-9a943.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77601789471:android:b114c00e0afcdcb07da72a",
+        "android_client_info": {
+          "package_name": "com.miraxh.dreamer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77601789471-rqpf0j5ngogoav37o1ih49rkfdsq199a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.miraxh.dreamer",
+            "certificate_hash": "e4da5ac4890ea3bd4970802a7dc06c199660e407"
+          }
+        },
+        {
+          "client_id": "77601789471-vsbn2s31tmp3ueh54vc8iocateaf2rsp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.miraxh.dreamer",
+            "certificate_hash": "4cea659e5cff7ea7aec9d642e36248410540ecca"
+          }
+        },
+        {
+          "client_id": "77601789471-ctbp65sf7v9vi4vfpv2s2ncj86cpumvb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0t7Hp02HRaZje9Hvg7SljVjU5TV1tSuc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77601789471-ctbp65sf7v9vi4vfpv2s2ncj86cpumvb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

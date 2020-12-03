@@ -59,7 +59,7 @@ data class Dream(
             val dialog = Dialog(context)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(true)
-            dialog.setContentView(R.layout.save_dialog)
+            dialog.setContentView(R.layout.dialog_save)
             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             val negativeAction = dialog.findViewById<Button>(R.id.negative_action)
             val positiveAction = dialog.findViewById<Button>(R.id.positive_action)

@@ -12,7 +12,7 @@
 
         <include
             android:id="@+id/toolbar_add"
-            layout="@layout/normal_toolbar"
+            layout="@layout/layout_normal_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -256,7 +256,6 @@
                         android:layout_height="60dp"
                         android:layout_margin="@dimen/general_margin"
                         android:background="@drawable/bg_recordingbtn"
-                        android:fontFamily="@font/roboto_bold"
                         android:padding="@dimen/general_small_margin"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_record"
@@ -318,14 +317,14 @@
                         android:layout_marginEnd="@dimen/general_small_margin"
                         android:layout_marginTop="@dimen/general_margin"
                         android:background="@drawable/bg_text_field_no_border"
-                        android:drawableStart="@drawable/ic_gesture"
                         android:gravity="center"
                         android:padding="@dimen/general_margin"
                         android:text="@string/add_drawing_label"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/add_image"
-                        app:layout_constraintTop_toBottomOf="@id/bg_recording" />
+                        app:layout_constraintTop_toBottomOf="@id/bg_recording"
+                        app:drawableStartCompat="@drawable/ic_gesture" />
 
                     <TextView
                         android:id="@+id/add_image"
@@ -335,14 +334,14 @@
                         android:layout_marginEnd="@dimen/general_margin"
                         android:layout_marginTop="@dimen/general_margin"
                         android:background="@drawable/bg_text_field_no_border"
-                        android:drawableStart="@drawable/ic_image"
                         android:gravity="center"
                         android:padding="@dimen/general_margin"
                         android:text="@string/add_image_label"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/add_draw"
-                        app:layout_constraintTop_toBottomOf="@id/bg_recording" />
+                        app:layout_constraintTop_toBottomOf="@id/bg_recording"
+                        app:drawableStartCompat="@drawable/ic_image" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/images_recyclerview"
@@ -383,7 +382,8 @@
             android:tint="@color/colorPrimary"
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/save_dream_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

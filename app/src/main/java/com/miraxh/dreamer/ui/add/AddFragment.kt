@@ -33,7 +33,7 @@ import com.miraxh.dreamer.ui.add.audio.AudioListAdapter
 import com.miraxh.dreamer.ui.add.images.ImageListAdapter
 import com.miraxh.dreamer.ui.add.tag.TagListAdapter
 import com.miraxh.dreamer.util.*
-import kotlinx.android.synthetic.main.add_fragment.*
+import kotlinx.android.synthetic.main.fragment_add.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -111,7 +111,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.add_fragment, container, false)
+        val view = inflater.inflate(R.layout.fragment_add, container, false)
 
         setDialogBack(true)
 
