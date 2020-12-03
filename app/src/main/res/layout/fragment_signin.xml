@@ -49,13 +49,13 @@
             android:id="@+id/label_signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/general_margin"
+            android:layout_marginHorizontal="@dimen/general_margin"
             android:layout_marginBottom="@dimen/general_margin"
             android:text="@string/label_signin"
             android:textSize="@dimen/label_text_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/layout_google_signin"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <FrameLayout
             android:id="@+id/layout_google_signin"
@@ -131,10 +131,9 @@
             android:id="@+id/label_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/general_margin"
+            android:layout_marginHorizontal="@dimen/general_margin"
             android:layout_marginBottom="@dimen/general_margin"
             android:text="@string/label_signup"
-
             android:textSize="@dimen/label_text_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/layout_mail_signup"
