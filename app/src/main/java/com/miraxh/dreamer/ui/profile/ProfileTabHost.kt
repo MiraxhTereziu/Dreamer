@@ -3,7 +3,6 @@ package com.miraxh.dreamer.ui.profile
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +26,7 @@ import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.user.User
 import com.miraxh.dreamer.util.DbUtil
 
-class ProfileTabHost : Fragment() , UsersListAdapter.UserListener{
+class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
 
     private lateinit var profileView: ConstraintLayout
     private lateinit var searchView: ConstraintLayout
@@ -40,11 +39,16 @@ class ProfileTabHost : Fragment() , UsersListAdapter.UserListener{
     private lateinit var emailInfo: TextView
     private lateinit var passwordInfo: TextView
     private lateinit var userSearch: TextInputEditText
-    private lateinit var logoutBtn : FrameLayout
+    private lateinit var logoutBtn: FrameLayout
 
+    private lateinit var usersSearchRecyclerView: RecyclerView
+    private lateinit var adapterUsersSearch: UsersListAdapter
 
-    private lateinit var usersRecyclerView: RecyclerView
-    private lateinit var adapterUsers: UsersListAdapter
+    private lateinit var usersFollowingRecyclerView: RecyclerView
+    private lateinit var adapterUsersFollowing: UsersListAdapter
+
+    private val userFollowList = mutableSetOf<User>()
+    private var userSearchList = mutableSetOf<User>()
 
     private lateinit var auth: FirebaseAuth
     private var user: FirebaseUser? = null
@@ -91,7 +95,9 @@ class ProfileTabHost : Fragment() , UsersListAdapter.UserListener{
         logoutBtn = profileView.findViewById(R.id.layout_logout)
 
         userSearch = searchView.findViewById(R.id.search_user)
-        usersRecyclerView = searchView.findViewById(R.id.users_recyclerview)
+        usersSearchRecyclerView = searchView.findViewById(R.id.users_search_recyclerview)
+
+        usersFollowingRecyclerView = searchView.findViewById(R.id.users_following_recyclerview)
 
         //setting user name
         homeTitle.text = "My profile"
@@ -105,9 +111,9 @@ class ProfileTabHost : Fragment() , UsersListAdapter.UserListener{
                 .load(photoUrl)
                 .into(imageProfile)
         }
+
         //display user info
         val name = user?.displayName?.split(" ")
-
         nameInfo.text = "Name: ${name?.get(0).toString()}"
         surnameInfo.text = "Surname: ${name?.get(1).toString()}"
         emailInfo.text = "Email: ${user?.email}"
@@ -129,50 +135,103 @@ class ProfileTabHost : Fragment() , UsersListAdapter.UserListener{
             findNavController().navigateUp()
         }
 
-        val following = DbUtil(auth, Firebase.firestore).getFollowing()
+        //getting user following
+        getFollowing()
 
-        following.get()
-            .addOnSuccessListener { document ->
-                document.forEach {
-                    Log.d("followingDebug", it.id)
-                }
-            }
 
+        val doubleCheck = userFollowList
         userSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
+
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val userList = mutableListOf<User>()
-                val users = DbUtil(auth, Firebase.firestore).getUser(s.toString())
-                users
-                    .addOnSuccessListener { document ->
-                        document.forEach {
-                            val newUser = User(
-                                it.data["email"] as String,
-                                it.data["name"] as String,
-                                it.data["profilePic"] as String
-                            )
-                            userList.add(newUser)
+                if (s.isNullOrBlank().not()) {
+                    userSearchList = mutableSetOf()
+                    val users = DbUtil(auth, Firebase.firestore).getUserByName(s.toString())
+                    users
+                        .addOnSuccessListener { document ->
+                            document.forEach {
+                                val newUser = User(
+                                    it.id,
+                                    it.data["email"] as String,
+                                    it.data["name"] as String,
+                                    it.data["profilePic"] as String
+                                )
+                                if (doubleCheck.add(newUser)) {
+                                    userSearchList.add(newUser)
+                                    doubleCheck.remove(newUser)
+                                }
+                            }
+                            updateSearchList(userSearchList.toMutableList())
                         }
-                        updateFriendList(userList)
-                    }
+                } else {
+                    updateSearchList(mutableListOf())
+                }
             }
         })
-
         return view
     }
 
-    fun updateFriendList(userList:MutableList<User>){
-        adapterUsers = UsersListAdapter(requireContext(), userList.toList(),this)
-        //assegno il mio adapter alla mia RecyclerView
-        usersRecyclerView.adapter = adapterUsers
+    private fun getFollowing() {
+        val following = DbUtil(auth, Firebase.firestore).getFollowing()
+        following.get()
+            .addOnSuccessListener { document ->
+                document.forEach { userFollowing ->
+                    DbUtil(auth, Firebase.firestore).getUserByID(userFollowing.id)
+                        .addOnSuccessListener {
+                            userFollowList.add(
+                                User(
+                                    it.id,
+                                    it.data?.get("email") as String,
+                                    it.data?.get("name") as String,
+                                    it.data?.get("profilePic") as String
+                                )
+                            )
+                            updateFollowingList(userFollowList.toMutableList())
+                        }
+                }
+            }
     }
 
-    override fun onUserItemListener(selectedUser: User, position: Int) {
-        Log.d("followingDebug", selectedUser.email)
+    fun updateSearchList(userList: MutableList<User>) {
+        adapterUsersSearch = UsersListAdapter(requireContext(), userList.toList(), this, true)
+        //assegno il mio adapter alla mia RecyclerView
+        usersSearchRecyclerView.adapter = adapterUsersSearch
+    }
+
+    fun updateFollowingList(userList: MutableList<User>) {
+        adapterUsersFollowing = UsersListAdapter(requireContext(), userList.toList(), this, false)
+        //assegno il mio adapter alla mia RecyclerView
+        usersFollowingRecyclerView.adapter = adapterUsersFollowing
+    }
+
+    override fun onUserItemListener(selectedUser: User, position: Int, follow: Boolean) {
+        if (follow) {
+            //adding the new user to the follow list
+            DbUtil(auth, Firebase.firestore).saveFollowing(user?.uid.toString(), selectedUser.ID)
+
+            //updating the follow list
+            getFollowing()
+            updateFollowingList(userFollowList.toMutableList())
+
+            //removing the selected user from the search list
+            userSearchList.remove(selectedUser)
+            updateSearchList(userSearchList.toMutableList())
+
+            //resetting the search field
+            userSearch.setText("")
+        } else {
+            //remove follow connection
+            DbUtil(auth, Firebase.firestore).deleteFollowing(user?.uid.toString(), selectedUser.ID)
+
+            //delete current user from the following list
+            userFollowList.remove(selectedUser)
+
+            updateFollowingList(userFollowList.toMutableList())
+        }
     }
 }

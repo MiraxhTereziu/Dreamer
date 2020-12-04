@@ -27,7 +27,7 @@
             android:clickable="false"
             android:contentDescription="@string/profile_description"
             android:focusable="false"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_profile" />
     </androidx.cardview.widget.CardView>
 
@@ -55,13 +55,11 @@
         android:background="@drawable/bg_dreamtile"
         android:backgroundTint="@color/colorPrimaryDark"
         android:clickable="false"
-        android:drawableEnd="@drawable/ic_follow"
         android:drawablePadding="@dimen/general_margin"
         android:focusable="false"
         android:paddingHorizontal="@dimen/general_margin"
         android:text="@string/follow_btn"
         android:textAllCaps="false"
-        android:textColor="@color/colorSecondaryDark"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
