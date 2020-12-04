@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -40,7 +39,7 @@ class SettingsFragment : Fragment() {
         toolbar = view.findViewById(R.id.toolbar_settings)
         logoutBtn = view.findViewById(R.id.logout_title)
 
-        toolbarTitle = toolbar.findViewById(R.id.toolbar_title_normal)
+        toolbarTitle = toolbar.findViewById(R.id.toolbar_title)
         drawerButton = toolbar.findViewById(R.id.drawer_icon_normal)
 
         toolbarTitle.text =  resources.getString(R.string.settings_title)
