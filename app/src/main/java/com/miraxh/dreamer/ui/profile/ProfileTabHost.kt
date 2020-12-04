@@ -3,7 +3,6 @@ package com.miraxh.dreamer.ui.profile
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +46,9 @@ class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
 
     private lateinit var usersFollowingRecyclerView: RecyclerView
     private lateinit var adapterUsersFollowing: UsersListAdapter
+
+    private val userFollowList = mutableSetOf<User>()
+    private var userSearchList = mutableSetOf<User>()
 
     private lateinit var auth: FirebaseAuth
     private var user: FirebaseUser? = null
@@ -109,9 +111,9 @@ class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
                 .load(photoUrl)
                 .into(imageProfile)
         }
+
         //display user info
         val name = user?.displayName?.split(" ")
-
         nameInfo.text = "Name: ${name?.get(0).toString()}"
         surnameInfo.text = "Surname: ${name?.get(1).toString()}"
         emailInfo.text = "Email: ${user?.email}"
@@ -134,13 +136,51 @@ class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
         }
 
         //getting user following
-        val following = DbUtil(auth, Firebase.firestore).getFollowing()
+        getFollowing()
 
-        val userFollowList = mutableSetOf<User>()
+
+        val doubleCheck = userFollowList
+        userSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.isNullOrBlank().not()) {
+                    userSearchList = mutableSetOf()
+                    val users = DbUtil(auth, Firebase.firestore).getUserByName(s.toString())
+                    users
+                        .addOnSuccessListener { document ->
+                            document.forEach {
+                                val newUser = User(
+                                    it.id,
+                                    it.data["email"] as String,
+                                    it.data["name"] as String,
+                                    it.data["profilePic"] as String
+                                )
+                                if (doubleCheck.add(newUser)) {
+                                    userSearchList.add(newUser)
+                                    doubleCheck.remove(newUser)
+                                }
+                            }
+                            updateSearchList(userSearchList.toMutableList())
+                        }
+                } else {
+                    updateSearchList(mutableListOf())
+                }
+            }
+        })
+        return view
+    }
+
+    private fun getFollowing() {
+        val following = DbUtil(auth, Firebase.firestore).getFollowing()
         following.get()
             .addOnSuccessListener { document ->
                 document.forEach { userFollowing ->
-                    Log.d("followingDebug", userFollowing.id)
                     DbUtil(auth, Firebase.firestore).getUserByID(userFollowing.id)
                         .addOnSuccessListener {
                             userFollowList.add(
@@ -155,41 +195,6 @@ class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
                         }
                 }
             }
-
-
-        val doubleCheck = userFollowList
-        userSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.isNullOrBlank().not()) {
-                    val userSearchList = mutableListOf<User>()
-                    val users = DbUtil(auth, Firebase.firestore).getUserByName(s.toString())
-                    users
-                        .addOnSuccessListener { document ->
-                            document.forEach {
-                                val newUser = User(
-                                    it.id,
-                                    it.data["email"] as String,
-                                    it.data["name"] as String,
-                                    it.data["profilePic"] as String
-                                )
-                                if(doubleCheck.add(newUser))
-                                    userSearchList.add(newUser)
-                            }
-                            updateSearchList(userSearchList)
-                        }
-                } else {
-                    updateSearchList(mutableListOf())
-                }
-            }
-        })
-
-        return view
     }
 
     fun updateSearchList(userList: MutableList<User>) {
@@ -205,9 +210,28 @@ class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
     }
 
     override fun onUserItemListener(selectedUser: User, position: Int, follow: Boolean) {
-        if(follow){
-            Log.d("followingDebug", selectedUser.email)
-            DbUtil(auth, Firebase.firestore).saveFollowing(user?.uid.toString(),selectedUser.ID)
+        if (follow) {
+            //adding the new user to the follow list
+            DbUtil(auth, Firebase.firestore).saveFollowing(user?.uid.toString(), selectedUser.ID)
+
+            //updating the follow list
+            getFollowing()
+            updateFollowingList(userFollowList.toMutableList())
+
+            //removing the selected user from the search list
+            userSearchList.remove(selectedUser)
+            updateSearchList(userSearchList.toMutableList())
+
+            //resetting the search field
+            userSearch.setText("")
+        } else {
+            //remove follow connection
+            DbUtil(auth, Firebase.firestore).deleteFollowing(user?.uid.toString(), selectedUser.ID)
+
+            //delete current user from the following list
+            userFollowList.remove(selectedUser)
+
+            updateFollowingList(userFollowList.toMutableList())
         }
     }
 }
