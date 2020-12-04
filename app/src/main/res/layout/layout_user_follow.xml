@@ -12,7 +12,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_search_user"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/input_field_size"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/general_margin"
             android:layout_marginTop="@dimen/general_margin"
             android:background="@drawable/bg_text_field_no_border"
@@ -31,17 +31,44 @@
                 android:paddingHorizontal="@dimen/general_small_margin"
                 android:paddingTop="@dimen/general_small_margin"
                 android:textColor="@color/colorWhite" />
+
+            <FrameLayout
+                android:id="@+id/users_search_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_dreamtile">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/users_search_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </FrameLayout>
+
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/label_signin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/general_margin"
+            android:layout_marginTop="@dimen/general_margin"
+            android:text="@string/following_label"
+            android:textSize="@dimen/label_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/layout_google_signin"
+            app:layout_constraintStart_toStartOf="parent"/>
+
         <FrameLayout
-            android:id="@+id/users_group"
+            android:id="@+id/users_following_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/general_margin"
             android:background="@drawable/bg_dreamtile">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/users_recyclerview"
+                android:id="@+id/users_following_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"

@@ -16,12 +16,14 @@ import com.miraxh.dreamer.data.user.User
 class UsersListAdapter(
     val context: Context,
     private val users: List<User>,
-    private val itemListener : UserListener
+    private val itemListener: UserListener,
+    private val follow: Boolean
 ) : RecyclerView.Adapter<UsersListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val userPic:ImageView = itemView.findViewById(R.id.user_profile_image)
-        val userName:TextView = itemView.findViewById(R.id.user_name)
+        val userPic: ImageView = itemView.findViewById(R.id.user_profile_image)
+        val userName: TextView = itemView.findViewById(R.id.user_name)
+        val followBtn: TextView = itemView.findViewById(R.id.follow_btn)
     }
 
     override fun onCreateViewHolder(
@@ -38,7 +40,8 @@ class UsersListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = users[position]
         with(holder) {
-
+            if (follow.not())
+                followBtn.text = "Unfollow"
             if (user.profilePic != "null") {
                 Glide.with(context)
                     .load(user.profilePic)
@@ -47,12 +50,12 @@ class UsersListAdapter(
             userName.text = user.name
 
             holder.itemView.setOnClickListener {
-                itemListener.onUserItemListener(user, holder.layoutPosition)
+                itemListener.onUserItemListener(user, holder.layoutPosition,follow)
             }
         }
     }
 
     interface UserListener {
-        fun onUserItemListener(selectedUser: User, position: Int)
+        fun onUserItemListener(selectedUser: User, position: Int, follow: Boolean)
     }
 }
