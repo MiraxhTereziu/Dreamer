@@ -64,8 +64,6 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         imageProfile = view.findViewById(R.id.profile_image)
         profileBtn = view.findViewById(R.id.title_group)
 
-
-
         //setting user name
         user = auth.currentUser
         val name = user?.displayName?.split(" ")?.get(0)
@@ -85,6 +83,9 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         }
 
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
+
+
+
         return view
     }
 
@@ -92,8 +93,10 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         super.onActivityCreated(savedInstanceState)
         //inizializzazione viewModel
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
         //metodo per inizializzare lista principale dei sogni
         dreamListLoader()
+
         //metodo per inizializzare la toolbar e "l'agenda dei sogni" al suo interno
         initToolbar()
         addActionButton.setOnClickListener {
@@ -104,7 +107,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     //metodo per inizializzare lista principale dei sogni
     private fun dreamListLoader() {
         Log.i("finaltest", "!empty")
-        //mi metto in ascolto per eventuali cambiamenti alla lista dei sogni
+        //mi metto in ascolto per eventuali cambiamenti alla lista dei sogni\
         viewModel.dreamData.observe(viewLifecycleOwner, Observer {
             //ordino la lista in base al giorno di creazione
             (it as MutableList<Dream>).sortByDescending { dream -> dream.dreamID }

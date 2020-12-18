@@ -3,7 +3,6 @@ package com.miraxh.dreamer
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -14,12 +13,10 @@ import com.google.android.material.navigation.NavigationView
 import com.miraxh.dreamer.util.MyLifeCycleObserver
 import kotlinx.android.synthetic.main.activity_main_nav.*
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawer: DrawerLayout
     private lateinit var handler: Handler
-
 
     private val navigationListener =
         NavigationView.OnNavigationItemSelectedListener { item ->
@@ -58,7 +55,6 @@ class MainActivity : AppCompatActivity() {
         nav_view.setNavigationItemSelectedListener(navigationListener)
         //inizializzazione classe di lifecycle per gestire gli stati dell'applicazione
         lifecycle.addObserver(MyLifeCycleObserver())
-
     }
 
     fun openDrawer() {
@@ -82,8 +78,6 @@ class MainActivity : AppCompatActivity() {
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         }
     }
-
-
 }
 
 

@@ -37,54 +37,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <Button
-                        android:id="@+id/date_picker"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_dream_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="@dimen/general_margin"
-                        android:layout_marginStart="@dimen/general_small_margin"
-                        android:layout_marginEnd="@dimen/general_margin"
-                        android:background="@drawable/bg_text_field_no_border"
-                        android:drawableStart="@drawable/ic_calendar"
-                        android:drawablePadding="@dimen/general_small_margin"
-                        android:padding="@dimen/general_margin"
-                        android:text="@string/pick_date_label"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorSecondary"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/cancel_btn"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/cancel_btn"
-                        android:layout_width="100dp"
-                        android:layout_height="0dp"
-                        android:layout_marginVertical="@dimen/general_margin"
                         android:layout_marginStart="@dimen/general_margin"
-                        android:layout_marginEnd="@dimen/general_small_margin"
-                        android:background="@drawable/bg_cancel"
-                        android:gravity="center"
-                        android:paddingHorizontal="@dimen/general_small_margin"
-                        android:text="@string/cancel_btn_text"
-                        android:textColor="@color/colorPrimaryLight"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toTopOf="@+id/layout_dream_title"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/date_picker"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layout_dream_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_margin="@dimen/general_margin"
                         android:background="@drawable/bg_text_field_no_border"
                         android:paddingHorizontal="@dimen/general_small_margin"
                         android:paddingVertical="@dimen/general_margin"
                         android:theme="@style/text_input_title"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/date_picker">
+                        app:layout_constraintEnd_toStartOf="@id/date_picker"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/dream_title"
@@ -98,6 +63,26 @@
                             android:textColor="@color/colorWhite"
                             android:theme="@style/text_input_title" />
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/date_picker"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/general_margin"
+                        android:layout_marginTop="@dimen/general_margin"
+                        android:layout_marginEnd="@dimen/general_margin"
+                        android:background="@drawable/bg_text_field_no_border"
+                        android:drawableStart="@drawable/ic_calendar"
+                        android:drawablePadding="@dimen/general_small_margin"
+                        android:padding="@dimen/general_margin"
+                        android:text="@string/pick_date_label"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorSecondary"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/layout_dream_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/layout_dream_title"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_dream_description"

@@ -46,7 +46,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     private lateinit var floatingActionButton: FloatingActionButton
     private lateinit var datePickerBtn: Button
     private lateinit var insertTagBtn: ImageButton
-    private lateinit var cancelBtn: TextView
+    private lateinit var cancelBtn: ImageView
     private lateinit var audioBtn: ImageButton
 
     private lateinit var newDream: Dream
@@ -177,11 +177,10 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         insertTag = view.findViewById(R.id.dream_tag)
         insertTagBtn = view.findViewById(R.id.insert_tag_btn)
         include = view.findViewById(R.id.toolbar_add)
-        cancelBtn = view.findViewById(R.id.cancel_btn)
-        titleToolbar = include.findViewById(R.id.toolbar_title_normal)
+        cancelBtn = include.findViewById(R.id.back)
+        titleToolbar = include.findViewById(R.id.toolbar_title)
         drawerButton = include.findViewById(R.id.drawer_icon_normal)
         title = view.findViewById(R.id.dream_title)
-        date = view.findViewById(R.id.cancel_btn)
         description = view.findViewById(R.id.dream_description)
     }
 

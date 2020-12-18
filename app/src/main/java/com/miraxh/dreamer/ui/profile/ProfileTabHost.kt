@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.user.User
 import com.miraxh.dreamer.util.DbUtil
@@ -129,12 +128,6 @@ class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
             )
         }
 
-        //back btn listener
-        backBtn.setOnClickListener {
-            (activity as MainActivity?)?.closeKeyboard()
-            findNavController().navigateUp()
-        }
-
         //getting user following
         getFollowing()
 
@@ -173,6 +166,15 @@ class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
                 }
             }
         })
+
+        //back btn listener
+
+        //().postDelayed({
+        backBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
+        //}, 1000)
+
         return view
     }
 
@@ -198,15 +200,20 @@ class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
     }
 
     fun updateSearchList(userList: MutableList<User>) {
-        adapterUsersSearch = UsersListAdapter(requireContext(), userList.toList(), this, true)
-        //assegno il mio adapter alla mia RecyclerView
-        usersSearchRecyclerView.adapter = adapterUsersSearch
+        if (context != null) {
+            adapterUsersSearch = UsersListAdapter(requireContext(), userList.toList(), this, true)
+            //assegno il mio adapter alla mia RecyclerView
+            usersSearchRecyclerView.adapter = adapterUsersSearch
+        }
     }
 
-    fun updateFollowingList(userList: MutableList<User>) {
-        adapterUsersFollowing = UsersListAdapter(requireContext(), userList.toList(), this, false)
-        //assegno il mio adapter alla mia RecyclerView
-        usersFollowingRecyclerView.adapter = adapterUsersFollowing
+    private fun updateFollowingList(userList: MutableList<User>) {
+        if (context != null) {
+            adapterUsersFollowing =
+                UsersListAdapter(requireContext(), userList.toList(), this, false)
+            //assegno il mio adapter alla mia RecyclerView
+            usersFollowingRecyclerView.adapter = adapterUsersFollowing
+        }
     }
 
     override fun onUserItemListener(selectedUser: User, position: Int, follow: Boolean) {
