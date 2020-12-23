@@ -1,6 +1,7 @@
 package com.miraxh.dreamer.ui.authentication
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -20,7 +22,6 @@ class SingInEmail : Fragment() {
     private lateinit var email: TextInputEditText
     private lateinit var password: TextInputEditText
     private lateinit var signInBtn: FrameLayout
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +38,31 @@ class SingInEmail : Fragment() {
         signInBtn = view.findViewById(R.id.layout_signin)
 
         signInBtn.setOnClickListener {
-            signInEmail()
+            if(checkForm())
+                signInEmail()
         }
         return view
+    }
+
+    private fun checkForm(): Boolean {
+        var tortn = false
+        if ((TextUtils.isEmpty(email.text)).not() &&
+            (TextUtils.isEmpty(password.text)).not()
+        ) {
+            tortn = true
+        } else {
+            Snackbar.make(
+                requireView(),
+                "Empty field not allowed!",
+                Snackbar.LENGTH_SHORT
+            ).show()
+            /*Toast.makeText(
+                requireActivity(),
+                "Empty field not allowed!",
+                Toast.LENGTH_LONG
+            ).show()*/
+        }
+        return tortn
     }
 
     private fun signInEmail() {
@@ -52,10 +75,16 @@ class SingInEmail : Fragment() {
                         null
                     )
                 } else {
-                    Toast.makeText(
+                    /*Toast.makeText(
                         requireActivity(),
                         task.exception.toString(),
-                        Toast.LENGTH_LONG).show()
+                        Toast.LENGTH_LONG
+                    ).show()*/
+                    Snackbar.make(
+                        requireView(),
+                        "Password or email are not correct!",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
             }
     }

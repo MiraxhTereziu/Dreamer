@@ -1,5 +1,6 @@
 package com.miraxh.dreamer.ui.authentication
 
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -8,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -67,18 +70,23 @@ class SignUpEmail : Fragment() {
             if (password.text.toString() == repeatPassword.text.toString()) {
                 tortn = true
             } else {
-                Toast.makeText(
-                    requireActivity(),
+                Snackbar.make(
+                    requireView(),
                     "Password and repeat password must be the same",
-                    Toast.LENGTH_LONG
+                    Snackbar.LENGTH_SHORT
                 ).show()
             }
         } else {
-            Toast.makeText(
+            Snackbar.make(
+                requireView(),
+                "Empty field not allowed!",
+                Snackbar.LENGTH_SHORT
+            ).show()
+            /*Toast.makeText(
                 requireActivity(),
                 "Empty field not allowed!",
                 Toast.LENGTH_LONG
-            ).show()
+            ).show()*/
         }
         return tortn
     }
@@ -90,10 +98,12 @@ class SignUpEmail : Fragment() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     val user = auth.currentUser
+                    val defaultImageProfile = Uri.parse("https://i.imgur.com/xKkkcOw.png")
                     val profileUpdates =
                         UserProfileChangeRequest
                             .Builder()
                             .setDisplayName("${name.text} ${surname.text}")
+                            .setPhotoUri(defaultImageProfile)
                             .build()
 
                     user?.updateProfile(profileUpdates)?.addOnCompleteListener {

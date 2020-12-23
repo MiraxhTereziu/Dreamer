@@ -65,8 +65,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/general_margin"
                 android:shape="ring"
@@ -74,8 +74,8 @@
 
                 <ImageView
                     android:id="@+id/profile_image"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="@color/colorPrimaryDark"
                     android:contentDescription="@string/profile_description"
                     android:elevation="@dimen/general_margin"
@@ -118,6 +118,7 @@
             android:clickable="true"
             android:focusable="true"
             android:scaleType="center"
+            app:maxImageSize="25dp"
             android:src="@drawable/ic_add"
             android:tint="@color/colorPrimary"
             app:borderWidth="0dp"

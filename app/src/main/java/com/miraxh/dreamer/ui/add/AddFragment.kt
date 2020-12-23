@@ -356,8 +356,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
                         view,
                         resources.getString(R.string.insert_t_d),
                         Snackbar.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 } else if (titleEmpty) {
                     Snackbar.make(
                         view,
