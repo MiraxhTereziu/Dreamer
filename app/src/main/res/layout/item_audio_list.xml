@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/player"
+        android:layout_width="@dimen/audio_player_dimen"
+        android:layout_height="@dimen/audio_player_dimen"
+        android:layout_margin="@dimen/general_small_margin"
+        android:background="@drawable/bg_audio_reproducer"
+        android:clickable="false"
+        android:contentDescription="@string/play_recording_label"
+        android:focusable="false"
+        android:padding="@dimen/general_small_margin"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_play"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/audio_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_small_margin"
+        android:text="@string/default_label_audio_player"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/player" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

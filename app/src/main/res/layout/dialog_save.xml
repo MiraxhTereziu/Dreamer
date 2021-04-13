@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/bg_popup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/general_margin"
+        android:background="@drawable/bg_text_field_no_border"
+        android:backgroundTint="@color/colorPrimaryLight"
+        android:padding="@dimen/general_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/popup_cancel_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_margin"
+        android:text="@string/popup_cancel_title"
+        android:textSize="22sp"
+        app:layout_constraintLeft_toLeftOf="@id/bg_popup"
+        app:layout_constraintTop_toTopOf="@id/bg_popup" />
+
+    <TextView
+        android:id="@+id/popup_cancel_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_margin"
+        android:paddingHorizontal="32dp"
+        android:text="@string/popup_cancel_description"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/bg_popup"
+        app:layout_constraintStart_toStartOf="@id/bg_popup"
+        app:layout_constraintTop_toBottomOf="@id/popup_cancel_title" />
+
+    <TextView
+        android:id="@+id/bg_buttons"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/general_margin"
+        android:background="@drawable/bg_text_bottom"
+        android:backgroundTint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/bg_popup"
+        app:layout_constraintEnd_toEndOf="@id/bg_popup"
+        app:layout_constraintStart_toStartOf="@id/bg_popup"
+        app:layout_constraintTop_toBottomOf="@id/popup_cancel_description" />
+
+    <Button
+        android:id="@+id/negative_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingHorizontal="@dimen/general_margin"
+        android:text="@string/negative_action_dialog_label"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@id/bg_buttons"
+        app:layout_constraintEnd_toEndOf="@id/bg_buttons"
+        app:layout_constraintTop_toTopOf="@id/bg_buttons" />
+
+    <Button
+        android:id="@+id/positive_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingHorizontal="@dimen/general_margin"
+        android:text="@string/positive_action_dialog_label"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@id/bg_buttons"
+        app:layout_constraintStart_toStartOf="@id/bg_buttons"
+        app:layout_constraintTop_toTopOf="@id/bg_buttons" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

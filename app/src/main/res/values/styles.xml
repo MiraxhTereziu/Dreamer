@@ -1,0 +1,137 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+
+    <style name="MyDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@color/colorPrimaryLight</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="android:Widget.TextView">
+        <item name="fontFamily">@font/pacifico_regular</item>
+    </style>
+
+    <style name="pacifico" parent="android:Widget.TextView">
+        <item name="android:includeFontPadding">false</item>
+        <item name="fontFamily">@font/pacifico_regular</item>
+        <item name="titleTextColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/title</item>
+    </style>
+
+    <style name="nav_view_text" parent="android:Widget.TextView">
+        <item name="android:includeFontPadding">false</item>
+        <item name="titleTextColor">@color/colorWhite</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="dream_description"></style>
+
+    <style name="dream_title">
+        <item name="android:textColor">@color/colorSecondaryDark</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="dream_date">
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="week_day">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="number_day">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="signInUp_input">
+        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="colorControlActivated">@color/colorWhite</item>
+        <item name="colorControlHighlight">@color/colorWhite</item>
+        <item name="android:textColorHint">@color/colorWhite</item>
+    </style>
+
+    <style name="text_input_title">
+        <item name="colorControlNormal">@color/colorSecondaryDark</item>
+        <item name="colorControlActivated">@color/colorSecondaryDark</item>
+        <item name="colorControlHighlight">@color/colorSecondaryDark</item>
+        <item name="android:textColorHint">@color/colorSecondaryDark</item>
+    </style>
+
+    <style name="text_input_descr">
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/colorAccent</item>
+    </style>
+
+    <style name="text_input_tag">
+        <item name="colorControlNormal">@color/colorExtra</item>
+        <item name="colorControlActivated">@color/colorExtra</item>
+        <item name="colorControlHighlight">@color/colorExtra</item>
+        <item name="android:textColorHint">@color/colorExtra</item>
+    </style>
+
+    <style name="tag_dream_button">
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:translationZ">90dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLength">6</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/tag_height</item>
+        <item name="android:background">@drawable/bg_savebutton</item>
+        <item name="android:layout_marginBottom">@dimen/general_small_margin</item>
+        <item name="drawableLeftCompat">@drawable/ic_target</item>
+        <item name="android:paddingStart">@dimen/general_small_margin</item>
+        <item name="android:paddingEnd">@dimen/general_small_margin</item>
+    </style>
+
+    <style name="display_rating">
+        <item name="android:background">@drawable/bg_rating</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:translationZ">90dp</item>
+    </style>
+
+    <style name="signin_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:backgroundTint">@color/colorWhite</item>
+        <item name="android:drawablePadding">@dimen/general_small_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:textSize">@dimen/title</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+</resources>

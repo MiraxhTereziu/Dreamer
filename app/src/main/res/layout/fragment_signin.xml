@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".ui.authentication.SignIn">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/label_signin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/layout_facebook_signin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    style="@style/signin_button"
+                    android:text="@string/app_name"
+                    android:textSize="40sp"
+                    android:textStyle="normal"
+                    android:theme="@style/pacifico"
+                    app:drawableEndCompat="@drawable/ic_eva_book_open" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/sub_title_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_slogan" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/label_signin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/general_margin"
+            android:layout_marginBottom="@dimen/general_margin"
+            android:text="@string/label_signin"
+            android:textSize="@dimen/label_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/layout_google_signin"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/layout_google_signin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginHorizontal="@dimen/general_margin"
+            android:layout_marginBottom="@dimen/general_margin"
+            android:background="@drawable/bg_dreamtile"
+            android:backgroundTint="@color/colorWhite"
+            app:layout_constraintBottom_toTopOf="@id/layout_facebook_signin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/google_signin"
+                style="@style/signin_button"
+                android:text="@string/signin_google"
+                android:textColor="@color/almostBlack"
+                app:drawableEndCompat="@drawable/ic_google" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/layout_facebook_signin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginHorizontal="@dimen/general_margin"
+            android:layout_marginBottom="@dimen/general_margin"
+            android:background="@drawable/bg_dreamtile"
+            android:backgroundTint="@color/fabeook"
+            app:layout_constraintBottom_toTopOf="@id/layout_mail_signin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/facebook_signin"
+                style="@style/signin_button"
+                android:text="@string/signin_facebook"
+                android:textColor="@color/colorWhite"
+                app:drawableEndCompat="@drawable/ic_facebook" />
+        </FrameLayout>
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/layout_mail_signin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginHorizontal="@dimen/general_margin"
+            android:layout_marginBottom="@dimen/general_margin"
+            android:background="@drawable/bg_dreamtile"
+            android:backgroundTint="@color/mail"
+            app:layout_constraintBottom_toTopOf="@id/label_signup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/mail_signin"
+                style="@style/signin_button"
+                android:text="@string/signin_mail"
+                app:drawableEndCompat="@drawable/ic_iconmail" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/label_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/general_margin"
+            android:layout_marginBottom="@dimen/general_margin"
+            android:text="@string/label_signup"
+            android:textSize="@dimen/label_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/layout_mail_signup"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/layout_mail_signup"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginHorizontal="@dimen/general_margin"
+            android:layout_marginBottom="@dimen/general_margin"
+            android:background="@drawable/bg_dreamtile"
+            android:backgroundTint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/mail_signup"
+                style="@style/signin_button"
+                android:text="@string/sign_up"
+                android:textStyle="normal"
+                app:drawableEndCompat="@drawable/ic_signup" />
+        </FrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

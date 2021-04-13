@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splash_dest"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/home_dest"
+        android:name="com.miraxh.dreamer.ui.home.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/add_dest"
+        android:name="com.miraxh.dreamer.ui.add.AddFragment"
+        android:label="add_fragment"
+        tools:layout="@layout/fragment_add">
+        <argument
+            android:name="dateClicked"
+            app:argType="string" />
+        <argument
+            android:name="restoreDream"
+            app:argType="reference" />
+        <argument
+            android:name="editable"
+            app:argType="boolean"
+            android:defaultValue="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings_dest"
+        android:name="com.miraxh.dreamer.ui.settings.SettingsFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/settings_fragment" />
+    <fragment
+        android:id="@+id/stats_dest"
+        android:name="com.miraxh.dreamer.ui.stats.StatsFragment"
+        android:label="stats_fragment"
+        tools:layout="@layout/fragment_stats" />
+    <fragment
+        android:id="@+id/music_dest"
+        android:name="com.miraxh.dreamer.ui.music.MusicFragment"
+        android:label="music_fragment"
+        tools:layout="@layout/fragment_music" />
+    <fragment
+        android:id="@+id/splash_dest"
+        android:name="com.miraxh.dreamer.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_nav_main"
+            app:destination="@id/home_dest" />
+    </fragment>
+    <fragment
+        android:id="@+id/canvasFragment"
+        android:name="com.miraxh.dreamer.ui.add.images.CanvasFragment"
+        android:label="fragment_canvas"
+        tools:layout="@layout/fragment_canvas" >
+        <argument
+            android:name="restoreDream"
+            app:argType="reference" />
+    </fragment>
+    <fragment
+        android:id="@+id/signin_dest"
+        android:name="com.miraxh.dreamer.ui.authentication.SignIn"
+        android:label="fragment_signin"
+        tools:layout="@layout/fragment_signin" />
+    <fragment
+        android:id="@+id/signUpEmail_dest"
+        android:name="com.miraxh.dreamer.ui.authentication.SignUpEmail"
+        android:label="fragment_sign_in_email"
+        tools:layout="@layout/fragment_signup_email" />
+    <fragment
+        android:id="@+id/signInEmail_dest"
+        android:name="com.miraxh.dreamer.ui.authentication.SingInEmail"
+        android:label="fragment_singin_email"
+        tools:layout="@layout/fragment_singin_email" />
+    <fragment
+        android:id="@+id/profile_dest"
+        android:name="com.miraxh.dreamer.ui.profile.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/layout_profile" />
+    <fragment
+        android:id="@+id/profileTabHost_dest"
+        android:name="com.miraxh.dreamer.ui.profile.ProfileTabHost"
+        android:label="fragment_profile_tab_host"
+        tools:layout="@layout/fragment_profile_tab_host" />
+</navigation>
