@@ -71,8 +71,10 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
 
         //setting user image profile
         if (user?.photoUrl != null) {
+            var photoUrl = user?.photoUrl.toString()
+            photoUrl = "$photoUrl?height=500"
             Glide.with(requireContext())
-                .load(user?.photoUrl)
+                .load(photoUrl)
                 .into(imageProfile)
         }
 

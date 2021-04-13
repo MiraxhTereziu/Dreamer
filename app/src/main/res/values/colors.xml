@@ -12,6 +12,7 @@
     <color name="colorExtra">#6ED1C0</color>
     <color name="fabeook">#395185</color>
     <color name="mail">#D54B3D</color>
+    <color name="transparent">#00000000</color>
     <!--palete colors-->
     <color name="color2">#FFE066</color>
     <color name="color3">#FFBA59</color>

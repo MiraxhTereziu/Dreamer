@@ -198,9 +198,10 @@
                     <TextView
                         android:id="@+id/register"
                         style="@style/signin_button"
+                        android:layout_width="wrap_content"
                         android:text="@string/register_label"
                         android:textColor="@color/colorPrimary"
-                        app:drawableEndCompat="@drawable/ic_check" />
+                        app:drawableEndCompat="@drawable/ic_login" />
                 </FrameLayout>
 
             </LinearLayout>

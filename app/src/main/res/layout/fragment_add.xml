@@ -22,15 +22,15 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:clipToPadding="false"
             android:orientation="vertical"
-            android:paddingBottom="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_add">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/general_margin"
+                android:clipToPadding="false"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,7 +82,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/layout_dream_title"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/layout_dream_title"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_dream_description"
@@ -344,7 +345,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/add_draw"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -362,6 +362,7 @@
             android:backgroundTint="@color/colorWhite"
             android:clickable="true"
             android:focusable="true"
+            app:maxImageSize="25dp"
             android:scaleType="center"
             android:src="@drawable/ic_save"
             android:tint="@color/colorPrimary"

@@ -131,7 +131,7 @@
                         style="@style/signin_button"
                         android:text="@string/sign_in_label"
                         android:textColor="@color/colorPrimary"
-                        app:drawableEndCompat="@drawable/ic_check" />
+                        app:drawableEndCompat="@drawable/ic_login" />
                 </FrameLayout>
 
             </LinearLayout>
