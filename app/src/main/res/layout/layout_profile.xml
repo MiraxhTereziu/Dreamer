@@ -28,21 +28,21 @@
 
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="@dimen/general_margin"
                     android:layout_marginTop="@dimen/general_margin"
-                    android:shape="ring"
-                    app:cardCornerRadius="50dp">
+                    app:cardCornerRadius="@dimen/radius_small">
 
                     <ImageView
                         android:id="@+id/profile_image"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="170dp"
+                        android:layout_height="170dp"
+                        android:layout_gravity="center"
                         android:background="@color/colorPrimaryDark"
-                        android:src="@drawable/ic_profile"
-                        android:scaleType="fitCenter"/>
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_profile" />
                 </androidx.cardview.widget.CardView>
 
 

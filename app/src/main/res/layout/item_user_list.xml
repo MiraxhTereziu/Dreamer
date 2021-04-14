@@ -9,25 +9,25 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/layout_profile_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginEnd="@dimen/general_margin"
-        android:shape="ring"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="@dimen/radius_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/user_profile_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@color/colorPrimaryDark"
             android:clickable="false"
             android:contentDescription="@string/profile_description"
             android:focusable="false"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_profile" />
     </androidx.cardview.widget.CardView>
 

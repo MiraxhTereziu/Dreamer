@@ -69,17 +69,17 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/general_margin"
-                android:shape="ring"
-                app:cardCornerRadius="20dp">
+                android:clipChildren="true"
+                app:cardCornerRadius="@dimen/radius_small">
 
                 <ImageView
                     android:id="@+id/profile_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorPrimaryDark"
+                    android:layout_gravity="center"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:contentDescription="@string/profile_description"
                     android:elevation="@dimen/general_margin"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_profile" />
             </androidx.cardview.widget.CardView>
 
@@ -113,6 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/general_margin"
+            app:shapeAppearanceOverlay="@style/fab_rectangular_rounded"
             android:layout_marginBottom="@dimen/general_margin"
             android:backgroundTint="@color/colorWhite"
             android:clickable="true"

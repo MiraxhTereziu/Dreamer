@@ -93,6 +93,11 @@
         <item name="android:textColorHint">@color/colorExtra</item>
     </style>
 
+    <style name="fab_rectangular_rounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
     <style name="tag_dream_button">
         <item name="android:clickable">false</item>
         <item name="android:focusable">false</item>

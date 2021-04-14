@@ -15,8 +15,8 @@
             layout="@layout/layout_normal_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
@@ -29,9 +29,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/general_margin"
                 android:clipToPadding="false"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/general_margin">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -47,8 +47,8 @@
                         android:paddingHorizontal="@dimen/general_small_margin"
                         android:paddingVertical="@dimen/general_margin"
                         android:theme="@style/text_input_title"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/date_picker"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -113,13 +113,13 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageButton
-                        android:contentDescription="@string/insert_tag_description"
                         android:id="@+id/insert_tag_btn"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="19dp"
                         android:layout_marginEnd="@dimen/general_margin"
                         android:background="@android:color/transparent"
+                        android:contentDescription="@string/insert_tag_description"
                         android:src="@drawable/ic_forward"
                         android:translationZ="90dp"
                         app:layout_constraintEnd_toEndOf="@+id/layout_dream_tag"
@@ -167,8 +167,8 @@
                         android:paddingHorizontal="2dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="@id/tag_bg"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
                         android:id="@+id/tag_bg"
@@ -177,8 +177,8 @@
                         android:layout_marginHorizontal="@dimen/general_margin"
                         android:background="@drawable/bg_text_bottom"
                         android:paddingHorizontal="2dp"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/layout_dream_tag" />
 
 
@@ -186,13 +186,13 @@
                         android:id="@+id/label_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/general_margin"
+                        android:elevation="@dimen/elevation_one"
                         android:text="@string/rate_dream_label"
                         android:textSize="16sp"
-                        android:elevation="@dimen/elevation_one"
-                        android:layout_margin="@dimen/general_margin"
+                        app:layout_constraintBottom_toBottomOf="@id/bg_rating"
                         app:layout_constraintStart_toStartOf="@id/bg_rating"
-                        app:layout_constraintTop_toTopOf="@id/bg_rating"
-                        app:layout_constraintBottom_toBottomOf="@id/bg_rating"/>
+                        app:layout_constraintTop_toTopOf="@id/bg_rating" />
 
                     <TextView
                         android:id="@+id/bg_rating"
@@ -203,8 +203,8 @@
                         android:background="@drawable/bg_text_field_no_border"
                         android:gravity="center_vertical"
                         android:padding="@dimen/general_margin"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tag_bg" />
 
                     <RatingBar
@@ -215,9 +215,9 @@
                         android:numStars="5"
                         android:paddingTop="@dimen/general_small_margin"
                         android:rating="2.5"
-                        app:layout_constraintStart_toEndOf="@id/label_rating"
                         app:layout_constraintBottom_toBottomOf="@id/bg_rating"
                         app:layout_constraintEnd_toEndOf="@id/bg_rating"
+                        app:layout_constraintStart_toEndOf="@id/label_rating"
                         app:layout_constraintTop_toTopOf="@id/bg_rating" />
 
                     <TextView
@@ -231,17 +231,17 @@
                         android:padding="@dimen/general_margin"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@id/add_draw"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/bg_rating" />
 
                     <ImageButton
-                        android:contentDescription="@string/record_audio_description"
                         android:id="@+id/recording_btn"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_margin="@dimen/general_margin"
                         android:background="@drawable/bg_recordingbtn"
+                        android:contentDescription="@string/record_audio_description"
                         android:padding="@dimen/general_small_margin"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_record"
@@ -277,8 +277,8 @@
                         android:paddingHorizontal="@dimen/general_small_margin"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="@id/bg_recording"
-                        app:layout_constraintStart_toEndOf="@id/audio_chronometer"
                         app:layout_constraintEnd_toEndOf="@id/bg_recording"
+                        app:layout_constraintStart_toEndOf="@id/audio_chronometer"
                         app:layout_constraintTop_toTopOf="@id/bg_recording" />
 
                     <TextView
@@ -286,8 +286,8 @@
                         android:layout_width="159dp"
                         android:layout_height="42dp"
                         android:layout_margin="@dimen/general_margin"
-                        android:gravity="center"
                         android:elevation="@dimen/elevation_two"
+                        android:gravity="center"
                         android:text="@string/how_to_record_label"
                         app:layout_constraintBottom_toBottomOf="@id/audio_recyclerview"
                         app:layout_constraintEnd_toEndOf="@id/audio_recyclerview"
@@ -297,55 +297,54 @@
                     <TextView
                         android:id="@+id/add_draw"
                         android:layout_width="0dp"
-                        android:lines="1"
                         android:layout_height="@dimen/text_field_height"
                         android:layout_marginStart="@dimen/general_margin"
-                        android:layout_marginEnd="@dimen/general_small_margin"
                         android:layout_marginTop="@dimen/general_margin"
+                        android:layout_marginEnd="@dimen/general_small_margin"
                         android:background="@drawable/bg_text_field_no_border"
                         android:gravity="center"
+                        android:lines="1"
                         android:padding="@dimen/general_margin"
                         android:text="@string/add_drawing_label"
                         android:textSize="20sp"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:drawableStartCompat="@drawable/ic_gesture"
                         app:layout_constraintEnd_toStartOf="@id/add_image"
-                        app:layout_constraintTop_toBottomOf="@id/bg_recording"
-                        app:drawableStartCompat="@drawable/ic_gesture" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bg_recording" />
 
                     <TextView
                         android:id="@+id/add_image"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/text_field_height"
                         android:layout_marginStart="@dimen/general_small_margin"
-                        android:layout_marginEnd="@dimen/general_margin"
                         android:layout_marginTop="@dimen/general_margin"
+                        android:layout_marginEnd="@dimen/general_margin"
                         android:background="@drawable/bg_text_field_no_border"
                         android:gravity="center"
                         android:padding="@dimen/general_margin"
                         android:text="@string/add_image_label"
                         android:textSize="20sp"
+                        app:drawableStartCompat="@drawable/ic_image"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/add_draw"
-                        app:layout_constraintTop_toBottomOf="@id/bg_recording"
-                        app:drawableStartCompat="@drawable/ic_image" />
+                        app:layout_constraintTop_toBottomOf="@id/bg_recording" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/images_recyclerview"
-                        android:layout_margin="@dimen/general_margin"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_margin="@dimen/general_margin"
                         android:animationCache="true"
                         android:background="@drawable/bg_text_field_no_border"
-                        android:paddingHorizontal="@dimen/general_small_margin"
-                        android:clipToPadding="false"
                         android:backgroundTint="@color/colorPrimaryLight"
+                        android:clipToPadding="false"
                         android:fadeScrollbars="true"
                         android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/general_small_margin"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/add_draw"
-                        />
+                        app:layout_constraintTop_toBottomOf="@id/add_draw" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -361,15 +360,16 @@
             android:layout_marginBottom="@dimen/general_margin"
             android:backgroundTint="@color/colorWhite"
             android:clickable="true"
+            android:contentDescription="@string/save_dream_label"
             android:focusable="true"
-            app:maxImageSize="25dp"
             android:scaleType="center"
             android:src="@drawable/ic_save"
             android:tint="@color/colorPrimary"
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/save_dream_label" />
+            app:maxImageSize="25dp"
+            app:shapeAppearanceOverlay="@style/fab_rectangular_rounded" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
