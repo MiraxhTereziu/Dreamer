@@ -368,7 +368,7 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:maxImageSize="25dp"
+            app:maxImageSize="22dp"
             app:shapeAppearanceOverlay="@style/fab_rectangular_rounded" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

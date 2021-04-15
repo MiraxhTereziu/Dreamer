@@ -275,7 +275,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/general_margin"
             android:layout_marginVertical="@dimen/general_small_margin"
-            android:drawableStart="@drawable/ic_save_thin"
             android:drawablePadding="@dimen/general_small_margin"
             android:gravity="center"
             android:paddingHorizontal="@dimen/general_small_margin"
@@ -284,7 +283,8 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/palette"
-            app:layout_constraintTop_toBottomOf="@id/seekBar_thickness"/>
+            app:layout_constraintTop_toBottomOf="@id/seekBar_thickness"
+            app:drawableStartCompat="@drawable/ic_save" />
 
         <TextView
             android:id="@+id/erase_btn"
@@ -292,7 +292,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/general_margin"
             android:layout_marginVertical="@dimen/general_small_margin"
-            android:drawableStart="@drawable/ic_eraser"
             android:drawablePadding="@dimen/general_small_margin"
             android:gravity="center"
             android:paddingHorizontal="@dimen/general_small_margin"
@@ -302,7 +301,8 @@
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@id/save_canvas_btn"
             app:layout_constraintTop_toBottomOf="@id/seekBar_thickness"
-            app:layout_constraintEnd_toStartOf="@id/reset_btn"/>
+            app:layout_constraintEnd_toStartOf="@id/reset_btn"
+            app:drawableStartCompat="@drawable/ic_eraser" />
 
         <TextView
             android:id="@+id/reset_btn"
@@ -310,7 +310,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/general_margin"
             android:layout_marginVertical="@dimen/general_small_margin"
-            android:drawableStart="@drawable/ic_reset"
             android:drawablePadding="@dimen/general_small_margin"
             android:gravity="center"
             android:paddingHorizontal="@dimen/general_small_margin"
@@ -320,7 +319,7 @@
             android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@id/seekBar_thickness"
             app:layout_constraintEnd_toEndOf="@id/palette"
-            />
+            app:drawableStartCompat="@drawable/ic_reset" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

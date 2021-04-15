@@ -119,7 +119,7 @@
             android:clickable="true"
             android:focusable="true"
             android:scaleType="center"
-            app:maxImageSize="25dp"
+            app:maxImageSize="24dp"
             android:src="@drawable/ic_add"
             android:tint="@color/colorPrimary"
             app:borderWidth="0dp"
