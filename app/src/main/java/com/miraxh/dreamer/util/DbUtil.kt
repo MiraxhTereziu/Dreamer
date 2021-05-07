@@ -8,10 +8,15 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
+import com.miraxh.dreamer.data.dream.Dream
 import java.util.*
 
 class DbUtil(private val auth: FirebaseAuth, private val db: FirebaseFirestore) {
     private var user: FirebaseUser? = auth.currentUser
+
+    fun getAllDreams(): CollectionReference {
+        return db.collection("dream").document(user?.uid.toString()).collection("dreams")
+    }
 
     fun saveUser() {
         val userInfo = hashMapOf(

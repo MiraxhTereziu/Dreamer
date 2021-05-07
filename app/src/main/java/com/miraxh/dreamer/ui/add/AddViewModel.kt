@@ -16,4 +16,5 @@ class AddViewModel(val app: Application) : AndroidViewModel(app) {
         dreamRepository.insertNewDream(dream)
         dreamRepository.refreshData()
     }
+
 }

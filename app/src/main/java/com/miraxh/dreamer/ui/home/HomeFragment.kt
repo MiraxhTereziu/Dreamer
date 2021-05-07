@@ -19,14 +19,14 @@ import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.Day
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
-import com.miraxh.dreamer.util.DATE_CLICKED
-import com.miraxh.dreamer.util.EDITABLE
-import com.miraxh.dreamer.util.RESTORE_DREAM
+import com.miraxh.dreamer.util.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapter.DreamListener {
@@ -46,6 +46,8 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     private lateinit var auth: FirebaseAuth
     private var user: FirebaseUser? = null
 
+    private var fromSignIn = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
@@ -56,6 +58,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+
         //inizializzaizone RecyclerView
         dreamRecyclerView = view.findViewById(R.id.dream_recyclerview)
         daysRecycleView = view.findViewById(R.id.days_recyclerview)
@@ -78,7 +81,6 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
                 .into(imageProfile)
         }
 
-
         //init profile btn
         profileBtn.setOnClickListener {
             findNavController().navigate(R.id.profileTabHost_dest)
@@ -86,13 +88,12 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
 
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
-
-
         return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         //inizializzazione viewModel
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
@@ -108,7 +109,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
 
     //metodo per inizializzare lista principale dei sogni
     private fun dreamListLoader() {
-        Log.i("finaltest", "!empty")
+        Log.i("firebaseDream","inLoader")
         //mi metto in ascolto per eventuali cambiamenti alla lista dei sogni\
         viewModel.dreamData.observe(viewLifecycleOwner, Observer {
             //ordino la lista in base al giorno di creazione
@@ -121,12 +122,10 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
             //update toolbar
             viewModel.updateToolbar()
         })
-
     }
 
     //metodo per inizializzare la toolbar e "l'agenda dei sogni" al suo interno
     private fun initToolbar() {
-
         //delete commet to enable drawer
         (activity as MainActivity?)?.disableDrawer()
         drawer_icon.setOnClickListener {

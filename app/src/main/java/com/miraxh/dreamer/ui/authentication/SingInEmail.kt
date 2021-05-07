@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.miraxh.dreamer.R
+import com.miraxh.dreamer.util.FROM_SIGNIN
 
 class SingInEmail : Fragment() {
 

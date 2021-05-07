@@ -12,6 +12,7 @@ import android.widget.TabHost
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -23,9 +24,12 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.user.User
+import com.miraxh.dreamer.ui.home.HomeViewModel
 import com.miraxh.dreamer.util.DbUtil
 
 class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
+
+    private lateinit var viewModel: HomeViewModel
 
     private lateinit var profileView: ConstraintLayout
     private lateinit var searchView: ConstraintLayout
@@ -65,6 +69,9 @@ class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile_tab_host, container, false)
+
+        //init viewmodel
+        viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
         //setting up tabs system
         tabHost = view.findViewById(R.id.tabhost)
@@ -120,6 +127,7 @@ class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
 
         //logout action
         logoutBtn.setOnClickListener {
+            viewModel.deleteAllDreams()
             auth.signOut()
             LoginManager.getInstance().logOut()
             findNavController().navigate(
