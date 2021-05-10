@@ -35,6 +35,25 @@ class DbUtil(private val auth: FirebaseAuth, private val db: FirebaseFirestore) 
             .addOnFailureListener { e -> Log.w("firestoreDebug", "Error writing document", e) }
     }
 
+    fun saveDream(dream:Dream) {
+        db.collection("dream").document(user?.uid.toString()).collection("dreams").document()
+            .set(dream)
+            .addOnSuccessListener {
+                Log.d(
+                    "firestoreDebug",
+                    "DocumentSnapshot successfully written! Dream saved!"
+                )
+            }
+            .addOnFailureListener { e -> Log.w("firestoreDebug", "Error writing document", e) }
+    }
+
+    fun deleteDream(documentID:String, dreamID:Int){
+        db.collection("dream").document(user?.uid.toString()).collection("dreams").document(documentID).get()
+            .addOnSuccessListener {
+                //if(it.data[dreamID]as Long)
+            }
+    }
+
     fun getUserByName(searchName: String): Task<QuerySnapshot> {
         return db.collection("user")
             .whereGreaterThanOrEqualTo("name", searchName.toLowerCase(Locale.ROOT))
@@ -68,7 +87,6 @@ class DbUtil(private val auth: FirebaseAuth, private val db: FirebaseFirestore) 
             .document(idReciver)
             .delete()
     }
-
 
     fun getFollowing(): CollectionReference {
         return db.collection("following").document("${user?.uid}").collection("userFollowing")

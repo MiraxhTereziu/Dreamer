@@ -25,6 +25,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.miraxh.dreamer.MainActivity
 import com.miraxh.dreamer.R
 import com.miraxh.dreamer.data.dream.Dream
@@ -42,6 +45,8 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     ImageListAdapter.ImageListener {
 
     private lateinit var viewModel: AddViewModel
+
+    private lateinit var auth: FirebaseAuth
 
     private lateinit var floatingActionButton: FloatingActionButton
     private lateinit var datePickerBtn: Button
@@ -105,6 +110,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
                 restoreDream = tmpSerial as Dream
             editable = it.getBoolean(EDITABLE)
         }
+        auth = FirebaseAuth.getInstance()
     }
 
     override fun onCreateView(
@@ -376,6 +382,8 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
                     newDream = getData()
                     //inserisco il nuovo sogno nel db ad aggiorno il tutto
                     viewModel.insertNewDream(newDream)
+                    //salvataggio sogno cloud
+                    DbUtil(auth, Firebase.firestore).saveDream(newDream)
                     //momentaneamente rimando alla home
                     findNavController().navigate(R.id.home_dest)
                     Snackbar.make(
@@ -563,7 +571,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
             (activity as MainActivity?)?.closeKeyboard()
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                { view, year, month, dayOfMonth ->
                     datePicked = "$dayOfMonth/${month + 1}/$year"
                     datePickerBtn.text = datePicked
                 },

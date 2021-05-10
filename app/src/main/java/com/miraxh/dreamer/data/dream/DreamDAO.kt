@@ -7,7 +7,7 @@ import androidx.room.Query
 
 @Dao
 interface DreamDAO {
-
+    
     @Query("SELECT * FROM dreams")
     fun getAll(): List<Dream>
 

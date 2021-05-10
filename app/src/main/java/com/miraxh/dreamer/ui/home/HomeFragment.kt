@@ -46,8 +46,6 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     private lateinit var auth: FirebaseAuth
     private var user: FirebaseUser? = null
 
-    private var fromSignIn = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
@@ -111,7 +109,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     private fun dreamListLoader() {
         Log.i("firebaseDream","inLoader")
         //mi metto in ascolto per eventuali cambiamenti alla lista dei sogni\
-        viewModel.dreamData.observe(viewLifecycleOwner, Observer {
+        viewModel.dreamData.observe(viewLifecycleOwner, {
             //ordino la lista in base al giorno di creazione
             (it as MutableList<Dream>).sortByDescending { dream -> dream.dreamID }
             //in caso un update della lista dei sogni entro in questo metodo dove mi viene passata la nuova lista
@@ -134,7 +132,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         //inizializzo lo stato di scorrimento dell'agenda per utilizzi futuri
         daysState = saveStateRV(daysRecycleView)
         //mi metto in ascolto per eventuali cambiamenti alla lista dei sogni
-        viewModel.daysData.observe(viewLifecycleOwner, Observer {
+        viewModel.daysData.observe(viewLifecycleOwner, {
             //in caso un update della lista dei sogni entro in questo metodo dove mi viene passata la nuova lista
             adapterDay = ToolbarListAdapter(requireContext(), it, this)
             //assegno il mio adapter alla mia RecyclerView

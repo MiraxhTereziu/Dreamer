@@ -1,7 +1,9 @@
 package com.miraxh.dreamer.data.dream
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.room.TypeConverters
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -10,6 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.stream.Collectors.toList
 
 class DreamRepository(val app: Application) {
 
@@ -20,29 +23,30 @@ class DreamRepository(val app: Application) {
 
     init {
         CoroutineScope(Dispatchers.IO).launch {
-            val data: List<Dream>? = dreamDAO.getAll()
+            val data: List<Dream> = dreamDAO.getAll()
             //dreamDAO.deleteAll()
             if (data.isNullOrEmpty()) {
                 auth = FirebaseAuth.getInstance()
-                var firebaseDreamList = DbUtil(auth, Firebase.firestore).getAllDreams()
-                var localDreamList = mutableListOf<Dream>()
+                val firebaseDreamList = DbUtil(auth, Firebase.firestore).getAllDreams()
+                val localDreamList = mutableListOf<Dream>()
                 firebaseDreamList.get()
                     .addOnSuccessListener { document ->
                         document.forEach {
                             localDreamList.add(
                                 Dream(
-                                    dreamID = 0,
+                                    dreamID = (it.data["dreamID"] as Long).toInt(),
                                     title = it.data["title"] as String,
                                     description = it.data["description"] as String,
-                                    rate = (it.data["rate"] as String).toFloat(),
+                                    rate = (it.data["rate"] as Double).toFloat(),
                                     date = it.data["date"] as String,
-                                    audios = mutableListOf(),
-                                    tags = mutableListOf(),
-                                    images = mutableListOf()
+                                    tags = (it.data["tags"] as ArrayList<String>).toMutableList(),
+                                    images = (it.data["images"] as ArrayList<String>).toMutableList(),
+                                    audios = (it.data["audios"] as ArrayList<String>).toMutableList()
                                 )
                             )
                         }
                         dreamData.postValue(localDreamList)
+                        insertAllDreams(localDreamList)
                     }
             } else {
                 //caso in cui il db abbia delle entry
@@ -54,7 +58,17 @@ class DreamRepository(val app: Application) {
         }
     }
 
-    fun deleteAll(){
+    fun toList(list: String): MutableList<String> {
+        var toRtn = mutableListOf<String>()
+
+        toRtn = if (list.isBlank())
+            emptyList<String>().toMutableList()
+        else
+            list.split(",").toMutableList()
+        return toRtn
+    }
+
+    fun deleteAll() {
         CoroutineScope(Dispatchers.IO).launch {
             dreamDAO.deleteAll()
         }
@@ -62,7 +76,7 @@ class DreamRepository(val app: Application) {
 
     fun refreshData() {
         CoroutineScope(Dispatchers.IO).launch {
-            val data: List<Dream>? = dreamDAO.getAll()
+            val data: List<Dream> = dreamDAO.getAll()
             dreamData.postValue(data)
         }
     }
@@ -71,6 +85,12 @@ class DreamRepository(val app: Application) {
         CoroutineScope(Dispatchers.IO).launch {
             dreamDAO.deleteDream(dream.dreamID)
             dreamDAO.insertDream(dream)
+        }
+    }
+
+    fun insertAllDreams(dreamList: MutableList<Dream>) {
+        dreamList.forEach {
+            insertNewDream(it)
         }
     }
 
