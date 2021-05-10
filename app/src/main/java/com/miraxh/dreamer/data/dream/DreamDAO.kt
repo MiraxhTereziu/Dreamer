@@ -21,7 +21,7 @@ interface DreamDAO {
     suspend fun delete(dream: Dream)
 
     @Query("DELETE FROM dreams WHERE dreamID=:id")
-    suspend fun deleteDream(id : Int)
+    suspend fun deleteDream(id : String)
 
     @Query("DELETE FROM dreams")
     suspend fun deleteAll()

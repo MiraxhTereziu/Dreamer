@@ -17,8 +17,8 @@ import java.util.*
 
 @Entity(tableName = "dreams")
 data class Dream(
-    @PrimaryKey(autoGenerate = true)
-    val dreamID: Int,
+    @PrimaryKey
+    val dreamID: String,
     val date: String,
     val title: String,
     val description: String,

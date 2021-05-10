@@ -34,7 +34,7 @@ class DreamRepository(val app: Application) {
                         document.forEach {
                             localDreamList.add(
                                 Dream(
-                                    dreamID = (it.data["dreamID"] as Long).toInt(),
+                                    dreamID = it.data["dreamID"] as String,
                                     title = it.data["title"] as String,
                                     description = it.data["description"] as String,
                                     rate = (it.data["rate"] as Double).toFloat(),

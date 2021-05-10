@@ -322,9 +322,13 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     }
 
     private fun getData(): Dream {
-        val id: Int? = restoreDream?.dreamID
+        val id: String? = restoreDream?.dreamID
+
+        //genero id univoco per il sogno
+        val generatedID = DbUtil(auth, Firebase.firestore).generateID()
+
         return Dream(
-            id ?: 0,
+            id ?: generatedID,
             date = datePickerBtn.text.toString(),
             title = title.text.toString(),
             description = description.text.toString(),
@@ -338,7 +342,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
     private fun initFloatAction(view: View) {
         //inizializzo con valori di default il mio sogno
         newDream = Dream(
-            0,
+            "id",
             "00/00/00",
             "empty",
             "empty",
@@ -383,7 +387,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
                     //inserisco il nuovo sogno nel db ad aggiorno il tutto
                     viewModel.insertNewDream(newDream)
                     //salvataggio sogno cloud
-                    DbUtil(auth, Firebase.firestore).saveDream(newDream)
+                    DbUtil(auth, Firebase.firestore).addDream(newDream)
                     //momentaneamente rimando alla home
                     findNavController().navigate(R.id.home_dest)
                     Snackbar.make(
