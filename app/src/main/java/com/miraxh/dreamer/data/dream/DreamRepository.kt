@@ -58,16 +58,6 @@ class DreamRepository(val app: Application) {
         }
     }
 
-    fun toList(list: String): MutableList<String> {
-        var toRtn = mutableListOf<String>()
-
-        toRtn = if (list.isBlank())
-            emptyList<String>().toMutableList()
-        else
-            list.split(",").toMutableList()
-        return toRtn
-    }
-
     fun deleteAll() {
         CoroutineScope(Dispatchers.IO).launch {
             dreamDAO.deleteAll()
@@ -85,6 +75,7 @@ class DreamRepository(val app: Application) {
         CoroutineScope(Dispatchers.IO).launch {
             dreamDAO.deleteDream(dream.dreamID)
             dreamDAO.insertDream(dream)
+            refreshData()
         }
     }
 
@@ -94,9 +85,10 @@ class DreamRepository(val app: Application) {
         }
     }
 
-    fun deleteDream(dream: Dream) {
+    fun deleteDream(dreamID: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            dreamDAO.deleteDream(dream.dreamID)
+            dreamDAO.deleteDream(dreamID)
+            refreshData()
         }
     }
 }

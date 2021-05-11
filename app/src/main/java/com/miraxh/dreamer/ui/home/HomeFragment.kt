@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -181,18 +182,34 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         title: TextView,
         description: TextView,
         ratingDisplay: TextView,
+        deleteMessage: TextView,
+        deleteIcon: ImageView,
         tag1: Button,
         tag2: Button,
         tag3: Button,
         bg: Button
     ) {
         bg.setBackgroundResource(R.drawable.bg_dreamtile_delete)
-        date.text = "tesd"
-        title.text = "Delete"
-        description.text = "Do you want to delete this dream?"
-        ratingDisplay.text = "test"
-        tag2.visibility = View.INVISIBLE
-        tag3.visibility = View.INVISIBLE
+        deleteMessage.visibility = View.VISIBLE
+        deleteIcon.visibility = View.VISIBLE
+        ratingDisplay.visibility = View.INVISIBLE
+        date.visibility = View.INVISIBLE
+        title.visibility = View.INVISIBLE
+        description.visibility = View.INVISIBLE
+        if(tag1.visibility != View.GONE){
+            tag1.visibility = View.INVISIBLE
+            if(tag2.visibility != View.GONE){
+                tag2.visibility = View.INVISIBLE
+                if(tag3.visibility != View.GONE){
+                    tag3.visibility = View.INVISIBLE
+                }
+            }
+        }
+        bg.setOnClickListener {
+            Log.i("deleteDream","delete")
+            DbUtil(auth, Firebase.firestore).deleteDream(dream.dreamID)
+            viewModel.deleteDream(dream.dreamID)
+        }
     }
 }
 

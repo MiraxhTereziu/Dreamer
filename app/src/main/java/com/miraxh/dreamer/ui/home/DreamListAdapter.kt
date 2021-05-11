@@ -1,11 +1,13 @@
 package com.miraxh.dreamer.ui.home
 
 import android.content.Context
+import android.media.Image
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.miraxh.dreamer.R
@@ -22,6 +24,8 @@ class DreamListAdapter(
         val title: TextView = itemView.findViewById(R.id.title_label)
         val description: TextView = itemView.findViewById(R.id.description_label)
         val ratingDisplay: TextView = itemView.findViewById(R.id.rating_display)
+        val deleteMessage: TextView = itemView.findViewById(R.id.delete_message)
+        val deleteIcon: ImageView = itemView.findViewById(R.id.delete_icon)
 
         //tags
         val tag1: Button = itemView.findViewById(R.id.tag1)
@@ -66,6 +70,8 @@ class DreamListAdapter(
                     title,
                     description,
                     ratingDisplay,
+                    deleteMessage,
+                    deleteIcon,
                     tag1,
                     tag2,
                     tag3,
@@ -132,6 +138,8 @@ class DreamListAdapter(
             title: TextView,
             description: TextView,
             ratingDisplay: TextView,
+            deleteMessage: TextView,
+            deleteIcon: ImageView,
             tag1: Button,
             tag2: Button,
             tag3: Button,

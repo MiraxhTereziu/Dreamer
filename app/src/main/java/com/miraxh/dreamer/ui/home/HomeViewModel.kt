@@ -12,7 +12,7 @@ import com.miraxh.dreamer.ui.toolbar.ToolbarHelper
 class HomeViewModel(val app: Application) : AndroidViewModel(app) {
 
     private val dreamRepository = DreamRepository(app)
-    val dreamData = dreamRepository.dreamData
+    var dreamData = dreamRepository.dreamData
 
     private val toolbarHelper = ToolbarHelper()
     val daysData = toolbarHelper.days
@@ -34,5 +34,9 @@ class HomeViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun deleteAllDreams(){
         dreamRepository.deleteAll()
+    }
+
+    fun deleteDream(dreamID:String){
+        dreamRepository.deleteDream(dreamID)
     }
 }
