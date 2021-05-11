@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/general_small_margin"
+            android:paddingBottom="@dimen/general_small_margin"
             android:clipToPadding="false"
             android:elevation="@dimen/elevation_two"
             android:orientation="horizontal"
@@ -65,8 +66,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/general_margin"
                 android:clipChildren="true"
@@ -75,8 +76,8 @@
                 <ImageView
                     android:id="@+id/profile_image"
                     android:layout_gravity="center"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:contentDescription="@string/profile_description"
                     android:elevation="@dimen/general_margin"
                     android:scaleType="centerCrop"

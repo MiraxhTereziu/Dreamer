@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingStart="@dimen/general_margin"
+            android:layout_marginEnd="@dimen/general_small_margin"
             android:contentDescription="@string/profile_description"
             android:elevation="@dimen/general_margin"
             android:scaleType="fitCenter"
@@ -113,8 +114,8 @@
                     android:layout_height="match_parent">
 
                     <include
-                        android:id="@+id/layout_search"
-                        layout="@layout/layout_user_follow"
+                        android:id="@+id/layout_social"
+                        layout="@layout/layout_social"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:layout_constraintEnd_toEndOf="parent"

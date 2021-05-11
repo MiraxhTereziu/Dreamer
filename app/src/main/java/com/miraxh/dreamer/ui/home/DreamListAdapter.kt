@@ -18,15 +18,17 @@ class DreamListAdapter(
 ) : RecyclerView.Adapter<DreamListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val date:TextView = itemView.findViewById(R.id.date_label)
-        val title:TextView = itemView.findViewById(R.id.title_label)
-        val description:TextView = itemView.findViewById(R.id.description_label)
-        val ratingDisplay:TextView = itemView.findViewById(R.id.rating_display)
+        val date: TextView = itemView.findViewById(R.id.date_label)
+        val title: TextView = itemView.findViewById(R.id.title_label)
+        val description: TextView = itemView.findViewById(R.id.description_label)
+        val ratingDisplay: TextView = itemView.findViewById(R.id.rating_display)
 
         //tags
-        val tag1:Button = itemView.findViewById(R.id.tag1)
-        val tag2:Button = itemView.findViewById(R.id.tag2)
-        val tag3:Button = itemView.findViewById(R.id.tag3)
+        val tag1: Button = itemView.findViewById(R.id.tag1)
+        val tag2: Button = itemView.findViewById(R.id.tag2)
+        val tag3: Button = itemView.findViewById(R.id.tag3)
+
+        val bg: Button = itemView.findViewById(R.id.background_tile)
     }
 
     override fun onCreateViewHolder(
@@ -45,7 +47,7 @@ class DreamListAdapter(
         with(holder) {
             date.text = dream.date
             title.text = dream.title
-            if(dream.description.isBlank().not())
+            if (dream.description.isBlank().not())
                 description.text = dream.description
             else
                 description.text = "Audio description available"
@@ -54,6 +56,22 @@ class DreamListAdapter(
 
             holder.itemView.setOnClickListener {
                 itemListener.onDreamItemListener(dream, holder.layoutPosition)
+            }
+
+            holder.itemView.setOnLongClickListener {
+                itemListener.onDreamLongItemListener(
+                    dream,
+                    holder.layoutPosition,
+                    date,
+                    title,
+                    description,
+                    ratingDisplay,
+                    tag1,
+                    tag2,
+                    tag3,
+                    bg
+                )
+                return@setOnLongClickListener true
             }
         }
     }
@@ -85,7 +103,7 @@ class DreamListAdapter(
                 tag2.visibility = View.INVISIBLE
                 tag3.visibility = View.INVISIBLE
             }
-            2 ->{
+            2 -> {
                 description.maxLines = 3
                 tag1.visibility = View.VISIBLE
                 tag1.text = tagList[0]
@@ -93,7 +111,7 @@ class DreamListAdapter(
                 tag2.text = tagList[1]
                 tag3.visibility = View.INVISIBLE
             }
-            else ->{
+            else -> {
                 description.maxLines = 3
                 tag1.visibility = View.VISIBLE
                 tag1.text = tagList[0]
@@ -107,5 +125,17 @@ class DreamListAdapter(
 
     interface DreamListener {
         fun onDreamItemListener(dream: Dream, position: Int)
+        fun onDreamLongItemListener(
+            dream: Dream,
+            position: Int,
+            date: TextView,
+            title: TextView,
+            description: TextView,
+            ratingDisplay: TextView,
+            tag1: Button,
+            tag2: Button,
+            tag3: Button,
+            bg: Button
+        )
     }
 }

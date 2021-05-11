@@ -43,6 +43,7 @@
                 android:layout_marginVertical="@dimen/general_margin"
                 android:contentDescription="@string/profile_description"
                 android:elevation="@dimen/general_margin"
+                android:layout_marginEnd="@dimen/general_small_margin"
                 android:paddingVertical="@dimen/general_margin"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_back" />

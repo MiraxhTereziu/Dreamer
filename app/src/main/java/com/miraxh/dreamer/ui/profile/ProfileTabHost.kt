@@ -81,14 +81,14 @@ class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
         spec.setIndicator("profile")
         tabHost.addTab(spec)
 
-        spec = tabHost.newTabSpec("search")
+        spec = tabHost.newTabSpec("social")
         spec.setContent(R.id.tab2)
-        spec.setIndicator("search")
+        spec.setIndicator("social")
         tabHost.addTab(spec)
 
         //getting ui elements
         profileView = view.findViewById(R.id.layout_profile)
-        searchView = view.findViewById(R.id.layout_search)
+        searchView = view.findViewById(R.id.layout_social)
 
         homeTitle = view.findViewById(R.id.toolbar_title)
         backBtn = view.findViewById(R.id.back)

@@ -1,11 +1,15 @@
 package com.miraxh.dreamer.ui.home
 
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -168,6 +172,27 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         dreamBundle.putSerializable(RESTORE_DREAM, dream)
         dreamBundle.putBoolean(EDITABLE, false)
         findNavController().navigate(R.id.add_dest, dreamBundle)
+    }
+
+    override fun onDreamLongItemListener(
+        dream: Dream,
+        position: Int,
+        date: TextView,
+        title: TextView,
+        description: TextView,
+        ratingDisplay: TextView,
+        tag1: Button,
+        tag2: Button,
+        tag3: Button,
+        bg: Button
+    ) {
+        bg.setBackgroundResource(R.drawable.bg_dreamtile_delete)
+        date.text = "tesd"
+        title.text = "Delete"
+        description.text = "Do you want to delete this dream?"
+        ratingDisplay.text = "test"
+        tag2.visibility = View.INVISIBLE
+        tag3.visibility = View.INVISIBLE
     }
 }
 

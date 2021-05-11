@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/general_margin"
     android:clickable="true"
-    android:focusable="true"
-    android:paddingBottom="@dimen/general_small_margin">
+    android:focusable="true">
 
     <TextView
         android:id="@+id/day"
