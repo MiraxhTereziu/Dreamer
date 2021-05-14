@@ -84,6 +84,8 @@
     <string name="follow_btn">Follow</string>
     <string name="search_friend_btn">Search friend</string>
     <string name="save_dream_label">Save Dream</string>
-    <string name="delete_dream_message">Click again to delete the dream</string>
+    <string name="delete_dream_message">Delete</string>
+    <string name="undo">Undo</string>
+    <string name="share">Share</string>
 
 </resources>

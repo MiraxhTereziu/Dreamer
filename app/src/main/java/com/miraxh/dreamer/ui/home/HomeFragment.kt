@@ -178,37 +178,30 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     override fun onDreamLongItemListener(
         dream: Dream,
         position: Int,
-        date: TextView,
-        title: TextView,
-        description: TextView,
-        ratingDisplay: TextView,
-        deleteMessage: TextView,
-        deleteIcon: ImageView,
-        tag1: Button,
-        tag2: Button,
-        tag3: Button,
-        bg: Button
+        startSpace: LinearLayout,
+        midSpace: LinearLayout,
+        endSpace: LinearLayout
     ) {
-        bg.setBackgroundResource(R.drawable.bg_dreamtile_delete)
-        deleteMessage.visibility = View.VISIBLE
-        deleteIcon.visibility = View.VISIBLE
-        ratingDisplay.visibility = View.INVISIBLE
-        date.visibility = View.INVISIBLE
-        title.visibility = View.INVISIBLE
-        description.visibility = View.INVISIBLE
-        if(tag1.visibility != View.GONE){
-            tag1.visibility = View.INVISIBLE
-            if(tag2.visibility != View.GONE){
-                tag2.visibility = View.INVISIBLE
-                if(tag3.visibility != View.GONE){
-                    tag3.visibility = View.INVISIBLE
-                }
-            }
+        //impsto bottoni per undo,delete e share visibili
+        startSpace.visibility = View.VISIBLE
+        midSpace.visibility = View.VISIBLE
+        endSpace.visibility = View.VISIBLE
+
+        startSpace.setOnClickListener {
+            //impsto bottoni per undo,delete e share visibile
+            startSpace.visibility = View.INVISIBLE
+            midSpace.visibility = View.INVISIBLE
+            endSpace.visibility = View.INVISIBLE
         }
-        bg.setOnClickListener {
-            Log.i("deleteDream","delete")
+
+        midSpace.setOnClickListener {
+            Log.i("longPressDebug","delete")
             DbUtil(auth, Firebase.firestore).deleteDream(dream.dreamID)
             viewModel.deleteDream(dream.dreamID)
+        }
+
+        endSpace.setOnClickListener {
+            Log.i("longPressDebug","share")
         }
     }
 }

@@ -121,7 +121,6 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:translationZ">90dp</item>
     </style>
 
     <style name="signin_button">
