@@ -1,5 +1,6 @@
 package com.miraxh.dreamer.ui.home
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.opengl.Visibility
@@ -32,6 +33,7 @@ import com.miraxh.dreamer.data.Day
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
 import com.miraxh.dreamer.util.*
+import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapter.DreamListener {
@@ -201,6 +203,13 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         }
 
         endSpace.setOnClickListener {
+            val intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT,
+                "${dream.date}\n${dream.title}\n${dream.description}")
+                type = "text/plain"
+            }
+            startActivity(intent)
             Log.i("longPressDebug","share")
         }
     }
