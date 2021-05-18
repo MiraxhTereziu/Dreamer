@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -44,7 +45,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     private lateinit var adapterDay: ToolbarListAdapter
     private lateinit var adapterDream: DreamListAdapter
     private lateinit var viewModel: HomeViewModel
-    private lateinit var addActionButton: FloatingActionButton
+    private lateinit var addActionButton: ExtendedFloatingActionButton
     private lateinit var homeTitle: TextView
     private lateinit var imageProfile: ImageView
     private lateinit var profileBtn: LinearLayout
@@ -224,7 +225,6 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         }
     }
 
-    @SuppressLint("ResourceType")
     private fun getUriFromView(view: View): Uri {
         val bm = Bitmap.createBitmap(
             view.width,
@@ -232,7 +232,7 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
             Bitmap.Config.ARGB_8888
         )
         val c = Canvas(bm)
-        c.drawColor(requireContext().getColor(R.color.colorPrimaryDark))
+        //c.drawColor(requireContext().getColor(R.color.colorPrimaryDark))
 
         view.draw(c)
         val cachePath = File(requireContext().cacheDir, "images")

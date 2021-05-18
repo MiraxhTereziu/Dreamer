@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="0dp"
@@ -31,7 +30,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/general_small_margin"
-            android:paddingBottom="@dimen/general_small_margin"
             android:clipToPadding="false"
             android:elevation="@dimen/elevation_two"
             android:orientation="horizontal"
@@ -58,7 +56,7 @@
         <LinearLayout
             android:id="@+id/title_group"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:elevation="@dimen/elevation_two"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/days_recyclerview"
@@ -71,13 +69,14 @@
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/general_margin"
                 android:clipChildren="true"
-                app:cardCornerRadius="@dimen/radius_small">
+                android:shape="ring"
+                app:cardCornerRadius="@dimen/radius">
 
                 <ImageView
                     android:id="@+id/profile_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
                     android:contentDescription="@string/profile_description"
                     android:elevation="@dimen/general_margin"
                     android:scaleType="centerCrop"
@@ -109,20 +108,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/add_action_button"
+            style="@style/floating_btn_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/general_margin"
-            app:shapeAppearanceOverlay="@style/fab_rectangular_rounded"
-            android:layout_marginBottom="@dimen/general_margin"
-            android:backgroundTint="@color/colorWhite"
-            android:clickable="true"
-            android:focusable="true"
-            android:scaleType="center"
-            app:maxImageSize="24dp"
-            android:src="@drawable/ic_add"
-            android:tint="@color/colorPrimary"
+            android:text="@string/add_btn_label"
+            app:icon="@drawable/ic_add"
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

@@ -8,6 +8,6 @@
         android:width="@dimen/color_palette_element_size"
         android:height="@dimen/color_palette_element_size"/>
 
-    <corners android:radius="@dimen/radius_small"/>
+    <corners android:radius="@dimen/radius"/>
 
 </shape>

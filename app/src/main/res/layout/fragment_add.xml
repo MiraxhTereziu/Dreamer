@@ -354,24 +354,16 @@
 
         </ScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/save_button"
+            style="@style/floating_btn_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/general_margin"
-            android:layout_marginBottom="@dimen/general_margin"
-            android:backgroundTint="@color/colorWhite"
-            android:clickable="true"
-            android:contentDescription="@string/save_dream_label"
-            android:focusable="true"
-            android:scaleType="center"
-            android:src="@drawable/ic_save"
-            android:tint="@color/colorPrimary"
+            android:text="@string/save_btn_label"
+            app:icon="@drawable/ic_save"
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:maxImageSize="22dp"
-            app:shapeAppearanceOverlay="@style/fab_rectangular_rounded" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

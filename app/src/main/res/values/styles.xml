@@ -135,7 +135,23 @@
         <item name="android:textSize">@dimen/title</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
+    </style>
 
+    <style name="MyMaterialTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    </style>
+
+    <style name="floating_btn_style">
+        <item name="android:layout_marginEnd">@dimen/general_margin</item>
+        <item name="android:layout_marginBottom">@dimen/general_margin</item>
+        <item name="android:backgroundTint">@color/colorWhite</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:theme">@style/MyMaterialTheme</item>
     </style>
 
 </resources>

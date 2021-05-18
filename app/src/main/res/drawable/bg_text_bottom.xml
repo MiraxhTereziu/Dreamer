@@ -4,7 +4,7 @@
     <shape>
         <solid android:color="@color/colorPrimaryLight" />
         <corners
-            android:bottomLeftRadius="@dimen/radius_small"
-            android:bottomRightRadius="@dimen/radius_small" />
+            android:bottomLeftRadius="@dimen/radius"
+            android:bottomRightRadius="@dimen/radius" />
     </shape>
 </inset>

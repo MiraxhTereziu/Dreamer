@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -48,7 +49,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
 
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var floatingActionButton: FloatingActionButton
+    private lateinit var floatingActionButton: ExtendedFloatingActionButton
     private lateinit var datePickerBtn: Button
     private lateinit var insertTagBtn: ImageButton
     private lateinit var cancelBtn: ImageView
@@ -267,8 +268,10 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
         images_recyclerview.adapter = adapterImage
 
         //flating button
-        if (editable.not())
-            floatingActionButton.setImageResource(R.drawable.ic_edit)
+        if (editable.not()){
+            floatingActionButton.setIconResource(R.drawable.ic_edit)
+            floatingActionButton.text = "Edit"
+        }
 
         changeStateFields(state)
 
@@ -398,7 +401,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
                 }
             } else {
                 //change icon
-                floatingActionButton.setImageResource(R.drawable.ic_save)
+                floatingActionButton.setIconResource(R.drawable.ic_save)
 
                 //unlock fields
                 changeStateFields(true)

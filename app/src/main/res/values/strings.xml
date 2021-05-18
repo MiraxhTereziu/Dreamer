@@ -87,5 +87,7 @@
     <string name="delete_dream_message">Delete</string>
     <string name="undo">Undo</string>
     <string name="share">Share</string>
+    <string name="add_btn_label">Add</string>
+    <string name="save_btn_label">Save</string>
 
 </resources>
