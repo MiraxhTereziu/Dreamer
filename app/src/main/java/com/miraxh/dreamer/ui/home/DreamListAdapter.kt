@@ -64,6 +64,7 @@ class DreamListAdapter(
 
             holder.itemView.setOnLongClickListener {
                 itemListener.onDreamLongItemListener(
+                    holder.itemView,
                     dream,
                     position,
                     startSpace,
@@ -129,6 +130,7 @@ class DreamListAdapter(
         )
 
         fun onDreamLongItemListener(
+            view: View,
             dream: Dream,
             position: Int,
             startSpace: LinearLayout,

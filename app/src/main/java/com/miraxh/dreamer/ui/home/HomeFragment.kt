@@ -1,23 +1,22 @@
 package com.miraxh.dreamer.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.opengl.Visibility
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -33,8 +32,10 @@ import com.miraxh.dreamer.data.Day
 import com.miraxh.dreamer.data.dream.Dream
 import com.miraxh.dreamer.ui.toolbar.ToolbarListAdapter
 import com.miraxh.dreamer.util.*
-import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.io.File
+import java.io.FileOutputStream
+
 
 class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapter.DreamListener {
 
@@ -178,12 +179,16 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
     }
 
     override fun onDreamLongItemListener(
+        view: View,
         dream: Dream,
         position: Int,
         startSpace: LinearLayout,
         midSpace: LinearLayout,
         endSpace: LinearLayout
     ) {
+        //val test = dreamRecyclerView.findViewHolderForAdapterPosition(position)
+        val bm = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+
         //impsto bottoni per undo,delete e share visibili
         startSpace.visibility = View.VISIBLE
         midSpace.visibility = View.VISIBLE
@@ -203,15 +208,50 @@ class HomeFragment : Fragment(), ToolbarListAdapter.DayListener, DreamListAdapte
         }
 
         endSpace.setOnClickListener {
+            startSpace.visibility = View.INVISIBLE
+            midSpace.visibility = View.INVISIBLE
+            endSpace.visibility = View.INVISIBLE
+
+            val contentUri: Uri = getUriFromView(view)
+
             val intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT,
-                "${dream.date}\n${dream.title}\n${dream.description}")
-                type = "text/plain"
+                putExtra(Intent.EXTRA_STREAM,contentUri)
+                type = "image/png"
             }
             startActivity(intent)
             Log.i("longPressDebug","share")
         }
     }
+
+    @SuppressLint("ResourceType")
+    private fun getUriFromView(view: View): Uri {
+        val bm = Bitmap.createBitmap(
+            view.width,
+            view.height + 54,
+            Bitmap.Config.ARGB_8888
+        )
+        val c = Canvas(bm)
+        c.drawColor(requireContext().getColor(R.color.colorPrimaryDark))
+
+        view.draw(c)
+        val cachePath = File(requireContext().cacheDir, "images")
+        cachePath.mkdirs() // don't forget to make the directory
+
+        val stream =
+            FileOutputStream("$cachePath/image.png") // overwrites this image every time
+
+        bm.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        stream.close()
+
+        val imagePath = File(requireContext().cacheDir, "images")
+        val newFile = File(imagePath, "image.png")
+        return FileProvider.getUriForFile(
+            requireContext(),
+            "com.miraxh.dreamer.fileprovider",
+            newFile
+        )
+    }
+
 }
 
