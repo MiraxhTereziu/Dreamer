@@ -402,6 +402,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
             } else {
                 //change icon
                 floatingActionButton.setIconResource(R.drawable.ic_save)
+                floatingActionButton.text = "Save"
 
                 //unlock fields
                 changeStateFields(true)
