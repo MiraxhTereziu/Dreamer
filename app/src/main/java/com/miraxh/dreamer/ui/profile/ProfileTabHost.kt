@@ -130,6 +130,11 @@ class ProfileTabHost : Fragment(), UsersListAdapter.UserListener {
             viewModel.deleteAllDreams()
             auth.signOut()
             LoginManager.getInstance().logOut()
+            //clear back stack
+            val count: Int = parentFragmentManager.backStackEntryCount
+            for (i in 0..count) {
+                parentFragmentManager.popBackStack()
+            }
             findNavController().navigate(
                 R.id.signin_dest,
                 null

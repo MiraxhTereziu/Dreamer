@@ -391,6 +391,7 @@ class AddFragment : Fragment(), TagListAdapter.TagListener, AudioListAdapter.Aud
                     viewModel.insertNewDream(newDream)
                     //salvataggio sogno cloud
                     DbUtil(auth, Firebase.firestore).addDream(newDream)
+                    //delete back stack
                     //momentaneamente rimando alla home
                     findNavController().navigate(R.id.home_dest)
                     Snackbar.make(
